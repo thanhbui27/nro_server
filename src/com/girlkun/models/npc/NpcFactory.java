@@ -427,8 +427,8 @@ public class NpcFactory {
                                                 60);
 
                                         try {
-                                            new NguoiChoi(Util.createIdBossClone((int) player.id), bossDataClone,
-                                                    player.zone);
+//                                            new NguoiChoi(Util.createIdBossClone((int) player.id), bossDataClone,
+//                                                    player.zone);
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }

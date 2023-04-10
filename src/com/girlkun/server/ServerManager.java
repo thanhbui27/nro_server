@@ -74,7 +74,7 @@ public class ServerManager {
         activeCommandLine();
         activeGame();
         activeServerSocket();
-        Logger.log(Logger.PURPLE_BOLD_BRIGHT,"     ▄█████ ]▄▄▄▄▄▄▃\n▂▄▅███████▅▄▃▂\nI█████████████]\n◥⊙▲⊙▲⊙▲⊙▲⊙▲⊙▲⊙◤");
+        // Logger.log(Logger.PURPLE_BOLD_BRIGHT,"     ▄█████ ]▄▄▄▄▄▄▃\n▂▄▅███████▅▄▃▂\nI█████████████]\n◥⊙▲⊙▲⊙▲⊙▲⊙▲⊙▲⊙◤");
         MaQuaTangManager.gI().init();
         new Thread(DaiHoiVoThuat.gI() , "Thread DHVT").start();
         
