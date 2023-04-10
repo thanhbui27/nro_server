@@ -40,7 +40,7 @@ public class BossID {
     
     public static final int XEN_BO_HUNG = -100;
     public static final int SIEU_BO_HUNG = -101;
-    public static final int XEN_CON = -102;
+    public static final int XEN_CON_1 = -102;
     
     public static final int TRUNG_UY_TRANG = -200;
     
@@ -63,7 +63,7 @@ public class BossID {
 
     public static final int MABU = -214;
         public static final int CUMBER = -215;
-        
+     public static final int BLACK3 = -231;    
     public static final int BROLY = -1;
     
     public static final int SONGOKU_TA_AC = -217;
@@ -71,7 +71,7 @@ public class BossID {
 
 
     //super 17 saga
-    public static  final int SUPER_ANDROID_17 = -218;
+    public static  final int SUPER_ANDROID_17 = -247;
     public  static final int DR_MYUU = -219;
     public  static final  int DR_KORE_GT = -220;
 
@@ -106,9 +106,12 @@ public class BossID {
     public static final int THIEN_SU_WHIS = -240;
     public static final int THAN_HUY_DIET_CHAMPA = -245;
     public static final int THIEN_SU_VADOS = -246;
-
-
-
+    public static final int  SUPER_XEN= -248;
+    public static final int KAMIRIN = -253;
+    public static final int KAMILOC = -249;
+    public static final int KAMI_SOOME = -250;
+    public static final int CUMBERYELLOW = -251;
+    public static final int CUMBERBLACK = -252;
 
 
     

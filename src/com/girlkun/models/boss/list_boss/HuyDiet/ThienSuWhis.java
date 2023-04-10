@@ -17,21 +17,21 @@ public class ThienSuWhis extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        int[] manhthuong = new int[]{1066, 1070};
-        int[] manhhiem = new int[]{1069, 1067, 1068};
+        int[] manhthuong = new int[]{1142, 1142};
+        int[] manhhiem = new int[]{1142, 1142, 1142};
 
         int randomAWJ = new Random().nextInt(manhthuong.length);
         int randomGR = new Random().nextInt(manhhiem.length);
         if (Util.isTrue(95, 100)) {
-            Service.getInstance().dropItemMap(this.zone, Util.manhTS(zone, manhthuong[randomAWJ], 1, this.location.x, this.location.y, plKill.id));
+            Service.gI().dropItemMap(this.zone, Util.manhTS(zone, manhthuong[randomAWJ], 1, this.location.x, this.location.y, plKill.id));
         } else {
-            Service.getInstance().dropItemMap(this.zone, Util.manhTS(zone, manhhiem[randomGR], 1, this.location.x, this.location.y, plKill.id));
+            Service.gI().dropItemMap(this.zone, Util.manhTS(zone, manhhiem[randomGR], 1, this.location.x, this.location.y, plKill.id));
         }
     }
 
     @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
-        if (Util.isTrue(90, 100) && plAtt != null) {//tỉ lệ hụt của thiên sứ
+        if (Util.isTrue(99, 100) && plAtt != null) {//tỉ lệ hụt của thiên sứ
             Util.isTrue(this.nPoint.tlNeDon, 100000);
             if (Util.isTrue(1, 100)) {
                 this.chat("Hãy để bản năng tự vận động");

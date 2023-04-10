@@ -53,7 +53,7 @@ public class Map implements Runnable {
         this.mapId = mapId;
         this.mapName = mapName;
         this.planetId = planetId;
-        this.planetName = Service.getInstance().get_HanhTinh(planetId);
+        this.planetName = Service.gI().get_HanhTinh(planetId);
         this.tileId = tileId;
         this.bgId = bgId;
         this.bgType = bgType;
@@ -114,7 +114,6 @@ public class Map implements Runnable {
                 for (Zone zone : this.zones) {
                     zone.update();
                 }
-                TopService.gI().updateTop();
                 long timeDo = System.currentTimeMillis() - st;
                 Thread.sleep(1000 - timeDo);
             } catch (Exception e) {
@@ -171,6 +170,7 @@ public class Map implements Runnable {
                     trap.effectId = 49; //xiên
                     zone.trapMaps.add(trap);
                     break;
+               
             }
         }
     }

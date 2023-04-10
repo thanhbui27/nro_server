@@ -42,8 +42,8 @@ public class ServerNotify extends Thread {
                 while (!notifies.isEmpty()) {
                     sendThongBaoBenDuoi(notifies.remove(0));
                 }
-                if (Util.canDoWithTime(this.lastTimeGK, 120000)) {
-                    sendThongBaoBenDuoi("NRO GOD nhà cái đến từ bé khoa");
+                if (Util.canDoWithTime(this.lastTimeGK, 1200)) {
+                    sendThongBaoBenDuoi("Ông Trùm Nro Tea!");
                     this.lastTimeGK = System.currentTimeMillis();
                 }
             } catch (Exception ignored) {
@@ -61,7 +61,7 @@ public class ServerNotify extends Thread {
         try {
             msg = new Message(93);
             msg.writer().writeUTF(text);
-            Service.getInstance().sendMessAllPlayer(msg);
+            Service.gI().sendMessAllPlayer(msg);
             msg.cleanup();
         } catch (Exception e) {
         }

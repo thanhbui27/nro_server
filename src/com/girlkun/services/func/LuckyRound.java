@@ -11,13 +11,14 @@ import java.util.List;
 public class LuckyRound {
 
     private static final byte MAX_ITEM_IN_BOX = 100;
+//    private static final int IFOX_BOX = 400;
 
     //1 gem and ruby
     public static final byte USING_GEM = 2;
     public static final byte USING_GOLD = 0;
 
     private static final byte PRICE_GEM = 4;
-    private static final int PRICE_GOLD = 25000000;
+    private static final int PRICE_GOLD = 10000000;
 
     private static LuckyRound i;
 
@@ -71,7 +72,7 @@ public class LuckyRound {
     private void openBallByGem(Player player, byte count) {
         int gemNeed = (count * PRICE_GEM);
         if (player.inventory.gem < gemNeed) {
-            Service.getInstance().sendThongBao(player, "Bạn không đủ ngọc để mở");
+            Service.gI().sendThongBao(player, "Bạn không đủ ngọc để mở");
             return;
         } else {
             if (count + player.inventory.itemsBoxCrackBall.size() <= MAX_ITEM_IN_BOX) {
@@ -79,9 +80,9 @@ public class LuckyRound {
                 List<Item> list = RewardService.gI().getListItemLuckyRound(player, count);
                 addItemToBox(player, list);
                 sendReward(player, list);
-                Service.getInstance().sendMoney(player);
+                Service.gI().sendMoney(player);
             } else {
-                Service.getInstance().sendThongBao(player, "Rương phụ đã đầy");
+                Service.gI().sendThongBao(player, "Rương phụ đã đầy");
             }
         }
     }
@@ -89,7 +90,7 @@ public class LuckyRound {
     private void openBallByGold(Player player, byte count) {
         int goldNeed = (count * PRICE_GOLD);
         if (player.inventory.gold < goldNeed) {
-            Service.getInstance().sendThongBao(player, "Bạn không đủ vàng để mở");
+            Service.gI().sendThongBao(player, "Bạn không đủ vàng để mở");
             return;
         } else {
             if (count + player.inventory.itemsBoxCrackBall.size() <= MAX_ITEM_IN_BOX) {
@@ -97,9 +98,9 @@ public class LuckyRound {
                 List<Item> list = RewardService.gI().getListItemLuckyRound(player, count);
                 addItemToBox(player, list);
                 sendReward(player, list);
-                Service.getInstance().sendMoney(player);
+                Service.gI().sendMoney(player);
             } else {
-                Service.getInstance().sendThongBao(player, "Rương phụ đã đầy");
+                Service.gI().sendThongBao(player, "Rương phụ đã đầy");
             }
         }
     }

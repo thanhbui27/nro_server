@@ -24,7 +24,7 @@ public class BossDoanhTrai extends Boss {
         if (Util.isTrue(100, 100)) {
             ItemMap it = new ItemMap(this.zone, 19, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
                     this.location.y - 24), plKill.id);
-        Service.getInstance().dropItemMap(this.zone, it);
+        Service.gI().dropItemMap(this.zone, it);
         }
     }
 
@@ -54,5 +54,5 @@ public class BossDoanhTrai extends Boss {
 
 /**
  * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - Girlkun75
+ * giả của mã nguồn này. Xin cảm ơn! - Duy Péo Đẹp Zai
  */

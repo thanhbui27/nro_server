@@ -1,32 +1,35 @@
 package com.girlkun.server;
 
+import com.arriety.MaQuaTang.MaQuaTangManager;
 import com.girlkun.database.GirlkunDB;
 
 import java.net.ServerSocket;
 
-import com.girlkun.jdbc.daos.GodGK;
 import com.girlkun.jdbc.daos.HistoryTransactionDAO;
 import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.item.Item;
+import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
 import com.girlkun.models.player.Player;
 import com.girlkun.network.session.ISession;
 import com.girlkun.network.example.MessageSendCollect;
 import com.girlkun.network.server.GirlkunServer;
-import com.girlkun.network.server.GirlkunSessionManager;
 import com.girlkun.network.server.IServerClose;
 import com.girlkun.network.server.ISessionAcceptHandler;
 import com.girlkun.server.io.MyKeyHandler;
 import com.girlkun.server.io.MySession;
 import com.girlkun.services.ClanService;
 import com.girlkun.services.InventoryServiceNew;
+import com.girlkun.services.NgocRongNamecService;
 import com.girlkun.services.Service;
+import com.girlkun.services.func.ChonAiDay;
+import com.girlkun.services.func.TopService;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.TimeUtil;
 import com.girlkun.utils.Util;
 
+
 import java.util.*;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 public class ServerManager {
 
@@ -71,6 +74,18 @@ public class ServerManager {
         activeCommandLine();
         activeGame();
         activeServerSocket();
+        Logger.log(Logger.PURPLE_BOLD_BRIGHT,"     ▄█████ ]▄▄▄▄▄▄▃\n▂▄▅███████▅▄▃▂\nI█████████████]\n◥⊙▲⊙▲⊙▲⊙▲⊙▲⊙▲⊙◤");
+        MaQuaTangManager.gI().init();
+        new Thread(DaiHoiVoThuat.gI() , "Thread DHVT").start();
+        
+        ChonAiDay.gI().lastTimeEnd = System.currentTimeMillis() + 300000;
+        new Thread(ChonAiDay.gI() , "Thread CAD").start();
+        
+        NgocRongNamecService.gI().initNgocRongNamec((byte)0);
+        
+        new Thread(NgocRongNamecService.gI() , "Thread NRNM").start();
+        
+        new Thread(TopService.gI() , "Thread TOP").start();
         try {
             Thread.sleep(1000);
             BossManager.gI().loadBoss();
@@ -85,6 +100,7 @@ public class ServerManager {
         GirlkunServer.gI().init().setAcceptHandler(new ISessionAcceptHandler() {
             @Override
             public void sessionInit(ISession is) {
+//                antiddos girlkun
                 if (!canConnectWithIp(is.getIP())) {
                     is.disconnect();
                     return;
@@ -181,7 +197,7 @@ public class ServerManager {
                 if (line.equals("baotri")) {
                     Maintenance.gI().start(60 * 2);
                 } else if (line.equals("athread")) {
-                    ServerNotify.gI().notify("NROGOD debug server: " + Thread.activeCount());
+                    ServerNotify.gI().notify("Nro Arriety debug server: " + Thread.activeCount());
                 } else if (line.equals("nplayer")) {
                     Logger.error("Player in game: " + Client.gI().getPlayers().size() + "\n");
                 } else if (line.equals("admin")) {
@@ -199,7 +215,7 @@ public class ServerManager {
                     }).start();
                 } else if (line.startsWith("a")) {
                     String a = line.replace("a ", "");
-                    Service.getInstance().sendThongBaoAllPlayer(a);
+                    Service.gI().sendThongBaoAllPlayer(a);
                 } else if (line.startsWith("qua")) {
 //                    =1-1-1-1=1-1-1-1=
 //                     =playerId-quantily-itemId-sql=optioneId-pagram=
@@ -218,7 +234,7 @@ public class ServerManager {
                                 i.quantity = Integer.parseInt(pagram1[1]);
                                 InventoryServiceNew.gI().addItemBag(p, i);
                                 InventoryServiceNew.gI().sendItemBags(p);
-                                Service.getInstance().sendThongBao(p, "Admin trả đồ. anh em thông cảm nhé...");
+                                Service.gI().sendThongBao(p, "Admin trả đồ. anh em thông cảm nhé...");
                             } else {
                                 System.out.println("Người chơi không online");
                             }
@@ -244,6 +260,7 @@ public class ServerManager {
             Logger.error("Lỗi save clan!...................................\n");
         }
         Client.gI().close();
+        
         Logger.success("SUCCESSFULLY MAINTENANCE!...................................\n");
         System.exit(0);
     }

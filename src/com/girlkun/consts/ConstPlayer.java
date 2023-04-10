@@ -2,8 +2,7 @@ package com.girlkun.consts;
 
 /**
  *
- * @author 💖 Trần Lại 💖
- * @copyright 💖 GirlkuN  💖
+ * @Stole By Arriety
  *
  */
 public class ConstPlayer {
@@ -22,4 +21,7 @@ public class ConstPlayer {
     public static final byte NON_FUSION = 0;
     public static final byte LUONG_LONG_NHAT_THE = 4;
     public static final byte HOP_THE_PORATA = 6;
+    public static final byte HOP_THE_PORATA2 = 8;
+    public static byte NAMEC1;
+  
 }

@@ -78,6 +78,24 @@ public class IntrinsicService {
                 "Nội tại là một kỹ năng bị động hỗ trợ đặc biệt\nBạn có muốn mở hoặc thay đổi nội tại không?",
                 "Xem\ntất cả\nNội Tại", "Mở\nNội Tại", "Mở VIP", "Từ chối");
     }
+    
+    public void sattd(Player player) {
+        NpcService.gI().createMenuConMeo(player, ConstNpc.menutd, -1,
+                                "chọn lẹ đi để tau đi chơi với ny", "Set\nTaiyoken", "Set\nGenki", "Set\nkamejoko", "Từ chối");
+                    
+            }
+    
+    public void satnm(Player player) {
+        NpcService.gI().createMenuConMeo(player, ConstNpc.menunm, -1,
+                                "chọn lẹ đi để tau đi chơi với ny", "Set\ngod ki", "Set\ngod dame", "Set\nsummon", "Từ chối");
+                    
+            }
+    
+    public void setxd(Player player) {
+        NpcService.gI().createMenuConMeo(player, ConstNpc.menuxd, -1,
+                                "chọn lẹ đi để tau đi chơi với ny", "Set\ngod galick", "Set\nmonkey", "Set\ngod hp", "Từ chối");
+                    
+            }
 
     public void showConfirmOpen(Player player) {
         NpcService.gI().createMenuConMeo(player, ConstNpc.CONFIRM_OPEN_INTRINSIC, -1, "Bạn muốn đổi Nội Tại khác\nvới giá là "
@@ -94,7 +112,7 @@ public class IntrinsicService {
         player.playerIntrinsic.intrinsic = new Intrinsic(listIntrinsic.get(Util.nextInt(1, listIntrinsic.size() - 1)));
         player.playerIntrinsic.intrinsic.param1 = (short) Util.nextInt(player.playerIntrinsic.intrinsic.paramFrom1, player.playerIntrinsic.intrinsic.paramTo1);
         player.playerIntrinsic.intrinsic.param2 = (short) Util.nextInt(player.playerIntrinsic.intrinsic.paramFrom2, player.playerIntrinsic.intrinsic.paramTo2);
-        Service.getInstance().sendThongBao(player, "Bạn nhận được Nội tại:\n" + player.playerIntrinsic.intrinsic.getName().substring(0, player.playerIntrinsic.intrinsic.getName().indexOf(" [")));
+        Service.gI().sendThongBao(player, "Bạn nhận được Nội tại:\n" + player.playerIntrinsic.intrinsic.getName().substring(0, player.playerIntrinsic.intrinsic.getName().indexOf(" [")));
         sendInfoIntrinsic(player);
     }
 
@@ -107,11 +125,11 @@ public class IntrinsicService {
                 changeIntrinsic(player);
                 player.playerIntrinsic.countOpen++;
             } else {
-                Service.getInstance().sendThongBao(player, "Bạn không đủ vàng, còn thiếu "
+                Service.gI().sendThongBao(player, "Bạn không đủ vàng, còn thiếu "
                         + Util.numberToMoney(goldRequire - player.inventory.gold) + " vàng nữa");
             }
         } else {
-            Service.getInstance().sendThongBao(player, "Yêu cầu sức mạnh tối thiểu 10 tỷ");
+            Service.gI().sendThongBao(player, "Yêu cầu sức mạnh tối thiểu 10 tỷ");
         }
     }
 
@@ -124,11 +142,11 @@ public class IntrinsicService {
                 changeIntrinsic(player);
                 player.playerIntrinsic.countOpen = 0;
             } else {
-                Service.getInstance().sendThongBao(player, "Bạn không có đủ ngọc, còn thiếu "
+                Service.gI().sendThongBao(player, "Bạn không có đủ ngọc, còn thiếu "
                         + (gemRequire - player.inventory.gem) + " ngọc nữa");
             }
         } else {
-            Service.getInstance().sendThongBao(player, "Yêu cầu sức mạnh tối thiểu 10 tỷ");
+            Service.gI().sendThongBao(player, "Yêu cầu sức mạnh tối thiểu 10 tỷ");
         }
     }
 

@@ -1,11 +1,16 @@
 package com.girlkun.server;
 
+import com.arriety.card.OptionCard;
+import com.arriety.card.RadarCard;
+import com.arriety.card.RadarService;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.consts.ConstPlayer;
 import com.girlkun.consts.ConstMap;
 import com.girlkun.data.DataGame;
 import com.girlkun.jdbc.daos.GodGK;
 import com.girlkun.jdbc.daos.ShopDAO;
+import com.girlkun.kygui.ItemKyGui;
+import com.girlkun.kygui.ShopKyGuiManager;
 import com.girlkun.models.Template.*;
 import com.girlkun.models.clan.Clan;
 import com.girlkun.models.clan.ClanMember;
@@ -13,8 +18,10 @@ import com.girlkun.models.intrinsic.Intrinsic;
 import com.girlkun.models.item.Item;
 import com.girlkun.models.map.WayPoint;
 import com.girlkun.models.matches.TOP;
+import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
 import com.girlkun.models.npc.Npc;
 import com.girlkun.models.npc.NpcFactory;
+import com.girlkun.models.player.Player;
 import com.girlkun.models.reward.ItemMobReward;
 import com.girlkun.models.reward.ItemOptionMobReward;
 import com.girlkun.models.reward.MobReward;
@@ -47,6 +54,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.girlkun.utils.Util;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -57,9 +65,9 @@ public class Manager {
     private static Manager i;
 
     public static byte SERVER = 1;
-    public static byte SECOND_WAIT_LOGIN = 20;
-    public static byte MAX_PER_IP = 2;
-    public static int MAX_PLAYER = 2000;
+    public static byte SECOND_WAIT_LOGIN = 5;
+    public static int MAX_PER_IP = 5;
+    public static int MAX_PLAYER = 1000;
     public static byte RATE_EXP_SERVER = 2;
     public static boolean LOCAL = false;
 //    public static byte RATE_EXP_SERVER = 1;// sau khi chinh
@@ -87,14 +95,17 @@ public class Manager {
     public static List<Shop> SHOPS = new ArrayList<>();
     public static final List<Clan> CLANS = new ArrayList<>();
     public static final List<String> NOTIFY = new ArrayList<>();
+    public static final ArrayList<DaiHoiVoThuat> LIST_DHVT = new ArrayList<>();
     public static final List<Item> RUBY_REWARDS = new ArrayList<>();
-    public static final String queryTopSM = "SELECT name, gender, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm FROM player INNER JOIN account ON account.id = player.account_id WHERE account.is_admin = 0 AND account.ban = 0 ORDER BY CAST( split_str(data_point,',',2)  AS UNSIGNED) DESC LIMIT 10;";
-    public static final String queryTopSD = "SELECT name, gender, CAST( split_str(data_point,',',8) AS UNSIGNED) AS sd FROM player INNER JOIN account ON account.id = player.account_id WHERE account.is_admin = 0 AND account.ban = 0 ORDER BY CAST( split_str(data_point,',',8)  AS UNSIGNED) DESC LIMIT 10;";
-    public static final String queryTopHP = "SELECT name, gender, CAST( split_str(data_point,',',6) AS UNSIGNED) AS hp FROM player INNER JOIN account ON account.id = player.account_id WHERE account.is_admin = 0 AND account.ban = 0 ORDER BY CAST( split_str(data_point,',',6)  AS UNSIGNED) DESC LIMIT 10;";
-    public static final String queryTopKI = "SELECT name, gender, CAST( split_str(data_point,',',7) AS UNSIGNED) AS ki FROM player INNER JOIN account ON account.id = player.account_id WHERE account.is_admin = 0 AND account.ban = 0 ORDER BY CAST( split_str(data_point,',',7)  AS UNSIGNED) DESC LIMIT 10;";
-    public static final String queryTopNV = "SELECT name, gender, CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) AS nv FROM player INNER JOIN account ON account.id = player.account_id WHERE account.is_admin = 0 AND account.ban = 0 ORDER BY CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) DESC, CAST(split_str(data_task,',',2)  AS UNSIGNED) DESC, CAST( split_str(data_point,',',2) AS UNSIGNED) DESC LIMIT 10;";
-    public static final String queryTopSK = "SELECT name, gender, CAST( split_str( data_inventory,',',5)  AS UNSIGNED) AS event FROM player INNER JOIN account ON account.id = player.account_id WHERE account.is_admin = 0 AND account.ban = 0 ORDER BY CAST( split_str( data_inventory,',',5)  AS UNSIGNED) DESC LIMIT 10;";
-
+    public static final String queryTopSM = "SELECT id, CAST( split_str(data_point,',',2) AS UNSIGNED) AS sm FROM player ORDER BY CAST( split_str(data_point,',',2)  AS UNSIGNED) DESC LIMIT 20;";
+    public static final String queryTopSD = "SELECT id, CAST( split_str(data_point,',',8) AS UNSIGNED) AS sd FROM player ORDER BY CAST( split_str(data_point,',',8)  AS UNSIGNED) DESC LIMIT 20;";
+    public static final String queryTopHP = "SELECT id, CAST( split_str(data_point,',',6) AS UNSIGNED) AS hp FROM player ORDER BY CAST( split_str(data_point,',',6)  AS UNSIGNED) DESC LIMIT 20;";
+    public static final String queryTopKI = "SELECT id, CAST( split_str(data_point,',',7) AS UNSIGNED) AS ki FROM player ORDER BY CAST( split_str(data_point,',',7)  AS UNSIGNED) DESC LIMIT 20;";
+    public static final String queryTopNV = "SELECT id, CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) AS nv FROM player ORDER BY CAST( split_str(split_str(data_task,',',1),'[',2)  AS UNSIGNED) DESC, CAST(split_str(data_task,',',2)  AS UNSIGNED) DESC, CAST( split_str(data_point,',',2) AS UNSIGNED) DESC LIMIT 50;";
+    public static final String queryTopSK = "SELECT id, CAST( split_str( data_inventory,',',5)  AS UNSIGNED) AS event FROM player ORDER BY CAST( split_str( data_inventory,',',5)  AS UNSIGNED) DESC LIMIT 20;";
+    public static final String queryTopPVP = "SELECT id, CAST( pointPvp AS UNSIGNED) AS pointPvp FROM player ORDER BY CAST( pointPvp AS UNSIGNED) DESC LIMIT 50;";
+    public static final String queryTopNHS = "SELECT id, CAST( NguHanhSonPoint AS UNSIGNED) AS nhs FROM player ORDER BY CAST( NguHanhSonPoint AS UNSIGNED) DESC LIMIT 20;";
+    
 
     public static List<TOP> topSM;
     public static List<TOP> topSD;
@@ -102,11 +113,12 @@ public class Manager {
     public static List<TOP> topKI;
     public static List<TOP> topNV;
     public static List<TOP> topSK;
+    public static List<TOP> topPVP;
+    public static List<TOP> topNHS;
     public static long timeRealTop = 0;
     public static final short[] itemIds_TL = {555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567, 561};
-    public static final byte[] itemIds_NR_SB = {15, 16};
+    public static final byte[] itemIds_NR_SB = {16,17,18};
     public static final short[] itemDC12 = {233, 237, 241,245, 249, 253,257, 261, 265,269, 273, 277};
-
 
     public static final short[] aotd = {138, 139, 230, 231, 232, 233, 555};
     public static final short[] quantd = {142, 143, 242, 243, 244, 245, 556};
@@ -277,7 +289,8 @@ public class Manager {
                 dos.flush();
                 dos.close();
             }
-
+            
+           
             //load clan
             ps = con.prepareStatement("select * from clan_sv" + SERVER);
             rs = ps.executeQuery();
@@ -328,6 +341,22 @@ public class Manager {
 
             Logger.success("Load clan thành công (" + CLANS.size() + "), clan next id: " + Clan.NEXT_ID + "\n");
 
+            ps = con.prepareStatement("select * from dhvt_template");
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                DaiHoiVoThuat dhvt = new DaiHoiVoThuat();
+                dhvt.NameCup = rs.getString(2);
+                dhvt.Time = rs.getString(3).split("\n");
+                dhvt.gem = rs.getInt(4);
+                dhvt.gold = rs.getInt(5);
+                dhvt.min_start = rs.getInt(6);
+                dhvt.min_start_temp = rs.getInt(6);
+                dhvt.min_limit = rs.getInt(7);
+                LIST_DHVT.add(dhvt);
+            }
+
+            Logger.success("Load DHVT thành công (" + LIST_DHVT.size() + "), clan next id: " + Clan.NEXT_ID + "\n");
+            
             //load skill
             ps = con.prepareStatement("select * from skill_template order by nclass_id, slot");
             rs = ps.executeQuery();
@@ -679,6 +708,31 @@ public class Manager {
                 MOB_TEMPLATES.add(mobTemp);
             }
             Logger.success("Load mob template thành công (" + MOB_TEMPLATES.size() + ")\n");
+            
+               ps = con.prepareStatement("SELECT * FROM shop_ky_gui");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int i = rs.getInt("id");
+                int idPl = rs.getInt("player_id");
+                byte tab = rs.getByte("tab");
+                short itemId = rs.getShort("item_id");
+                int gold = rs.getInt("gold");
+                int gem = rs.getInt("gem");
+                int quantity = rs.getInt("quantity");
+                byte isUp = rs.getByte("isUpTop");
+                boolean isBuy = rs.getByte("isBuy") == 1;
+                List<Item.ItemOption> op = new ArrayList<>();
+                JSONArray jsa2 = (JSONArray) JSONValue.parse(rs.getString("itemOption"));
+                for (int j = 0; j < jsa2.size(); ++j) {
+                    JSONObject jso2 = (JSONObject) jsa2.get(j);
+                    int idOptions = Integer.parseInt(jso2.get("id").toString());
+                    int param = Integer.parseInt(jso2.get("param").toString());
+                    op.add(new Item.ItemOption(idOptions, param));
+                }
+                ShopKyGuiManager.gI().listItem.add(new ItemKyGui(i,itemId,idPl,tab,gold,gem,quantity,isUp,op,isBuy));
+            }
+            System.out.println("Finish load item ky gui [" +ShopKyGuiManager.gI().listItem.size()+"]!" );
+            
 
             //load npc template
             ps = con.prepareStatement("select * from npc_template");
@@ -784,12 +838,57 @@ public class Manager {
                 Logger.success("Load map template thành công (" + MAP_TEMPLATES.length + ")\n");
                 RUBY_REWARDS.add(Util.sendDo(861, 0, new ArrayList<>()));
             }
+            
+            
+            
+            
+            ps = con.prepareStatement("select * from radar");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                RadarCard rd = new RadarCard();
+                rd.Id = rs.getShort("id");
+                rd.IconId = rs.getShort("iconId");
+                rd.Rank = rs.getByte("rank");
+                rd.Max = rs.getByte("max");
+                rd.Type = rs.getByte("type");
+                rd.Template = rs.getShort("template");
+                rd.Name = rs.getString("name");
+                rd.Info = rs.getString("info");
+                JSONArray arr = (JSONArray)JSONValue.parse(rs.getString("body"));
+                for (int i = 0; i < arr.size(); i++) {
+                    JSONObject ob = (JSONObject)arr.get(i);
+                    if (ob != null) {
+                        rd.Head = Short.parseShort(ob.get("head").toString());
+                        rd.Body = Short.parseShort(ob.get("body").toString());
+                        rd.Leg = Short.parseShort(ob.get("leg").toString());
+                        rd.Bag = Short.parseShort(ob.get("bag").toString());
+                    }
+                }
+                rd.Options.clear();
+                arr = (JSONArray)JSONValue.parse(rs.getString("options"));
+                for (int i = 0; i < arr.size(); i++) {
+                    JSONObject ob = (JSONObject)arr.get(i);
+                    if (ob != null) {
+                        rd.Options.add(new OptionCard(Integer.parseInt(ob.get("id").toString()), Short.parseShort(ob.get("param").toString()), Byte.parseByte(ob.get("activeCard").toString())));
+                    }
+                }
+                rd.Require = rs.getShort("require");
+                rd.RequireLevel = rs.getShort("require_level");
+                rd.AuraId = rs.getShort("aura_id");
+                RadarService.gI().RADAR_TEMPLATE.add(rd);
+            }
+            Logger.success("Load radar template thành công (" + RadarService.gI().RADAR_TEMPLATE.size() + ")\n");
+            
             topSM = realTop(queryTopSM, con);
             Logger.success("Load top sm thành công (" + topSM.size() + ")\n");
             topNV = realTop(queryTopNV, con);
             Logger.success("Load top nv thành công (" + topNV.size() + ")\n");
             topSK = realTop(queryTopSK, con);
             Logger.success("Load top sk thành công (" + topSK.size() + ")\n");
+            topPVP = realTop(queryTopPVP, con);
+            Logger.success("Load top pvp thành công (" + topSK.size() + ")\n");
+            topNHS = realTop(queryTopNHS, con);
+            Logger.success("Load top NHS thành công (" + topSK.size() + ")\n");
             Manager.timeRealTop = System.currentTimeMillis();
             try {
                 if (rs != null) {
@@ -814,7 +913,7 @@ public class Manager {
             } catch (SQLException ex) {
             }
         }
-        Logger.log(Logger.PURPLE, "Tổng thời gian load database: " + (System.currentTimeMillis() - st) + "(ms)\n");
+        Logger.log(Logger.GREEN_BOLD_BRIGHT, "Tổng thời gian load database: " + (System.currentTimeMillis() - st) + "(ms)\n");
     }
 
     public static List<TOP> realTop(String query, Connection con) {
@@ -823,16 +922,27 @@ public class Manager {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                TOP top = TOP.builder().name(rs.getString("name")).gender(rs.getByte("gender")).build();
+                TOP top = TOP.builder().id_player(rs.getInt("id")).build();
                 switch (query) {
                     case queryTopSM:
-                        top.setPower(rs.getLong("sm"));
+                        top.setInfo1(rs.getLong("sm") + "");
+                        top.setInfo2(rs.getLong("sm") + "");
                         break;
                     case queryTopNV:
-                        top.setNv(rs.getByte("nv"));
+                        top.setInfo1(rs.getByte("nv") + "");
+                        top.setInfo2(rs.getByte("nv") + "");
                         break;
                     case queryTopSK:
-                        top.setSk(rs.getInt("event"));
+                        top.setInfo1(rs.getInt("event") + " điểm");
+                        top.setInfo2(rs.getInt("event") + " điểm");
+                        break;
+                    case queryTopPVP:
+                        top.setInfo1(rs.getInt("pointPvp") + " điểm");
+                        top.setInfo2(rs.getInt("pointPvp") + " điểm");
+                        break;
+                    case queryTopNHS:
+                        top.setInfo1(rs.getInt("NguHanhSonPoin") + " điểm");
+                        top.setInfo2(rs.getInt("NguHanhSonPoin") + " điểm");
                         break;
                 }
                 tops.add(top);
@@ -870,7 +980,7 @@ public class Manager {
             SECOND_WAIT_LOGIN = Byte.parseByte(String.valueOf(value));
         }
         if ((value = properties.get("server.girlkun.maxperip")) != null) {
-            MAX_PER_IP = Byte.parseByte(String.valueOf(value));
+            MAX_PER_IP = Integer.parseInt(String.valueOf(value));
         }
         if ((value = properties.get("server.girlkun.maxplayer")) != null) {
             MAX_PLAYER = Integer.parseInt(String.valueOf(value));

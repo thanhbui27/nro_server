@@ -1,5 +1,6 @@
 package com.girlkun.models.player;
 
+import com.arriety.card.Card;
 import com.girlkun.models.map.MapMaBu.MapMaBu;
 import com.girlkun.models.skill.PlayerSkill;
 
@@ -21,6 +22,9 @@ import com.girlkun.models.map.Zone;
 import com.girlkun.models.map.blackball.BlackBallWar;
 import com.girlkun.models.matches.IPVP;
 import com.girlkun.models.matches.TYPE_LOSE_PVP;
+import com.girlkun.models.matches.TYPE_PVP;
+import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
+import com.girlkun.models.npc.specialnpc.BillEgg;
 import com.girlkun.models.skill.Skill;
 import com.girlkun.server.Manager;
 import com.girlkun.services.Service;
@@ -30,8 +34,10 @@ import com.girlkun.network.io.Message;
 import com.girlkun.server.Client;
 import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.FriendAndEnemyService;
+import com.girlkun.services.PetService;
 import com.girlkun.services.TaskService;
 import com.girlkun.services.func.ChangeMapService;
+import com.girlkun.services.func.ChonAiDay;
 import com.girlkun.services.func.CombineNew;
 import com.girlkun.services.func.TopService;
 import com.girlkun.utils.Logger;
@@ -41,28 +47,36 @@ import java.util.ArrayList;
 
 public class Player {
 
-    private MySession session;
+    public MySession session;
 
     public boolean beforeDispose;
 
     public boolean isPet;
+    public boolean isNewPet;
+    public boolean isNewPet1;
     public boolean isBoss;
-
+    public int NguHanhSonPoint = 0;
     public IPVP pvp;
+    public int pointPvp;
+    public byte maxTime = 30;
+    public byte type = 0;
 
     public int mapIdBeforeLogout;
     public List<Zone> mapBlackBall;
     public List<Zone> mapMaBu;
-
+    public long limitgold = 0;
     public Zone zone;
     public Zone mapBeforeCapsule;
     public List<Zone> mapCapsule;
     public Pet pet;
+    public NewPet newpet;
+    public NewPet newpet1;
     public MobMe mobMe;
     public Location location;
     public SetClothes setClothes;
     public EffectSkill effectSkill;
     public MabuEgg mabuEgg;
+    public BillEgg billEgg;
     public TaskPlayer playerTask;
     public ItemTime itemTime;
     public Fusion fusion;
@@ -90,6 +104,7 @@ public class Player {
     public String name;
     public byte gender;
     public boolean isNewMember;
+    public int active;
     public short head;
 
     public byte typePk;
@@ -104,8 +119,23 @@ public class Player {
     public int violate;
     public byte totalPlayerViolate;
     public long timeChangeZone;
+    public long lastTimeUseOption;
+    public int actived;
+    public long vnd;
+    public long account_id;
+
+    public short idNRNM = -1;
+    public short idGo = -1;
+    public long lastTimePickNRNM;
+    public int goldNormar;
+    public int goldVIP;
+    public long lastTimeWin;
+    public boolean isWin;
+    public List<Card> Cards = new ArrayList<>();
+    public short idAura = -1;
 
     public Player() {
+        lastTimeUseOption = System.currentTimeMillis();
         location = new Location();
         nPoint = new NPoint(this);
         inventory = new Inventory();
@@ -152,6 +182,10 @@ public class Player {
         return this.session;
     }
 
+    public boolean isPl() {
+        return !isPet && !isBoss && !isNewPet && !isNewPet1;
+    }
+
     public void update() {
         if (!this.beforeDispose) {
             try {
@@ -175,6 +209,13 @@ public class Player {
                     if (pet != null) {
                         pet.update();
                     }
+                    if (newpet != null) {
+                        newpet.update();
+                    }
+
+                    if (newpet1 != null) {
+                        newpet1.update();
+                    }
                     if (magicTree != null) {
                         magicTree.update();
                     }
@@ -196,6 +237,42 @@ public class Player {
                         if (trap != null) {
                             trap.doPlayer(this);
                         }
+                    }
+                    if (this.isPl() && this.inventory.itemsBody.get(7) != null) {
+                        Item it = this.inventory.itemsBody.get(7);
+                        if (it != null && it.isNotNullItem() && this.newpet == null && this.newpet1 == null) {
+                            switch (it.template.id) {
+                                case 942:
+                                    PetService.Pet2(this, 966, 967, 968);
+                                    Service.gI().point(this);
+                                    break;
+                                case 943:
+                                    PetService.Pet2(this, 969, 970, 971);
+                                    Service.gI().point(this);
+                                    break;
+                                case 944:
+                                    PetService.Pet2(this, 972, 973, 974);
+                                    Service.gI().point(this);
+                                    break;
+                                case 967:
+                                    PetService.Pet2(this, 1050, 1051, 1052);
+                                    Service.gI().point(this);
+                                    break;
+                                case 968:
+                                    PetService.Pet2(this, 1183, 1184, 1185);
+                                    Service.gI().point(this);
+                                    break;
+                            }
+                        }
+                    } else if (this.isPl() && newpet != null && newpet1 != null && !this.inventory.itemsBody.get(7).isNotNullItem()) {
+                        newpet.dispose();
+                        newpet = null;
+                        newpet1.dispose();
+                        newpet1 = null;
+                    }
+                    if (this.isPl() && isWin && this.zone.map.mapId == 51 && Util.canDoWithTime(lastTimeWin, 2000)) {
+                        ChangeMapService.gI().changeMapBySpaceShip(this, 52, 0, -1);
+                        isWin = false;
                     }
                     if (location.lastTimeplayerMove < System.currentTimeMillis() - 30 * 60 * 1000) {
                         Client.gI().kickSession(getSession());
@@ -222,16 +299,86 @@ public class Player {
      * {867, 878, 869}: ht c2 xayda
      */
     private static final short[][] idOutfitFusion = {
-            {380, 381, 382}, {383, 384, 385}, {391, 392, 393},
-            {870, 871, 872}, {873, 874, 875}, {867, 868, 869}
+        {380, 381, 382}, //luong long
+        {383, 384, 385},// porata 
+        {391, 392, 393}, //hop the chung namec
+        {870, 871, 872},//trai dat c2
+        {873, 874, 875}, //namec c2
+        {867, 868, 869} //xayda c2
     };
 
-    public byte getAura() {
-        return -1;
-    }
-
     public byte getEffFront() {
-        return -1;
+        if (this.inventory.itemsBody.isEmpty() || this.inventory.itemsBody.size() < 10) {
+            return -1;
+        }
+        int levelAo = 0;
+        Item.ItemOption optionLevelAo = null;
+        int levelQuan = 0;
+        Item.ItemOption optionLevelQuan = null;
+        int levelGang = 0;
+        Item.ItemOption optionLevelGang = null;
+        int levelGiay = 0;
+        Item.ItemOption optionLevelGiay = null;
+        int levelNhan = 0;
+        Item.ItemOption optionLevelNhan = null;
+        Item itemAo = this.inventory.itemsBody.get(0);
+        Item itemQuan = this.inventory.itemsBody.get(1);
+        Item itemGang = this.inventory.itemsBody.get(2);
+        Item itemGiay = this.inventory.itemsBody.get(3);
+        Item itemNhan = this.inventory.itemsBody.get(4);
+        for (Item.ItemOption io : itemAo.itemOptions) {
+            if (io.optionTemplate.id == 72) {
+                levelAo = io.param;
+                optionLevelAo = io;
+                break;
+            }
+        }
+        for (Item.ItemOption io : itemQuan.itemOptions) {
+            if (io.optionTemplate.id == 72) {
+                levelQuan = io.param;
+                optionLevelQuan = io;
+                break;
+            }
+        }
+        for (Item.ItemOption io : itemGang.itemOptions) {
+            if (io.optionTemplate.id == 72) {
+                levelGang = io.param;
+                optionLevelGang = io;
+                break;
+            }
+        }
+        for (Item.ItemOption io : itemGiay.itemOptions) {
+            if (io.optionTemplate.id == 72) {
+                levelGiay = io.param;
+                optionLevelGiay = io;
+                break;
+            }
+        }
+        for (Item.ItemOption io : itemNhan.itemOptions) {
+            if (io.optionTemplate.id == 72) {
+                levelNhan = io.param;
+                optionLevelNhan = io;
+                break;
+            }
+        }
+        if (optionLevelAo != null && optionLevelQuan != null && optionLevelGang != null && optionLevelGiay != null && optionLevelNhan != null
+                && levelAo >= 8 && levelQuan >= 8 && levelGang >= 8 && levelGiay >= 8 && levelNhan >= 8) {
+            return 8;
+        } else if (optionLevelAo != null && optionLevelQuan != null && optionLevelGang != null && optionLevelGiay != null && optionLevelNhan != null
+                && levelAo >= 7 && levelQuan >= 7 && levelGang >= 7 && levelGiay >= 7 && levelNhan >= 7) {
+            return 7;
+        } else if (optionLevelAo != null && optionLevelQuan != null && optionLevelGang != null && optionLevelGiay != null && optionLevelNhan != null
+                && levelAo >= 6 && levelQuan >= 6 && levelGang >= 6 && levelGiay >= 6 && levelNhan >= 6) {
+            return 6;
+        } else if (optionLevelAo != null && optionLevelQuan != null && optionLevelGang != null && optionLevelGiay != null && optionLevelNhan != null
+                && levelAo >= 5 && levelQuan >= 5 && levelGang >= 5 && levelGiay >= 5 && levelNhan >= 5) {
+            return 5;
+        } else if (optionLevelAo != null && optionLevelQuan != null && optionLevelGang != null && optionLevelGiay != null && optionLevelNhan != null
+                && levelAo >= 4 && levelQuan >= 4 && levelGang >= 4 && levelGiay >= 4 && levelNhan >= 4) {
+            return 4;
+        } else {
+            return -1;
+        }
     }
 
     public short getHead() {
@@ -243,10 +390,15 @@ public class Player {
             if (fusion.typeFusion == ConstPlayer.LUONG_LONG_NHAT_THE) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 0][0];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
-                if (this.pet.typePet == 1) {
-                    return idOutfitFusion[3 + this.gender][0];
-                }
+//                if (this.pet.typePet == 1) {
+//                    return idOutfitFusion[3 + this.gender][0];
+//                }
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 1][0];
+            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
+//                if (this.pet.typePet == 1) {
+//                    return idOutfitFusion[3 + this.gender][0];
+//                }
+                return idOutfitFusion[3 + this.gender][0];
             }
         } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
             int head = inventory.itemsBody.get(5).template.head;
@@ -266,10 +418,15 @@ public class Player {
             if (fusion.typeFusion == ConstPlayer.LUONG_LONG_NHAT_THE) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 0][1];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
-                if (this.pet.typePet == 1) {
-                    return idOutfitFusion[3 + this.gender][1];
-                }
+//                if (this.pet.typePet == 1) {
+//                    return idOutfitFusion[3 + this.gender][1];
+//                }
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 1][1];
+            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
+//                if (this.pet.typePet == 1) {
+//                    return idOutfitFusion[3 + this.gender][1];
+//                }
+                return idOutfitFusion[3 + this.gender][1];
             }
         } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
             int body = inventory.itemsBody.get(5).template.body;
@@ -292,10 +449,15 @@ public class Player {
             if (fusion.typeFusion == ConstPlayer.LUONG_LONG_NHAT_THE) {
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 0][2];
             } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
-                if (this.pet.typePet == 1) {
-                    return idOutfitFusion[3 + this.gender][2];
-                }
+//                if (this.pet.typePet == 1) {
+//                    return idOutfitFusion[3 + this.gender][2];
+//                }
                 return idOutfitFusion[this.gender == ConstPlayer.NAMEC ? 2 : 1][2];
+            } else if (fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
+//                if (this.pet.typePet == 1) {
+//                    return idOutfitFusion[3 + this.gender][2];
+//                }
+                return idOutfitFusion[3 + this.gender][2];
             }
         } else if (inventory != null && inventory.itemsBody.get(5).isNotNullItem()) {
             int leg = inventory.itemsBody.get(5).template.leg;
@@ -309,13 +471,35 @@ public class Player {
         return (short) (gender == 1 ? 60 : 58);
     }
 
+    public byte getAura() {
+        if (this.inventory.itemsBody.isEmpty() || this.inventory.itemsBody.size() < 10) {
+            return -1;
+        }
+        Item item = this.inventory.itemsBody.get(5);
+        if (!item.isNotNullItem()) {
+            return -1;
+        }
+        if (item.template.id == 1121) {
+            return 10;
+        } else if (item.template.id == 1128) {
+            return 1;
+        } else if (item.template.id == 1125) {
+            return 11;
+        } else if (item.template.id == 2092) {
+            return 11;
+        } else {
+            return -1;
+        }
+
+    }
+
     public short getFlagBag() {
         if (this.iDMark.isHoldBlackBall()) {
             return 31;
-        } else if (this.iDMark.isHoldNamecBall()) {
+        } else if (this.idNRNM >= 353 && this.idNRNM <= 359) {
             return 30;
         }
-        if (this.inventory.itemsBody.size() == 10) {
+        if (this.inventory.itemsBody.size() == 11) {
             if (this.inventory.itemsBody.get(8).isNotNullItem()) {
                 return this.inventory.itemsBody.get(8).template.part;
             }
@@ -351,25 +535,6 @@ public class Player {
             }
         }
 
-//        for (Item item : inventory.itemsBag) {
-//            if (item.isNotNullItem()) {
-//                if (item.template.type == 24) {
-//                    if (item.template.gender == 3 || item.template.gender == this.gender) {
-//                        return item.template.id;
-//                    } else {
-//                        return -1;
-//                    }
-//                }
-//                if (item.template.type == 23) {
-//                    if (item.template.id < 500) {
-//                        return item.template.id;
-//                    } else {
-//                        return (short) DataGame.MAP_MOUNT_NUM.get(String.valueOf(item.template.id));
-//                    }
-//                }
-//            }
-//        }
-//        return -1;
     }
 
     //--------------------------------------------------------------------------
@@ -399,8 +564,12 @@ public class Player {
             if (isMobAttack && this.charms.tdBatTu > System.currentTimeMillis() && damage >= this.nPoint.hp) {
                 damage = this.nPoint.hp - 1;
             }
+
             this.nPoint.subHP(damage);
             if (isDie()) {
+                if (this.zone.map.mapId == 112) {
+                    plAtt.pointPvp++;
+                }
                 setDie(plAtt);
             }
             return damage;
@@ -413,7 +582,7 @@ public class Player {
         //xóa phù
         if (this.effectSkin.xHPKI > 1) {
             this.effectSkin.xHPKI = 1;
-            Service.getInstance().point(this);
+            Service.gI().point(this);
         }
         //xóa tụ skill đặc biệt
         this.playerSkill.prepareQCKK = false;
@@ -428,9 +597,9 @@ public class Player {
         if (this.mobMe != null) {
             this.mobMe.mobMeDie();
         }
-        Service.getInstance().charDie(this);
+        Service.gI().charDie(this);
         //add kẻ thù
-        if (!this.isPet && !this.isBoss && plAtt != null && !plAtt.isPet && !plAtt.isBoss) {
+        if (!this.isPet && !this.isNewPet && !this.isNewPet1 && !this.isBoss && plAtt != null && !plAtt.isPet && !plAtt.isNewPet && !plAtt.isNewPet1 && !plAtt.isBoss) {
             if (!plAtt.itemTime.isUseAnDanh) {
                 FriendAndEnemyService.gI().addEnemy(this, plAtt);
             }
@@ -471,6 +640,14 @@ public class Player {
             pet.dispose();
             pet = null;
         }
+        if (newpet != null) {
+            newpet.dispose();
+            newpet = null;
+        }
+        if (newpet1 != null) {
+            newpet1.dispose();
+            newpet1 = null;
+        }
         if (mapBlackBall != null) {
             mapBlackBall.clear();
             mapBlackBall = null;
@@ -480,6 +657,10 @@ public class Player {
         if (mapMaBu != null) {
             mapMaBu.clear();
             mapMaBu = null;
+        }
+        if (billEgg != null) {
+            billEgg.dispose();
+            billEgg = null;
         }
         zone = null;
         mapBeforeCapsule = null;
@@ -576,5 +757,19 @@ public class Player {
         session = null;
         name = null;
     }
+
+    public String percentGold(int type) {
+        try {
+            if (type == 0) {
+                double percent = ((double) this.goldNormar / ChonAiDay.gI().goldNormar) * 100;
+                return String.valueOf(Math.ceil(percent));
+            } else if (type == 1) {
+                double percent = ((double) this.goldVIP / ChonAiDay.gI().goldVip) * 100;
+                return String.valueOf(Math.ceil(percent));
+            }
+        } catch (ArithmeticException e) {
+            return "0";
+        }
+        return "0";
+    }
 }
-//nplayer

@@ -3,6 +3,7 @@ package com.girlkun.server;
 import com.girlkun.database.GirlkunDB;
 import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.models.item.Item;
+import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
 import com.girlkun.network.server.GirlkunSessionManager;
 import com.girlkun.network.session.ISession;
@@ -13,6 +14,7 @@ import com.girlkun.services.func.ChangeMapService;
 import com.girlkun.services.func.SummonDragon;
 import com.girlkun.services.func.TransactionService;
 import com.girlkun.services.InventoryServiceNew;
+import com.girlkun.services.NgocRongNamecService;
 import com.girlkun.utils.Logger;
 
 import java.sql.Timestamp;
@@ -20,7 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import com.girlkun.models.matches.pvp.DaiHoiVoThuat;
+import com.girlkun.models.matches.pvp.DaiHoiVoThuatService;
 
 public class Client implements Runnable {
 
@@ -86,8 +89,17 @@ public class Client implements Runnable {
         this.players_userId.remove(player.getSession().userId);
         this.players.remove(player);
         if (!player.beforeDispose) {
+            DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).removePlayerWait(player);  
+            DaiHoiVoThuatService.gI(DaiHoiVoThuat.gI().getDaiHoiNow()).removePlayer(player);  
             player.beforeDispose = true;
             player.mapIdBeforeLogout = player.zone.map.mapId;
+            if(player.idNRNM != -1){
+                ItemMap itemMap = new ItemMap(player.zone, player.idNRNM, 1, player.location.x, player.location.y, -1);
+                Service.gI().dropItemMap(player.zone, itemMap);
+                NgocRongNamecService.gI().pNrNamec[player.idNRNM - 353] = "";
+                NgocRongNamecService.gI().idpNrNamec[player.idNRNM - 353] = -1;
+                player.idNRNM = -1;
+            }
             ChangeMapService.gI().exitMap(player);
             TransactionService.gI().cancelTrade(player);
             if (player.clan != null) {
@@ -196,6 +208,6 @@ public class Client implements Runnable {
         txt += "players_userId: " + players_userId.size() + "\n";
         txt += "players_name: " + players_name.size() + "\n";
         txt += "players: " + players.size() + "\n";
-        Service.getInstance().sendThongBao(player, txt);
+        Service.gI().sendThongBao(player, txt);
     }
 }

@@ -53,15 +53,25 @@ public class MySession extends Session {
 
     public long lastTimeReadMessage;
 
-    public boolean actived;
+    public int actived;
 
     public int goldBar;
+    
+    public int hello;
+
+    public int dangu;
+    
+    public int nro3s;
+    
+    public int coinBar;
     public List<Item> itemsReward;
     public String dataReward;
     public boolean is_gift_box;
     public double bdPlayer;
 
     public int version;
+    public long vnd;
+    public int Bar;
 
     public MySession(Socket socket) {
         super(socket);
@@ -128,19 +138,19 @@ public class MySession extends Session {
             ANTILOGIN.put(this.ipAddress, al);
         }
         if (!al.canLogin()) {
-            Service.getInstance().sendThongBaoOK(this, al.getNotifyCannotLogin());
+            Service.gI().sendThongBaoOK(this, al.getNotifyCannotLogin());
             return;
         }
         if (Manager.LOCAL) {
-            Service.getInstance().sendThongBaoOK(this, "Server này chỉ để lưu dữ liệu\nVui lòng qua server khác");
+            Service.gI().sendThongBaoOK(this, "Server này chỉ để lưu dữ liệu\nVui lòng qua server khác");
             return;
         }
         if (Maintenance.isRuning) {
-            Service.getInstance().sendThongBaoOK(this, "Server đang trong thời gian bảo trì, vui lòng quay lại sau");
+            Service.gI().sendThongBaoOK(this, "Server đang trong thời gian bảo trì, vui lòng quay lại sau");
             return;
         }
         if (!this.isAdmin && Client.gI().getPlayers().size() >= Manager.MAX_PLAYER) {
-            Service.getInstance().sendThongBaoOK(this, "Máy chủ hiện đang quá tải, "
+            Service.gI().sendThongBaoOK(this, "Máy chủ hiện đang quá tải, "
                     + "cư dân vui lòng di chuyển sang máy chủ khác.");
             return;
         }
@@ -152,12 +162,14 @@ public class MySession extends Session {
                 long st = System.currentTimeMillis();
                 this.uu = username;
                 this.pp = password;
+                
+                
                 player = GodGK.login(this, al);
                 if (player != null) {
                     // -77 max small
                     DataGame.sendSmallVersion(this);
                     // -93 bgitem version
-                    Service.getInstance().sendMessage(this, -93, "1630679752231_-93_r");
+                    Service.gI().sendMessage(this, -93, "1630679752231_-93_r");
 
                     this.timeWait = 0;
                     this.joinedGame = true;
@@ -181,7 +193,7 @@ public class MySession extends Session {
                     Controller.getInstance().sendInfo(this);
 
                     Logger.warning("Login thành công player " + this.player.name + ": " + (System.currentTimeMillis() - st) + " ms\n");
-//                    Service.getInstance().sendThongBaoOK(this, "Ngọc rồng sao đen sẽ mở lúc 21h hôm nay");
+//                    Service.gI().sendThongBaoOK(this, "Ngọc rồng sao đen sẽ mở lúc 21h hôm nay");
                 }
             } catch (Exception e) {
                 if (player != null) {

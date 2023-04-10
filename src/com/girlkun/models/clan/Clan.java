@@ -56,7 +56,7 @@ public class Clan {
         this.id = NEXT_ID++;
         this.name = "";
         this.slogan = "";
-        this.maxMember = 10;
+        this.maxMember = 50;
         this.createTime = (int) (System.currentTimeMillis() / 1000);
         this.members = new ArrayList<>();
         this.membersInGame = new ArrayList<>();
@@ -104,7 +104,7 @@ public class Clan {
     public void addSMTNClan(Player plOri, long param) {
         for (Player pl : this.membersInGame) {
             if (!plOri.equals(pl) && plOri.zone.equals(pl.zone)) {
-                Service.getInstance().addSMTN(pl, (byte) 1, param, false);
+                Service.gI().addSMTN(pl, (byte) 1, param, false);
             }
         }
     }
@@ -180,7 +180,7 @@ public class Clan {
     public void sendFlagBagForAllMember() {
         for (Player pl : this.membersInGame) {
             if (pl != null) {
-                Service.getInstance().sendFlagBag(pl);
+                Service.gI().sendFlagBag(pl);
             }
         }
     }

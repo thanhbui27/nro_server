@@ -71,7 +71,7 @@ public class MabuEgg {
             } catch (Exception e) {
             }
         } else {
-            Service.getInstance().sendThongBao(player, "Yêu cầu phải có đệ tử");
+            Service.gI().sendThongBao(player, "Yêu cầu phải có đệ tử");
         }
     }
 

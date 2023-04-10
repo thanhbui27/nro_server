@@ -54,7 +54,7 @@ public final class MobMe extends Mob {
                     msg.writer().writeInt(dameHit);
                     msg.writer().writeInt(pl.nPoint.hp);
 
-                    Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
+                    Service.gI().sendMessAllPlayerInMap(this.zone, msg);
                     msg.cleanup();
                 }
             }
@@ -69,9 +69,9 @@ public final class MobMe extends Mob {
                     mob.point.sethp(mob.point.gethp() - this.point.dame);
                     msg.writer().writeInt(mob.point.gethp());
                     msg.writer().writeInt(this.point.dame);
-                    Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
+                    Service.gI().sendMessAllPlayerInMap(this.zone, msg);
                     msg.cleanup();
-                    Service.getInstance().addSMTN(player, (byte) 2, tnsm, true);
+                    Service.gI().addSMTN(player, (byte) 2, tnsm, true);
                 }
             }
         } catch (Exception e) {
@@ -87,7 +87,7 @@ public final class MobMe extends Mob {
             msg.writer().writeInt((int) player.id);
             msg.writer().writeShort(this.tempId);
             msg.writer().writeInt(this.point.hp);// hp mob
-            Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
+            Service.gI().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
         } catch (Exception e) {
 
@@ -108,7 +108,7 @@ public final class MobMe extends Mob {
             msg = new Message(-95);
             msg.writer().writeByte(7);//type
             msg.writer().writeInt((int) player.id);
-            Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
+            Service.gI().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
         } catch (Exception e) {
         }
@@ -120,7 +120,7 @@ public final class MobMe extends Mob {
             msg = new Message(-95);
             msg.writer().writeByte(6);//type
             msg.writer().writeInt((int) player.id);
-            Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
+            Service.gI().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
         } catch (Exception e) {
         }

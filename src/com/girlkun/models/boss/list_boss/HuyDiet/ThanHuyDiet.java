@@ -29,8 +29,8 @@ public class ThanHuyDiet extends Boss {
         byte randomNR = (byte) new Random().nextInt(Manager.itemIds_NR_SB.length);
         ItemMap itemMap;
         if (Util.isTrue(5, 100)) {
-            if (Util.isTrue(1, 20)) {
-                itemMap = Util.ratiItem(zone, 561, 1, this.location.x, this.location.y, plKill.id);
+            if (Util.isTrue(1, 50)) {
+                itemMap = Util.ratiItem(zone,1142, 1, this.location.x, this.location.y, plKill.id);
             } else {
                 itemMap = Util.ratiItem(zone, Manager.itemIds_TL[randomDo], 1, this.location.x, this.location.y, plKill.id);
             }
@@ -38,25 +38,22 @@ public class ThanHuyDiet extends Boss {
             itemMap = Util.ratiItem(zone, Manager.itemIds_NR_SB[randomNR], 1, this.location.x, this.location.y, plKill.id);
         }
         itemMap.options.add(new Item.ItemOption(30, 1));
-        Service.getInstance().dropItemMap(this.zone, itemMap);
+        Service.gI().dropItemMap(this.zone, itemMap);
     }
 
-    @Override
+      @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
         if (!this.isDie()) {
             if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 1)) {
                 this.chat("Xí hụt");
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage);
+            damage = this.nPoint.subDameInjureWithDeff(damage/3);
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
                 damage = 1;
-            }
-            if (damage >= 100000000) {
-                damage = 100000000;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
@@ -105,7 +102,7 @@ public class ThanHuyDiet extends Boss {
         this.nPoint.calPoint();
         PlayerService.gI().hoiPhuc(this, pl.nPoint.hp, 0);
         pl.injured(null, pl.nPoint.hpMax, true, false);
-        Service.getInstance().sendThongBao(pl, "Bạn vừa bị " + this.name + " cho bay màu");
+        Service.gI().sendThongBao(pl, "Bạn vừa bị " + this.name + " cho bay màu");
         this.chat(2, "Hắn ta mạnh quá,coi chừng " + pl.name + ",tên " + this.name + " hắn không giống như những kẻ thù trước đây");
         this.chat("Thật là yếu ớt " + pl.name);
         this.lasttimehakai = System.currentTimeMillis();

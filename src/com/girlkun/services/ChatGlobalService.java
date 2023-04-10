@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class ChatGlobalService implements Runnable {
 
     private static int COUNT_CHAT = 50;
@@ -34,13 +33,13 @@ public class ChatGlobalService implements Runnable {
     }
 
     public void chat(Player player, String text) {
-        if (!player.getSession().actived) {
-            Service.getInstance().sendThongBaoFromAdmin(player,
-                    "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN TẠI\n|7|NROGOD.COM\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG");
+        if (player.getSession().actived == 0) {
+            Service.gI().sendThongBaoFromAdmin(player,
+                    "|5|VUI LÒNG Kích Hoạt Thành Viên\n|7|Bằng Cách\n|5|Đổi Điểm Pvp Ở Npc Trong Nhà!");
             return;
         }
         if (waitingChat.size() >= COUNT_WAIT) {
-            Service.getInstance().sendThongBao(player, "Kênh thế giới hiện đang quá tải, không thể chat lúc này");
+            Service.gI().sendThongBao(player, "Kênh thế giới hiện đang quá tải, không thể chat lúc này");
             return;
         }
         boolean haveInChatting = false;
@@ -57,19 +56,19 @@ public class ChatGlobalService implements Runnable {
         if (player.inventory.gem >= 5) {
             if (player.isAdmin() || Util.canDoWithTime(player.iDMark.getLastTimeChatGlobal(), 360000)) {
                 if (player.isAdmin() || player.nPoint.power > 2000000000) {
-//                    player.inventory.subGemAndRuby(5); 
-//                    Service.getInstance().sendMoney(player);
+                    // player.inventory.subGemAndRuby(5);
+                    // Service.gI().sendMoney(player);
                     player.iDMark.setLastTimeChatGlobal(System.currentTimeMillis());
                     waitingChat.add(new ChatGlobal(player, text.length() > 100 ? text.substring(0, 100) : text));
                 } else {
-                    Service.getInstance().sendThongBao(player, "Sức mạnh phải ít nhất 2tỷ mới có thể chat thế giới");
+                    Service.gI().sendThongBao(player, "Sức mạnh phải ít nhất 2tỷ mới có thể chat thế giới");
                 }
             } else {
-                Service.getInstance().sendThongBao(player, "Không thể chat thế giới lúc này, vui lòng đợi "
+                Service.gI().sendThongBao(player, "Không thể chat thế giới lúc này, vui lòng đợi "
                         + TimeUtil.getTimeLeft(player.iDMark.getLastTimeChatGlobal(), 240));
             }
         } else {
-            Service.getInstance().sendThongBao(player, "Không đủ ngọc chat thế giới");
+            Service.gI().sendThongBao(player, "Không đủ ngọc chat thế giới");
         }
     }
 
@@ -108,11 +107,12 @@ public class ChatGlobalService implements Runnable {
             msg.writer().writeUTF("|5|" + chat.text);
             msg.writer().writeInt((int) chat.playerId);
             msg.writer().writeShort(chat.head);
+            msg.writer().writeShort(-1);
             msg.writer().writeShort(chat.body);
-            msg.writer().writeShort(chat.bag); //bag
+            msg.writer().writeShort(chat.bag); // bag
             msg.writer().writeShort(chat.leg);
             msg.writer().writeByte(0);
-            Service.getInstance().sendMessAllPlayer(msg);
+            Service.gI().sendMessAllPlayer(msg);
             msg.cleanup();
         } catch (Exception e) {
         }
@@ -120,11 +120,11 @@ public class ChatGlobalService implements Runnable {
 
     private void transformText(ChatGlobal chat) {
         String text = chat.text;
-        text = text.replaceAll(".com", "***")
-                .replaceAll(".net", "***")
-                .replaceAll(".xyz", "***")
-                .replaceAll(".me", "***")
-                .replaceAll(".pro", "***")
+        text = text.replaceAll("admin", "***")
+                .replaceAll("địt", "***")
+                .replaceAll("lồn", "***")
+                .replaceAll("buồi", "***")
+                .replaceAll("cc", "***")
                 .replaceAll(".mobi", "***")
                 .replaceAll(".online", "***")
                 .replaceAll(".info", "***")

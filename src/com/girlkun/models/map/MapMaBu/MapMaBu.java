@@ -52,7 +52,7 @@ public class MapMaBu {
 
     private void kickOutOfMapMabu(Player player) {
         if (MapService.gI().isMapMaBu(player.zone.map.mapId)) {
-            Service.getInstance().sendThongBao(player, "Trận đại chiến đã kết thúc, tàu vận chuyển sẽ đưa bạn về nhà");
+            Service.gI().sendThongBao(player, "Trận đại chiến đã kết thúc, tàu vận chuyển sẽ đưa bạn về nhà");
             ChangeMapService.gI().changeMapBySpaceShip(player, player.gender + 21, -1, 250);
         }
     }
@@ -72,14 +72,14 @@ public class MapMaBu {
             List<Player> players = player.zone.getPlayers();
             for (Player pl : players) {
                 if (pl.clan != null && !player.equals(pl) && player.clan.equals(pl.clan) && !player.isBoss) {
-                    Service.getInstance().changeFlag(player, Util.nextInt(9, 10));
+                    Service.gI().changeFlag(player, Util.nextInt(9, 10));
                     changed = true;
                     break;
                 }
             }
         }
         if (!changed && !player.isBoss) {
-            Service.getInstance().changeFlag(player, Util.nextInt(9, 10));
+            Service.gI().changeFlag(player, Util.nextInt(9, 10));
         }
     }
 

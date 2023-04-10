@@ -294,7 +294,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
             } else {
                 ChangeMapService.gI().changeMap(this, this.zone, this.location.x, this.location.y);
             }
-            Service.getInstance().sendFlagBag(this);
+            Service.gI().sendFlagBag(this);
             this.notifyJoinMap();
         }
     }
@@ -316,7 +316,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
     protected void notifyJoinMap() {
         if (this.id >= -22 && this.id <= -20) return;
-        if (MapService.gI().isMapMaBu(this.zone.map.mapId) || MapService.gI().isMapBlackBallWar(this.zone.map.mapId))
+        if (this.zone.map.mapId == 140||MapService.gI().isMapMaBu(this.zone.map.mapId) || MapService.gI().isMapBlackBallWar(this.zone.map.mapId))
             return;
         ServerNotify.gI().notify("BOSS " + this.name + " vừa xuất hiện tại " + this.zone.map.mapName);
     }
@@ -522,7 +522,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
     }
 
     public void chat(String text) {
-        Service.getInstance().chat(this, text);
+        Service.gI().chat(this, text);
     }
 
     protected boolean chat(int prefix, String textChat) {
@@ -531,7 +531,7 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
         } else if (prefix == -2) {
             Player plMap = this.zone.getRandomPlayerInMap();
             if (plMap != null && !plMap.isDie() && Util.getDistance(this, plMap) <= 600) {
-                Service.getInstance().chat(plMap, textChat);
+                Service.gI().chat(plMap, textChat);
             } else {
                 return false;
             }
@@ -593,5 +593,5 @@ public class Boss extends Player implements IBossNew, IBossOutfit {
 
 /**
  * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - Girlkun75
+ * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
  */

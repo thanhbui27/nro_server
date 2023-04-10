@@ -16,6 +16,7 @@ public class ItemTime {
     public static final int TIME_ITEM = 600000;
     public static final int TIME_OPEN_POWER = 86400000;
     public static final int TIME_MAY_DO = 1800000;
+    public static final int TIME_MAY_DO2 = 1800000;
     public static final int TIME_EAT_MEAL = 600000;
 
     private Player player;
@@ -25,15 +26,30 @@ public class ItemTime {
     public boolean isUseGiapXen;
     public boolean isUseCuongNo;
     public boolean isUseAnDanh;
+    public boolean isUseBoHuyet2;
+    public boolean isUseBoKhi2;
+    public boolean isUseGiapXen2;
+    public boolean isUseCuongNo2;
+    public boolean isUseAnDanh2;
+    
     public long lastTimeBoHuyet;
     public long lastTimeBoKhi;
     public long lastTimeGiapXen;
     public long lastTimeCuongNo;
     public long lastTimeAnDanh;
 
+    public long lastTimeBoHuyet2;
+    public long lastTimeBoKhi2;
+    public long lastTimeGiapXen2;
+    public long lastTimeCuongNo2;
+    public long lastTimeAnDanh2;
+    
+    
     public boolean isUseMayDo;
-    public long lastTimeUseMayDo;
-
+    public long lastTimeUseMayDo;//lastime de chung 1 cai neu time = nhau
+    public boolean isUseMayDo2;
+    public long lastTimeUseMayDo2;
+    
     public boolean isOpenPower;
     public long lastTimeOpenPower;
 
@@ -53,22 +69,23 @@ public class ItemTime {
         if (isEatMeal) {
             if (Util.canDoWithTime(lastTimeEatMeal, TIME_EAT_MEAL)) {
                 isEatMeal = false;
-                Service.getInstance().point(player);
+                Service.gI().point(player);
             }
         }
         if (isUseBoHuyet) {
             if (Util.canDoWithTime(lastTimeBoHuyet, TIME_ITEM)) {
                 isUseBoHuyet = false;
-                Service.getInstance().point(player);
-//                Service.getInstance().Send_Info_NV(this.player);
+                Service.gI().point(player);
             }
         }
+        
         if (isUseBoKhi) {
             if (Util.canDoWithTime(lastTimeBoKhi, TIME_ITEM)) {
                 isUseBoKhi = false;
-                Service.getInstance().point(player);
+                Service.gI().point(player);
             }
         }
+       
         if (isUseGiapXen) {
             if (Util.canDoWithTime(lastTimeGiapXen, TIME_ITEM)) {
                 isUseGiapXen = false;
@@ -77,12 +94,42 @@ public class ItemTime {
         if (isUseCuongNo) {
             if (Util.canDoWithTime(lastTimeCuongNo, TIME_ITEM)) {
                 isUseCuongNo = false;
-                Service.getInstance().point(player);
+                Service.gI().point(player);
             }
         }
         if (isUseAnDanh) {
             if (Util.canDoWithTime(lastTimeAnDanh, TIME_ITEM)) {
                 isUseAnDanh = false;
+            }
+        }
+       
+        if (isUseBoHuyet2) {
+            if (Util.canDoWithTime(lastTimeBoHuyet2, TIME_ITEM)) {
+                isUseBoHuyet2 = false;
+                Service.gI().point(player);
+            }
+        }
+        
+        if (isUseBoKhi2) {
+            if (Util.canDoWithTime(lastTimeBoKhi2, TIME_ITEM)) {
+                isUseBoKhi2 = false;
+                Service.gI().point(player);
+            }
+        }
+        if (isUseGiapXen2) {
+            if (Util.canDoWithTime(lastTimeGiapXen2, TIME_ITEM)) {
+                isUseGiapXen2 = false;
+            }
+        }
+        if (isUseCuongNo2) {
+            if (Util.canDoWithTime(lastTimeCuongNo2, TIME_ITEM)) {
+                isUseCuongNo2 = false;
+                Service.gI().point(player);
+            }
+        }
+        if (isUseAnDanh2) {
+            if (Util.canDoWithTime(lastTimeAnDanh2, TIME_ITEM)) {
+                isUseAnDanh2 = false;
             }
         }
         if (isOpenPower) {
@@ -91,13 +138,18 @@ public class ItemTime {
                 if (player.nPoint.limitPower > NPoint.MAX_LIMIT) {
                     player.nPoint.limitPower = NPoint.MAX_LIMIT;
                 }
-                Service.getInstance().sendThongBao(player, "Giới hạn sức mạnh của bạn đã được tăng lên 1 bậc");
+                Service.gI().sendThongBao(player, "Giới hạn sức mạnh của bạn đã được tăng lên 1 bậc");
                 isOpenPower = false;
             }
         }
         if (isUseMayDo) {
             if (Util.canDoWithTime(lastTimeUseMayDo, TIME_MAY_DO)) {
                 isUseMayDo = false;
+            }
+        }
+        if (isUseMayDo2) {
+            if (Util.canDoWithTime(lastTimeUseMayDo2, TIME_MAY_DO2)) {
+                isUseMayDo2 = false;
             }
         }
         if (isUseTDLT) {

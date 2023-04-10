@@ -182,14 +182,14 @@ public class ClanService {
                                 peaCopy.itemOptions = pea.itemOptions;
                                 InventoryServiceNew.gI().addItemBag(plReceive, peaCopy);
                                 InventoryServiceNew.gI().sendItemBags(plReceive);
-                                Service.getInstance().sendThongBao(plReceive, plGive.name + " đã cho bạn " + peaCopy.template.name);
+                                Service.gI().sendThongBao(plReceive, plGive.name + " đã cho bạn " + peaCopy.template.name);
                                 cmg.receiveDonate++;
                                 clan.sendMessageClan(cmg);
                             } else {
-                                Service.getInstance().sendThongBao(plGive, "Không tìm thấy đậu trong rương");
+                                Service.gI().sendThongBao(plGive, "Không tìm thấy đậu trong rương");
                             }
                         } else {
-                            Service.getInstance().sendThongBao(plGive, "Người chơi hiện không online");
+                            Service.gI().sendThongBao(plGive, "Người chơi hiện không online");
                         }
                     }
                 }
@@ -289,18 +289,18 @@ public class ClanService {
 
                     clan.sendMyClanForAllMember();
                     this.sendClanId(player);
-                    Service.getInstance().sendFlagBag(player);
+                    Service.gI().sendFlagBag(player);
 
                     ItemTimeService.gI().sendTextDoanhTrai(player);
                     checkDoneTaskJoinClan(clan);
                 } else {
-                    Service.getInstance().sendThongBao(player, "Bang hội đã đủ người");
+                    Service.gI().sendThongBao(player, "Bang hội đã đủ người");
                 }
             } else {
-                Service.getInstance().sendThongBao(player, "Không thể thực hiện");
+                Service.gI().sendThongBao(player, "Không thể thực hiện");
             }
         } catch (Exception ex) {
-            Service.getInstance().sendThongBao(player, ex.getMessage());
+            Service.gI().sendThongBao(player, ex.getMessage());
         }
     }
 
@@ -336,9 +336,9 @@ public class ClanService {
                             cmg.text = "Chấp nhận " + pl.name + " vào bang.";
 
                             this.sendClanId(pl);
-                            Service.getInstance().sendFlagBag(pl);
+                            Service.gI().sendFlagBag(pl);
                             ItemTimeService.gI().sendTextDoanhTrai(pl);
-                            Service.getInstance().sendThongBao(pl, "Bạn vừa được nhận vào bang " + clan.name);
+                            Service.gI().sendThongBao(pl, "Bạn vừa được nhận vào bang " + clan.name);
                             checkDoneTaskJoinClan(clan);
                         } else {
                             cmg.text = "Bang hội đã đủ người";
@@ -351,7 +351,7 @@ public class ClanService {
                 }
                 clan.sendMyClanForAllMember();
             } else {
-                Service.getInstance().sendThongBao(player, "Không thể thực hiện");
+                Service.gI().sendThongBao(player, "Không thể thực hiện");
             }
         }
     }
@@ -373,7 +373,7 @@ public class ClanService {
                 cmg.color = ClanMessage.RED;
                 cmg.text = "Từ chối " + cmg.playerName + " vào bang";
                 if (newMember != null) {
-                    Service.getInstance().sendThongBao(newMember, "Bang hội " + clan.name + " đã từ chối bạn vào bang");
+                    Service.gI().sendThongBao(newMember, "Bang hội " + clan.name + " đã từ chối bạn vào bang");
                 }
                 clan.sendMyClanForAllMember();
             }
@@ -400,7 +400,7 @@ public class ClanService {
                     clan.addClanMessage(cmg);
                     clan.sendMessageClan(cmg);
                 } else {
-                    Service.getInstance().sendThongBao(player, "Bạn chỉ có thể xin đậu 5 phút 1 lần.");
+                    Service.gI().sendThongBao(player, "Bạn chỉ có thể xin đậu 5 phút 1 lần.");
                 }
             }
         }
@@ -442,17 +442,17 @@ public class ClanService {
                                 clan.sendMessageClan(cmg);
                             }
                         } else {
-                            Service.getInstance().sendThongBao(player, "Bang hội đã đủ người");
+                            Service.gI().sendThongBao(player, "Bang hội đã đủ người");
                         }
                     } else {
-                        Service.getInstance().sendThongBao(player, "Không thể thực hiện");
+                        Service.gI().sendThongBao(player, "Không thể thực hiện");
                     }
                 }
             } else {
-                Service.getInstance().sendThongBao(player, "Không thể thực hiện");
+                Service.gI().sendThongBao(player, "Không thể thực hiện");
             }
         } catch (Exception ex) {
-            Service.getInstance().sendThongBao(player, ex.getMessage());
+            Service.gI().sendThongBao(player, ex.getMessage());
         }
     }
 
@@ -473,7 +473,7 @@ public class ClanService {
     private void createClan(Player player, byte imgId, String name) {
         if (player.clan == null) {
             if (name.length() > 30) {
-                Service.getInstance().sendThongBao(player, "Tên bang hội không được quá 30 ký tự");
+                Service.gI().sendThongBao(player, "Tên bang hội không được quá 30 ký tự");
                 return;
             }
             FlagBag flagBag = FlagBagService.gI().getFlagBag(imgId);
@@ -482,7 +482,7 @@ public class ClanService {
                     if (player.inventory.gold >= flagBag.gold) {
                         player.inventory.gold -= flagBag.gold;
                     } else {
-                        Service.getInstance().sendThongBao(player, "Bạn không đủ vàng, còn thiếu "
+                        Service.gI().sendThongBao(player, "Bạn không đủ vàng, còn thiếu "
                                 + Util.numberToMoney(flagBag.gold - player.inventory.gold) + " vàng");
                         return;
                     }
@@ -491,7 +491,7 @@ public class ClanService {
                     if (player.inventory.gem >= flagBag.gem) {
                         player.inventory.gem -= flagBag.gem;
                     } else {
-                        Service.getInstance().sendThongBao(player, "Bạn không đủ ngọc, còn thiếu "
+                        Service.gI().sendThongBao(player, "Bạn không đủ ngọc, còn thiếu "
                                 + (flagBag.gem - player.inventory.gem) + " ngọc");
                         return;
                     }
@@ -508,7 +508,7 @@ public class ClanService {
                 clan.addMemberOnline(player);
                 clan.insert();
 
-                Service.getInstance().sendFlagBag(player);
+                Service.gI().sendFlagBag(player);
                 sendMyClan(player);
             }
         }
@@ -551,6 +551,7 @@ public class ClanService {
                     for (ClanMember cm : clan.getMembers()) {
                         msg.writer().writeInt((int) cm.id);
                         msg.writer().writeShort(cm.head);
+                        msg.writer().writeShort(-1);
                         msg.writer().writeShort(cm.leg);
                         msg.writer().writeShort(cm.body);
                         msg.writer().writeUTF(cm.name);
@@ -564,11 +565,11 @@ public class ClanService {
                     player.sendMessage(msg);
                     msg.cleanup();
                 } catch (Exception e) {
-                    Service.getInstance().sendThongBao(player, e.getMessage());
+                    Service.gI().sendThongBao(player, e.getMessage());
                 }
             }
         } catch (Exception ex) {
-            Service.getInstance().sendThongBao(player, ex.getMessage());
+            Service.gI().sendThongBao(player, ex.getMessage());
 
         }
     }
@@ -594,6 +595,7 @@ public class ClanService {
                 for (ClanMember cm : player.clan.getMembers()) {
                     msg.writer().writeInt(cm.id);
                     msg.writer().writeShort(cm.head);
+                    msg.writer().writeShort(-1);
                     msg.writer().writeShort(cm.leg);
                     msg.writer().writeShort(cm.body);
                     msg.writer().writeUTF(cm.name);
@@ -645,7 +647,7 @@ public class ClanService {
             } else {
                 msg.writer().writeInt(player.clan.id);
             }
-            Service.getInstance().sendMessAllPlayerInMap(player, msg);
+            Service.gI().sendMessAllPlayerInMap(player, msg);
             msg.cleanup();
         } catch (Exception e) {
         }
@@ -690,7 +692,7 @@ public class ClanService {
                     if (player.inventory.gold >= flagBag.gold) {
                         player.inventory.gold -= flagBag.gold;
                     } else {
-                        Service.getInstance().sendThongBao(player, "Bạn không đủ vàng, còn thiếu "
+                        Service.gI().sendThongBao(player, "Bạn không đủ vàng, còn thiếu "
                                 + Util.numberToMoney(flagBag.gold - player.inventory.gold) + " vàng");
                         return;
                     }
@@ -699,7 +701,7 @@ public class ClanService {
                     if (player.inventory.gem >= flagBag.gem) {
                         player.inventory.gem -= flagBag.gem;
                     } else {
-                        Service.getInstance().sendThongBao(player, "Bạn không đủ ngọc, còn thiếu "
+                        Service.gI().sendThongBao(player, "Bạn không đủ ngọc, còn thiếu "
                                 + (flagBag.gem - player.inventory.gem) + " ngọc");
                         return;
                     }
@@ -720,7 +722,7 @@ public class ClanService {
             ClanMember cm = clan.getClanMember((int) player.id);
             if (cm != null) {
                 if (clan.isLeader(player)) {
-                    Service.getInstance().sendThongBao(player, "Phải nhường chức bang chủ trước khi rời");
+                    Service.gI().sendThongBao(player, "Phải nhường chức bang chủ trước khi rời");
                     return;
                 }
                 ClanMessage cmg = new ClanMessage(clan);
@@ -740,8 +742,8 @@ public class ClanService {
                 player.clanMember = null;
                 ClanService.gI().sendMyClan(player);
                 ClanService.gI().sendClanId(player);
-                Service.getInstance().sendFlagBag(player);
-                Service.getInstance().sendThongBao(player, "Bạn đã rời khỏi bang");
+                Service.gI().sendFlagBag(player);
+                Service.gI().sendThongBao(player, "Bạn đã rời khỏi bang");
                 ItemTimeService.gI().removeTextDoanhTrai(player);
 
                 clan.sendMyClanForAllMember();
@@ -804,8 +806,8 @@ public class ClanService {
                 plKicked.clanMember = null;
                 ClanService.gI().sendMyClan(plKicked);
                 ClanService.gI().sendClanId(plKicked);
-                Service.getInstance().sendFlagBag(plKicked);
-                Service.getInstance().sendThongBao(plKicked, "Bạn đã bị đuổi khỏi bang");
+                Service.gI().sendFlagBag(plKicked);
+                Service.gI().sendThongBao(plKicked, "Bạn đã bị đuổi khỏi bang");
                 ItemTimeService.gI().removeTextDoanhTrai(plKicked);
             } else {
                 removeClanPlayer(memberId);
@@ -857,7 +859,7 @@ public class ClanService {
                 clan.sendMessageClan(cmg);
 
             } else {
-                Service.getInstance().sendThongBao(player, "Không thể thực hiện");
+                Service.gI().sendThongBao(player, "Không thể thực hiện");
             }
         }
     }

@@ -73,14 +73,16 @@ public class Trade {
             msg.writer().writeInt((int) player2.id);
             player1.sendMessage(msg);
             msg.cleanup();
-            Service.getInstance().hideWaitDialog(player1);
-            Service.getInstance().hideWaitDialog(player2);
+            Service.gI().hideWaitDialog(player1);
+            Service.gI().hideWaitDialog(player2);
         } catch (Exception ignored) {
         }
     }
 
     public void addItemTrade(Player pl, byte index, int quantity) {
-        if (pl.getSession().actived) {
+//        System.out.println("quantity: " + quantity);
+        if (pl.getSession().actived == 1) {
+        if (true) {
             if (index == -1) {
                 if (pl.equals(this.player1)) {
                     goldTrade1 = quantity;
@@ -97,16 +99,13 @@ public class Trade {
                 if (quantity > item.quantity || quantity < 0) {
                     return;
                 }
-                if (isItemCannotTran(item)) {
-                    removeItemTrade(pl, index);
-                } else {
+                 else {
                     if (quantity > 99) {
                         int n = quantity / 99;
                         int left = quantity % 99;
                         for (int i = 0; i < n; i++) {
                             Item itemTrade = ItemService.gI().copyItem(item);
                             itemTrade.quantity = 99;
-                            itemTrade.quantityGD = 99;
                             if (pl.equals(this.player1)) {
                                 InventoryServiceNew.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
                                 itemsTrade1.add(itemTrade);
@@ -118,7 +117,6 @@ public class Trade {
                         if (left > 0) {
                             Item itemTrade = ItemService.gI().copyItem(item);
                             itemTrade.quantity = left;
-                            itemTrade.quantityGD = left;
                             if (pl.equals(this.player1)) {
                                 InventoryServiceNew.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
                                 itemsTrade1.add(itemTrade);
@@ -130,7 +128,6 @@ public class Trade {
                     } else {
                         Item itemTrade = ItemService.gI().copyItem(item);
                         itemTrade.quantity = quantity != 0 ? quantity : 1;
-                        itemTrade.quantityGD = quantity != 0 ? quantity : 1;
                         if (pl.equals(this.player1)) {
                             InventoryServiceNew.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
                             itemsTrade1.add(itemTrade);
@@ -141,14 +138,15 @@ public class Trade {
                     }
                 }
             }
-        } else {
-            Service.getInstance().sendThongBao(pl,
-                    "|5|VUI LÒNG KÍCH HOẠT TÀI KHOẢN TẠI\n|7|NROGOD.COM\n|5|ĐỂ MỞ KHÓA TÍNH NĂNG");
-            closeTab();
-            dispose();
-        }
+        } 
+        }else {
+           this.cancelTrade();
+            Service.gI().sendThongBaoFromAdmin(pl,
+                  "|5|VUI LÒNG Kích Hoạt Thành Viên!");
+            removeItemTrade(pl, index);
+        
     }
-
+    }
     private void removeItemTrade(Player pl, byte index) {
         Message msg;
         try {
@@ -157,7 +155,7 @@ public class Trade {
             msg.writer().write(index);
             pl.sendMessage(msg);
             msg.cleanup();
-            Service.getInstance().sendThongBao(pl, "Không thể giao dịch vật phẩm này");
+            Service.gI().sendThongBao(pl, "Không thể giao dịch vật phẩm này");
         } catch (Exception e) {
         }
     }
@@ -187,18 +185,19 @@ public class Trade {
                 } else {
                     return false;
                 }
-            case 5: //cải trang
+//            case 5: //cải trang
             case 6: //đậu thần
             case 7: //sách skill
             case 8: //vật phẩm nhiệm vụ
-            case 11: //flag bag
+//            case 11: //flag bag
             case 13: //bùa
             case 22: //vệ tinh
-            case 23: //ván bay
-            case 24: //ván bay vip
+//            case 23: //ván bay
+//            case 24: //ván bay vip
             case 28: //cờ
             case 31: //bánh trung thu, bánh tết
             case 32: //giáp tập luyện
+           
                 return true;
             default:
                 return false;
@@ -207,8 +206,8 @@ public class Trade {
 
     public void cancelTrade() {
         String notifiText = "Giao dịch bị hủy bỏ";
-        Service.getInstance().sendThongBao(player1, notifiText);
-        Service.getInstance().sendThongBao(player2, notifiText);
+        Service.gI().sendThongBao(player1, notifiText);
+        Service.gI().sendThongBao(player2, notifiText);
         closeTab();
         dispose();
     }
@@ -248,7 +247,7 @@ public class Trade {
                 msg.writer().writeByte(itemsTrade1.size());
                 for (Item item : itemsTrade1) {
                     msg.writer().writeShort(item.template.id);
-                    msg.writer().writeByte(item.quantity);
+                    msg.writer().writeInt(item.quantity);
                     msg.writer().writeByte(item.itemOptions.size());
                     for (Item.ItemOption io : item.itemOptions) {
                         msg.writer().writeByte(io.optionTemplate.id);
@@ -261,7 +260,7 @@ public class Trade {
                 msg.writer().writeByte(itemsTrade2.size());
                 for (Item item : itemsTrade2) {
                     msg.writer().writeShort(item.template.id);
-                    msg.writer().writeByte(item.quantity);
+                    msg.writer().writeInt(item.quantity);
                     msg.writer().writeByte(item.itemOptions.size());
                     for (Item.ItemOption io : item.itemOptions) {
                         msg.writer().writeByte(io.optionTemplate.id);
@@ -342,21 +341,21 @@ public class Trade {
         player2.iDMark.setLastTimeTrade(System.currentTimeMillis());
         switch (status) {
             case SUCCESS:
-                Service.getInstance().sendThongBao(player1, "Giao dịch thành công");
-                Service.getInstance().sendThongBao(player2, "Giao dịch thành công");
+                Service.gI().sendThongBao(player1, "Giao dịch thành công");
+                Service.gI().sendThongBao(player2, "Giao dịch thành công");
                 break;
             case FAIL_MAX_GOLD_PLAYER1:
-                Service.getInstance().sendThongBao(player1, "Giao dịch thất bại do số lượng vàng sau giao dịch vượt tối đa");
-                Service.getInstance().sendThongBao(player2, "Giao dịch thất bại do số lượng vàng " + player1.name + " sau giao dịch vượt tối đa");
+                Service.gI().sendThongBao(player1, "Giao dịch thất bại do số lượng vàng sau giao dịch vượt tối đa");
+                Service.gI().sendThongBao(player2, "Giao dịch thất bại do số lượng vàng " + player1.name + " sau giao dịch vượt tối đa");
                 break;
             case FAIL_MAX_GOLD_PLAYER2:
-                Service.getInstance().sendThongBao(player2, "Giao dịch thất bại do số lượng vàng sau giao dịch vượt tối đa");
-                Service.getInstance().sendThongBao(player1, "Giao dịch thất bại do số lượng vàng " + player2.name + " sau giao dịch vượt tối đa");
+                Service.gI().sendThongBao(player2, "Giao dịch thất bại do số lượng vàng sau giao dịch vượt tối đa");
+                Service.gI().sendThongBao(player1, "Giao dịch thất bại do số lượng vàng " + player2.name + " sau giao dịch vượt tối đa");
                 break;
             case FAIL_NOT_ENOUGH_BAG_P1:
             case FAIL_NOT_ENOUGH_BAG_P2:
-                Service.getInstance().sendThongBao(player1, "Giao dịch thất bại do 1 trong 2 không đủ ô trống trong hành trang");
-                Service.getInstance().sendThongBao(player2, "Giao dịch thất bại do 1 trong 2 không đủ ô trống trong hành trang");
+                Service.gI().sendThongBao(player1, "Giao dịch thất bại do 1 trong 2 không đủ ô trống trong hành trang");
+                Service.gI().sendThongBao(player2, "Giao dịch thất bại do 1 trong 2 không đủ ô trống trong hành trang");
                 break;
         }
     }

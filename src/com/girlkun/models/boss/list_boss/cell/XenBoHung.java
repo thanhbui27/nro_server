@@ -6,6 +6,7 @@ import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.boss.BossID;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
+import com.girlkun.services.EffectSkillService;
 import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
 import com.girlkun.services.TaskService;
@@ -25,11 +26,15 @@ public class XenBoHung extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        ItemMap it = new ItemMap(this.zone, 16, 1, this.location.x, this.location.y, plKill.id);
-        Service.getInstance().dropItemMap(this.zone, it);
+        if(Util.isTrue(50,100)){
+        ItemMap it = new ItemMap(this.zone, 1142, 1, this.location.x, this.location.y, plKill.id);
+        Service.gI().dropItemMap(this.zone, it);
+    }else  if(Util.isTrue(5,100)){
+         ItemMap it = new ItemMap(this.zone, 16, 1, this.location.x, this.location.y, plKill.id);
+        Service.gI().dropItemMap(this.zone, it);
+        }
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
-
     @Override
     public void active() {
         if (this.typePk == ConstPlayer.NON_PK) {
@@ -38,12 +43,12 @@ public class XenBoHung extends Boss {
         this.hapThu();
         this.attack();
     }
-
+   
     private void hapThu() {
         if (!Util.canDoWithTime(this.lastTimeHapThu, this.timeHapThu) || !Util.isTrue(1, 100)) {
             return;
         }
-
+    
         Player pl = this.zone.getRandomPlayerInMap();
         if (pl == null || pl.isDie()) {
             return;
@@ -55,16 +60,17 @@ public class XenBoHung extends Boss {
         this.nPoint.calPoint();
         PlayerService.gI().hoiPhuc(this, pl.nPoint.hp, 0);
         pl.injured(null, pl.nPoint.hpMax, true, false);
-        Service.getInstance().sendThongBao(pl, "Bạn vừa bị " + this.name + " hấp thu!");
+        Service.gI().sendThongBao(pl, "Bạn vừa bị " + this.name + " hấp thu!");
         this.chat(2, "Ui cha cha, kinh dị quá. " + pl.name + " vừa bị tên " + this.name + " nuốt chửng kìa!!!");
         this.chat("Haha, ngọt lắm đấy " + pl.name + "..");
         this.lastTimeHapThu = System.currentTimeMillis();
-        this.timeHapThu = Util.nextInt(10000, 20000);
+        this.timeHapThu = Util.nextInt(30000, 50000);
     }
+    
 
 }
 
 /**
  * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - Girlkun75
+ * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
  */

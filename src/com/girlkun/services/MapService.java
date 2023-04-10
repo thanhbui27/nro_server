@@ -94,13 +94,7 @@ public class MapService {
     }
 
     public Zone getMapCanJoin(Player player, int mapId, int zoneId) {
-//        if (player.getSession() != null && player.isAdmin()) {
-//            if (zoneId == -1) {
-//                return getRandomZoneByMapID(mapId);
-//            } else {
-//                return getZoneByMapIDAndZoneID(mapId, zoneId);
-//            }
-//        }
+       
         if (isMapOffline(mapId)) {
             return getMapById(mapId).zones.get(0);
         }
@@ -135,9 +129,12 @@ public class MapService {
         if (map == null) {
             return null;
         }
-        int z = Util.nextInt(0, map.zones.size() - 1);
+            
+        //int z = Util.nextInt(0, map.zones.size() - 1);
+       int z = 0;
         while (map.zones.get(z).getNumOfPlayers() >= map.zones.get(z).maxPlayer) {
-            z = Util.nextInt(0, map.zones.size() - 1);
+         //   z = Util.nextInt(0, map.zones.size() - 1);
+         z++;
         }
         return map.zones.get(z);
     }
@@ -259,7 +256,7 @@ public class MapService {
             msg.writer().writeInt((int) player.id);
             msg.writer().writeShort(player.location.x);
             msg.writer().writeShort(player.location.y);
-            Service.getInstance().sendMessAllPlayerInMap(player, msg);
+            Service.gI().sendMessAllPlayerInMap(player, msg);
             msg.cleanup();
         } catch (Exception e) {
             Logger.logException(MapService.class, e);
@@ -280,6 +277,9 @@ public class MapService {
     }
     public boolean isMapMaBu(int mapId) {
         return mapId >= 114 && mapId <= 120;
+    }
+    public boolean isMapPVP(int mapId) {
+        return mapId == 112;
     }
 
     public boolean isMapCold(Map map) {

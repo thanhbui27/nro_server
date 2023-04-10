@@ -36,8 +36,8 @@ public class DataGame {
     public static byte vsItem = 80;
     public static int vsRes = 752011;
 
-    public static String LINK_IP_PORT = "Girlkun75-1:localhost:14445:0";
-    private static final String MOUNT_NUM = "733:1,734:2,735:3,743:4,744:5,746:6,795:7,849:8,897:9,920:10";
+    public static String LINK_IP_PORT = "Arriety:sv.arriety.com:14445:0";
+    private static final String MOUNT_NUM = "733:1,734:2,735:3,743:4,744:5,746:6,795:7,849:8,897:9,920:10,1143:11,1141:15";
     public static final Map MAP_MOUNT_NUM = new HashMap();
 
     static {
@@ -56,7 +56,7 @@ public class DataGame {
     public static void sendVersionGame(MySession session) {
         Message msg;
         try {
-            msg = Service.getInstance().messageNotMap((byte) 4);
+            msg = Service.gI().messageNotMap((byte) 4);
             msg.writer().writeByte(vsData);
             msg.writer().writeByte(vsMap);
             msg.writer().writeByte(vsSkill);
@@ -113,7 +113,7 @@ public class DataGame {
     public static void updateMap(MySession session) {
         Message msg;
         try {
-            msg = Service.getInstance().messageNotMap((byte) 6);
+            msg = Service.gI().messageNotMap((byte) 6);
             msg.writer().writeByte(vsMap);
             msg.writer().writeByte(Manager.MAP_TEMPLATES.length);
             for (MapTemplate temp : Manager.MAP_TEMPLATES) {
@@ -167,7 +167,7 @@ public class DataGame {
                     msg.writer().writeByte(skillTemp.type);
                     msg.writer().writeShort(skillTemp.iconId);
                     msg.writer().writeUTF(skillTemp.damInfo);
-                    msg.writer().writeUTF("Girlkun75");
+                    msg.writer().writeUTF("Arriety");
                     if (skillTemp.id != 0) {
                         msg.writer().writeByte(skillTemp.skillss.size());
                         for (Skill skill : skillTemp.skillss) {
@@ -246,7 +246,27 @@ public class DataGame {
         } catch (Exception e) {
         }
     }
-
+public static void effData(MySession session, int id, int... idtemp) {
+        int idT = id;
+        if(idtemp.length > 0 && idtemp[0] != 0){
+            idT = idtemp[0];
+        }
+        Message msg;
+        try {
+            byte[] effData = FileIO.readFile("data/girlkun/effect/x" + session.zoomLevel + "/data/DataEffect_" + idT);
+            byte[] effImg = FileIO.readFile("data/girlkun/effect/x" + session.zoomLevel + "/img/ImgEffect_" + idT+".png");
+            msg = new Message(-66);
+            msg.writer().writeShort(id);
+            msg.writer().writeInt(effData.length);
+            msg.writer().write(effData);
+            msg.writer().writeByte(0);
+            msg.writer().writeInt(effImg.length);
+            msg.writer().write(effImg);
+            session.sendMessage(msg);
+            msg.cleanup();
+        } catch (Exception e) {
+        }
+    }
     public static void sendItemBGTemplate(MySession session, int id) {
         Message msg;
         try {

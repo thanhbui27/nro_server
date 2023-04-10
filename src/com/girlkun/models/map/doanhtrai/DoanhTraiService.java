@@ -34,7 +34,7 @@ public class DoanhTraiService {
 
     public void joinDoanhTrai(Player pl) {
         if (pl.clan == null) {
-            Service.getInstance().sendThongBao(pl, "Không thể thực hiện");
+            Service.gI().sendThongBao(pl, "Không thể thực hiện");
             return;
         }
         if (pl.clan.doanhTrai != null) {
@@ -49,7 +49,7 @@ public class DoanhTraiService {
             }
         }
         if (doanhTrai == null) {
-            Service.getInstance().sendThongBao(pl, "Doanh trại đã đầy, hãy quay lại vào lúc khác!");
+            Service.gI().sendThongBao(pl, "Doanh trại đã đầy, hãy quay lại vào lúc khác!");
             return;
         }
         doanhTrai.openDoanhTrai(pl);
@@ -58,5 +58,5 @@ public class DoanhTraiService {
 
 /**
  * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - Girlkun75
+ * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
  */

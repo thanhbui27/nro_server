@@ -19,7 +19,10 @@ public class EffectSkin {
         "Hôi quá", "Tránh ra đi thằng ở dơ", "Mùi gì kinh quá vậy?",
         "Kinh tởm quá", "Biến đi thằng ở dơ", "Kính ngài ở dơ"
     };
-
+     private static final String[] test = new String[]{
+        "Người gì mà đẹp zai zậy", "Ui anh Béo :3", "Sao anh đẹp zoai zị?"
+        
+    };
     private Player player;
 
     public EffectSkin(Player player) {
@@ -29,6 +32,7 @@ public class EffectSkin {
 
     public long lastTimeAttack;
     private long lastTimeOdo;
+    private long lastTimeTest;
     private long lastTimeXenHutHpKi;
 
     public long lastTimeAddTimeTrainArmor;
@@ -47,12 +51,12 @@ public class EffectSkin {
             updateOdo();
             updateXenHutXungQuanh();
         }
-        if (!this.player.isBoss && !this.player.isPet) {
+        if (!this.player.isBoss && !this.player.isPet &&!player.isNewPet) {
             updateTrainArmor();
         }
         if (xHPKI != 1 && Util.canDoWithTime(lastTimeXHPKI, 1800000)) {
             xHPKI = 1;
-            Service.getInstance().point(player);
+            Service.gI().point(player);
         }
         updateCTHaiTac();
     }
@@ -91,7 +95,7 @@ public class EffectSkin {
                         }
                     }
                 }
-                if (!pl.isPet && Util.canDoWithTime(lastTimeUpdateCTHT, 5000)) {
+                if (!pl.isPet &&!pl.isNewPet&& Util.canDoWithTime(lastTimeUpdateCTHT, 5000)) {
                     InventoryServiceNew.gI().sendItemBody(pl);
                 }
                 pl.effectSkin.lastTimeUpdateCTHT = System.currentTimeMillis();
@@ -139,13 +143,13 @@ public class EffectSkin {
                         hpHut += subHp;
                         mpHut += subMp;
                         PlayerService.gI().sendInfoHpMpMoney(pl);
-                        Service.getInstance().Send_Info_NV(pl);
+                        Service.gI().Send_Info_NV(pl);
                         pl.injured(null, subHp, true, false);
                     }
                     this.player.nPoint.addHp(hpHut);
                     this.player.nPoint.addMp(mpHut);
                     PlayerService.gI().sendInfoHpMpMoney(this.player);
-                    Service.getInstance().Send_Info_NV(this.player);
+                    Service.gI().Send_Info_NV(this.player);
                     this.lastTimeXenHutHpKi = System.currentTimeMillis();
                 }
             }
@@ -174,12 +178,37 @@ public class EffectSkin {
                         if (subHp >= pl.nPoint.hp) {
                             subHp = pl.nPoint.hp - 1;
                         }
-                        Service.getInstance().chat(pl, textOdo[Util.nextInt(0, textOdo.length - 1)]);
+                        Service.gI().chat(pl, textOdo[Util.nextInt(0, textOdo.length - 1)]);
                         PlayerService.gI().sendInfoHpMpMoney(pl);
-                        Service.getInstance().Send_Info_NV(pl);
+                        Service.gI().Send_Info_NV(pl);
                         pl.injured(null, subHp, true, false);
                     }
                     this.lastTimeOdo = System.currentTimeMillis();
+                }
+            }
+        } catch (Exception e) {
+            Logger.error("");
+        }
+    }
+    private void Test() {
+        try {
+            int param = this.player.nPoint.test;
+            if (param > 0) {
+                if (Util.canDoWithTime(lastTimeTest, 10000)) {
+                    List<Player> players = new ArrayList<>();
+
+                   
+                    for (Player pl : players) {
+                        int subHp = pl.nPoint.hpMax * param * 100;
+                        if (subHp >= pl.nPoint.hp) {
+                            subHp = pl.nPoint.hp + 1;
+                        }
+                        Service.gI().chat(pl, test[Util.nextInt(0, test.length + 1)]);
+                        PlayerService.gI().sendInfoHpMpMoney(pl);
+                        Service.gI().Send_Info_NV(pl);
+                        pl.injured(null, subHp, true, false);
+                    }
+                    this.lastTimeTest = System.currentTimeMillis();
                 }
             }
         } catch (Exception e) {
@@ -236,7 +265,7 @@ public class EffectSkin {
             }
             this.lastTimeSubTimeTrainArmor = System.currentTimeMillis();
             InventoryServiceNew.gI().sendItemBags(player);
-            Service.getInstance().point(this.player);
+            Service.gI().point(this.player);
         }
     }
 

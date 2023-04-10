@@ -1,5 +1,6 @@
 package com.girlkun.models.map;
 
+import com.girlkun.consts.ConstPlayer;
 import com.girlkun.consts.ConstTask;
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.item.Item;
@@ -18,7 +19,9 @@ import com.girlkun.services.PlayerService;
 import com.girlkun.services.Service;
 import com.girlkun.services.TaskService;
 import com.girlkun.services.InventoryServiceNew;
+import com.girlkun.services.NgocRongNamecService;
 import com.girlkun.services.func.TopService;
+import com.girlkun.models.npc.specialnpc.BillEgg;
 import com.girlkun.utils.FileIO;
 import com.girlkun.utils.Logger;
 import com.girlkun.utils.Util;
@@ -66,7 +69,7 @@ public class Zone {
     private void udPlayer() {
         for (int i = this.notBosses.size() - 1; i >= 0; i--) {
             Player pl = this.notBosses.get(i);
-            if (!pl.isPet) {
+            if (!pl.isPet && !pl.isNewPet) {
                 this.notBosses.get(i).update();
             }
         }
@@ -135,13 +138,13 @@ public class Zone {
             if (!player.isBoss && !this.notBosses.contains(player)) {
                 this.notBosses.add(player);
             }
-            if (!player.isBoss && !player.isPet && !this.players.contains(player)) {
+            if (!player.isBoss &&!player.isNewPet&& !player.isPet && !this.players.contains(player)) {
                 this.players.add(player);
             }
             if (player.isBoss) {
                 this.bosses.add(player);
             }
-            if (player.isPet) {
+            if (player.isPet || player.isNewPet) {
                 this.pets.add(player);
             }
         }
@@ -205,7 +208,10 @@ public class Zone {
         if (itemMap != null) {
             if (itemMap.playerId == player.id || itemMap.playerId == -1) {
                 Item item = ItemService.gI().createItemFromItemMap(itemMap);
-                boolean picked = InventoryServiceNew.gI().addItemBag(player, item);
+                 boolean picked=true;
+                if(!ItemMapService.gI().isNamecBall(item.template.id)){
+                    picked = InventoryServiceNew.gI().addItemBag(player, item);
+                }
                 if (picked) {
                     int itemType = item.template.type;
                     Message msg;
@@ -221,6 +227,38 @@ public class Zone {
                                 break;
                             default:
                                 switch (item.template.id) {
+                                    case 362:
+                                        Service.gI().sendThongBao(player, "Chỉ là cục đá thôi, nhặt làm gì?");
+                                        break;
+                                    case 353:
+                                    case 354:
+                                    case 355:
+                                    case 356:
+                                    case 357:
+                                    case 358:
+                                    case 359:
+                                        if(System.currentTimeMillis() >= NgocRongNamecService.gI().tOpenNrNamec) {
+                                            if(player.idNRNM == -1){
+                                                PlayerService.gI().changeAndSendTypePK(player, ConstPlayer.PK_ALL);
+                                                player.idNRNM = item.template.id;
+                                                NgocRongNamecService.gI().mapNrNamec[item.template.id - 353] = player.zone.map.mapId;
+                                                NgocRongNamecService.gI().nameNrNamec[item.template.id - 353] = player.zone.map.mapName;
+                                                NgocRongNamecService.gI().zoneNrNamec[item.template.id - 353] = (byte) player.zone.zoneId;
+                                                NgocRongNamecService.gI().pNrNamec[item.template.id - 353] = player.name;
+                                                NgocRongNamecService.gI().idpNrNamec[item.template.id - 353] = (int) player.id;
+                                                player.lastTimePickNRNM = System.currentTimeMillis();
+                                                Service.gI().sendFlagBag(player);
+                                                msg.writer().writeUTF("Bạn đã nhặt được "+item.template.name);
+                                                msg.writer().writeShort(item.quantity);
+                                                player.sendMessage(msg);
+                                                msg.cleanup();
+                                            }else{
+                                                Service.gI().sendThongBao(player, "Bạn đã mang ngọc rồng trên người");
+                                            }
+                                        }else{
+                                            Service.gI().sendThongBao(player, "Chỉ là cục đá thôi, nhặt làm gì?");
+                                        }
+                                        break;
                                     case 73:
                                         msg.writer().writeUTF("");
                                         msg.writer().writeShort(item.quantity);
@@ -228,7 +266,7 @@ public class Zone {
                                         msg.cleanup();
                                         break;
                                     case 74:
-                                        msg.writer().writeUTF("Mày mới vừa ăn " + item.template.name);
+                                        msg.writer().writeUTF("Bạn mới vừa ăn " + item.template.name);
                                         break;
                                     case 78:
                                         msg.writer().writeUTF("Wow, một cậu bé dễ thương!");
@@ -240,7 +278,7 @@ public class Zone {
                                         if (item.template.type >= 0 && item.template.type < 5) {
                                             msg.writer().writeUTF(item.template.name + " ngon ngon...");
                                         } else {
-                                            msg.writer().writeUTF("Mày mới nhặt được " + item.template.name);
+                                            msg.writer().writeUTF("Bạn mới nhặt được " + item.template.name);
                                         }
                                         InventoryServiceNew.gI().sendItemBags(player);
                                         break;
@@ -250,7 +288,7 @@ public class Zone {
                         msg.writer().writeShort(item.quantity);
                         player.sendMessage(msg);
                         msg.cleanup();
-                        Service.getInstance().sendToAntherMePickItem(player, itemMapId);
+                        Service.gI().sendToAntherMePickItem(player, itemMapId);
                         if (!(this.map.mapId >= 21 && this.map.mapId <= 23
                                 && itemMap.itemTemplate.id == 74
                                 || this.map.mapId >= 42 && this.map.mapId <= 44
@@ -263,20 +301,20 @@ public class Zone {
                 } else {
                     if (!ItemMapService.gI().isBlackBall(item.template.id)) {
                         String text = "Hành trang không còn chỗ trống";
-                        Service.getInstance().sendThongBao(player, text);
+                        Service.gI().sendThongBao(player, text);
                     }
                 }
 //                if (!picked) {
 //                    ItemMap itm = new ItemMap(itemMap);
 //                    itm.x = player.location.x + Util.nextInt(-20, 20);
 //                    itm.y = itm.zone.map.yPhysicInTop(itm.x, player.location.y);
-//                    Service.getInstance().dropItemMap(player.zone, itm);
+//                    Service.gI().dropItemMap(player.zone, itm);
 //                }
             } else {
-                Service.getInstance().sendThongBao(player, "Không thể nhặt vật phẩm của người khác");
+                Service.gI().sendThongBao(player, "Không thể nhặt vật phẩm của người khác");
             }
         } else {
-            Service.getInstance().sendThongBao(player, "Không thể thực hiện");
+            Service.gI().sendThongBao(player, "Không thể thực hiện");
         }
         TaskService.gI().checkDoneTaskPickItem(player, itemMap);
         TaskService.gI().checkDoneSideTaskPickItem(player, itemMap);
@@ -308,10 +346,11 @@ public class Zone {
                         infoPlayer(((Pet) player).master, player);
                     }
                 } else {
-                    for (Player pl : this.players) {
-                        if (!player.equals(pl)) {
+                    for(int i = 0 ; i < players.size();i++){
+                        Player pl = players.get(i);
+                       if (!player.equals(pl)) {
                             infoPlayer(pl, player);
-                        }
+                        }        
                     }
                 }
             }
@@ -331,7 +370,7 @@ public class Zone {
                 }
             } else {
                 for (Player pl : this.humanoids) {
-                    if (!player.equals(pl)) {
+                    if (pl != null && !player.equals(pl)) {
                         infoPlayer(player, pl);
                     }
                 }
@@ -373,7 +412,7 @@ public class Zone {
             } else {
                 msg.writer().writeInt(-1);
             }
-            msg.writer().writeByte(Service.getInstance().getCurrLevel(plInfo));
+            msg.writer().writeByte(Service.gI().getCurrLevel(plInfo));
             msg.writer().writeBoolean(false);
             msg.writer().writeByte(plInfo.typePk);
             msg.writer().writeByte(plInfo.gender);
@@ -400,17 +439,21 @@ public class Zone {
             msg.writer().writeByte(plInfo.cFlag);
             msg.writer().writeByte(0);
 
-//            if (!plInfo.isPet && !plInfo.isBoss && plInfo.isAdmin()) {
-            msg.writer().writeShort(plInfo.getAura()); //idauraeff
-            msg.writer().writeByte(plInfo.getEffFront()); //seteff
-//            }
+            if (plInfo.isPl()) {
+                msg.writer().writeShort(plInfo.idAura); //idauraeff
+                msg.writer().writeShort(plInfo.getAura()); //idauraeff
+                msg.writer().writeByte(plInfo.getEffFront()); //seteff
+            }
 
             plReceive.sendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
 //            Logger.logException(MapService.class, e);
         }
-        Service.getInstance().sendFlagPlayerToMe(plReceive, plInfo);
+        Service.gI().sendFlagPlayerToMe(plReceive, plInfo);
+        if (!plInfo.isBoss && !plInfo.isPet &&!plInfo.isNewPet) {
+            Service.gI().sendPetFollowToMe(plReceive, plInfo);
+        }
 
         try {
             if (plInfo.isDie()) {

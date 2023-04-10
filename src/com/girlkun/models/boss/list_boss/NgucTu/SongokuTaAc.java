@@ -7,6 +7,7 @@ package com.girlkun.models.boss.list_boss.NgucTu;
 
 import com.girlkun.models.boss.Boss;
 import com.girlkun.models.boss.BossID;
+import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.boss.BossesData;
 import com.girlkun.models.map.ItemMap;
 import com.girlkun.models.player.Player;
@@ -19,7 +20,7 @@ import java.util.Random;
 
 /**
  *
- * @author Administrator
+ *@Stole By Arriety
  */
 public class SongokuTaAc extends Boss {
 
@@ -29,42 +30,25 @@ public class SongokuTaAc extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        int[] itemDos = new int[]{555, 557, 559, 556, 558, 560, 562, 564, 566, 563, 565, 567};
-        int[] NRs = new int[]{15, 16};
+       int[] itemDos = new int[]{1115,1116,1117,1118,1119};
+        int[] NRs = new int[]{17, 18};
         int randomDo = new Random().nextInt(itemDos.length);
         int randomNR = new Random().nextInt(NRs.length);
         if (Util.isTrue(15, 100)) {
-            if (Util.isTrue(1, 5)) {
-                Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, 561, 1, this.location.x, this.location.y, plKill.id));
+            if (Util.isTrue(1, 50)) {
+                Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, 561, 1, this.location.x, this.location.y, plKill.id));
                 return;
             }
-            Service.getInstance().dropItemMap(this.zone, Util.ratiItem(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
-        } else {
-            Service.getInstance().dropItemMap(this.zone, new ItemMap(zone, NRs[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
+            Service.gI().dropItemMap(this.zone, Util.ratiItem(zone, itemDos[randomDo], 1, this.location.x, this.location.y, plKill.id));
+         } else if (Util.isTrue(50, 100)) {
+            Service.gI().dropItemMap(this.zone, new ItemMap(zone, NRs[randomNR], 1, this.location.x, zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id));
         }
     }
-
-//    @Override
-//    public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
-//        if (!this.isDie()) {
-//            if (!piercing && Util.isTrue(this.nPoint.tlNeDon, 100)) {
-//                this.chat("Xí hụt");
-//                return 0;
-//            }
-//            damage = this.nPoint.subDameInjureWithDeff(damage);
-//            if (!piercing && effectSkill.isShielding) {
-//                if (damage > nPoint.hpMax) {
-//                    EffectSkillService.gI().breakShield(this);
-//                }
-//                damage = 1;
-//            }
-//            if (damage > 1000000) {
-//                damage = 1000000;
-//            }
-//            return damage;
-//        } else {
-//            return 0;
-//        }
-//    }
+@Override
+public void leaveMap(){
+    super.leaveMap();
+    super.dispose();
+    BossManager.gI().removeBoss(this);
+}
 
 }

@@ -99,13 +99,13 @@ public class Mob {
                 this.sendMobStillAliveAffterAttacked(damage, plAtt != null ? plAtt.nPoint.isCrit : false);
             }
             if (plAtt != null) {
-                Service.getInstance().addSMTN(plAtt, (byte) 2, getTiemNangForPlayer(plAtt, damage), true);
+                Service.gI().addSMTN(plAtt, (byte) 2, getTiemNangForPlayer(plAtt, damage), true);
             }
         }
     }
 
     public long getTiemNangForPlayer(Player pl, long dame) {
-        int levelPlayer = Service.getInstance().getCurrLevel(pl);
+        int levelPlayer = Service.gI().getCurrLevel(pl);
         int n = levelPlayer - this.level;
         long pDameHit = dame * 100 / point.getHpFull();
         long tiemNang = pDameHit * maxTiemNang / 100;
@@ -133,6 +133,9 @@ public class Mob {
             tiemNang = 1;
         }
         tiemNang = (int) pl.nPoint.calSucManhTiemNang(tiemNang);
+        if (pl.zone.map.mapId == 122 || pl.zone.map.mapId == 123 || pl.zone.map.mapId == 124){
+            tiemNang *= 20;
+        }
         return tiemNang;
     }
 
@@ -142,7 +145,7 @@ public class Mob {
                 Message msg = new Message(102);
                 msg.writer().writeByte(5);
                 msg.writer().writeShort(this.zone.getPlayers().get(0).location.x);
-                Service.getInstance().sendMessAllPlayerInMap(zone, msg);
+                Service.gI().sendMessAllPlayerInMap(zone, msg);
                 msg.cleanup();
             } catch (Exception e) {
             }
@@ -206,7 +209,7 @@ public class Mob {
     }
 
     private void sendMobAttackMe(Player player, int dame) {
-        if (!player.isPet) {
+        if (!player.isPet &&!player.isNewPet) {
             Message msg;
             try {
                 msg = new Message(-11);
@@ -226,7 +229,7 @@ public class Mob {
             msg.writer().writeByte(this.id);
             msg.writer().writeInt((int) player.id);
             msg.writer().writeInt(player.nPoint.hp);
-            Service.getInstance().sendMessAnotherNotMeInMap(player, msg);
+            Service.gI().sendMessAnotherNotMeInMap(player, msg);
             msg.cleanup();
         } catch (Exception e) {
         }
@@ -246,7 +249,7 @@ public class Mob {
             msg.writer().writeByte(this.tempId);
             msg.writer().writeByte(lvMob);
             msg.writer().writeInt(this.point.hp);
-            Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
+            Service.gI().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
         } catch (Exception e) {
         }
@@ -261,7 +264,7 @@ public class Mob {
             msg.writer().writeInt(dameHit);
             msg.writer().writeBoolean(plKill.nPoint.isCrit); // crit
             List<ItemMap> items = mobReward(plKill, this.dropItemTask(plKill), msg);
-            Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
+            Service.gI().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
             hutItem(plKill, items);
         } catch (Exception e) {
@@ -269,7 +272,7 @@ public class Mob {
     }
 
     private void hutItem(Player player, List<ItemMap> items) {
-        if (!player.isPet) {
+        if (!player.isPet&&!player.isNewPet) {
             if (player.charms.tdThuHut > System.currentTimeMillis()) {
                 for (ItemMap item : items) {
                     if (item.itemTemplate.id != 590) {
@@ -292,7 +295,7 @@ public class Mob {
 //        nplayer
         List<ItemMap> itemReward = new ArrayList<>();
         try {
-            if ((!player.isPet && player.getSession().actived && player.setClothes.setDHD == 5) || (player.isPet && ((Pet) player).master.getSession().actived && ((Pet) player).setClothes.setDHD == 5)) {
+            if ((!player.isPet && player.getSession().actived == 1 && player.setClothes.setDHD == 5) || (player.isPet && ((Pet) player).master.getSession().actived == 1 && ((Pet) player).setClothes.setDHD == 5)) {
                 byte random = 1;
                 if (Util.isTrue(5, 100)) {
                     random = 2;
@@ -301,7 +304,7 @@ public class Mob {
                 i.quantity = random;
                 InventoryServiceNew.gI().addItemBag(player, i);
                 InventoryServiceNew.gI().sendItemBags(player);
-                Service.getInstance().sendThongBao(player, "Bạn vừa nhận được " + random + " hồng ngọc");
+                Service.gI().sendThongBao(player, "Bạn vừa nhận được " + random + " hồng ngọc");
             }
 
             itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10),
@@ -345,10 +348,14 @@ public class Mob {
                 list.add(itemMap);
             }
         }
-        if (player.itemTime.isUseMayDo && Util.isTrue(15, 100) && this.tempId > 57 && this.tempId < 66) {
+        if (player.itemTime.isUseMayDo && Util.isTrue(21, 100) && this.tempId > 57 && this.tempId < 66) {
             list.add(new ItemMap(zone, 380, 1, x, player.location.y, player.id));
+        }// vat phẩm rơi khi user maaáy dò adu hoa r o day ti code choa
+                if (player.itemTime.isUseMayDo2 && Util.isTrue(7, 100) && this.tempId > 1 && this.tempId < 81) {
+            list.add(new ItemMap(zone, 2036, 1, x, player.location.y, player.id));// cai nay sua sau nha
         }
-//        if (!player.isPet && player.getSession().actived && Util.isTrue(15, 100)) {
+        
+//        if (player.isPet && player.getSession().actived && Util.isTrue(15, 100)) {
 //            list.add(new ItemMap(zone, 610, 1, x, player.location.y, player.id));
 //        }
         return list;
@@ -380,7 +387,7 @@ public class Mob {
             msg.writer().writeInt(dameHit);
             msg.writer().writeBoolean(crit); // chí mạng
             msg.writer().writeInt(-1);
-            Service.getInstance().sendMessAllPlayerInMap(this.zone, msg);
+            Service.gI().sendMessAllPlayerInMap(this.zone, msg);
             msg.cleanup();
         } catch (Exception e) {
         }

@@ -31,7 +31,7 @@ public class MenuController {
         if (npc != null) {
             npc.openBaseMenu(player);
         } else {
-            Service.getInstance().hideWaitDialog(player);
+            Service.gI().hideWaitDialog(player);
         }
     }
 
@@ -52,7 +52,7 @@ public class MenuController {
                 if (npc != null) {
                     npc.confirmMenu(player, select);
                 } else {
-                    Service.getInstance().hideWaitDialog(player);
+                    Service.gI().hideWaitDialog(player);
                 }
                 break;
         }
