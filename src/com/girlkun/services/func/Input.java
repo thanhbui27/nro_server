@@ -381,7 +381,7 @@ public class Input {
     }
     public void createFormDoiTVSangRuby(Player pl) {
         try {
-            createForm(pl, DOI_VANG_SANG_RUBY, "Số lượng thòi vàng bạn đang có: " + InventoryServiceNew.gI().findItem(pl.inventory.itemsBag, 457).quantity + "\nNhập số ruby muốn đổi (1 thỏi vàng = 1 ruby):", new SubInput("Số ruby muốn đổi", ANY));
+            createForm(pl, DOI_VANG_SANG_RUBY, "Số lượng thòi vàng bạn đang có: " + InventoryServiceNew.gI().findItem(pl.inventory.itemsBag, 457).quantity + "\nNhập số ruby muốn đổi (1 thỏi vàng = 20 ruby):", new SubInput("Số thỏi vàng muốn đổi", ANY));
 
         } catch (Exception e) {
         }

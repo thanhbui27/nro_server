@@ -247,6 +247,7 @@ public class ConstNpc {
 
     //index menu thượng đế
     public static final int MENU_CHOOSE_LUCKY_ROUND = 500;
+    public static final int MENU_DOI_DO_HD = 700;
 
     //index menu cui
     public static final int MENU_FIND_KUKU = 501;
