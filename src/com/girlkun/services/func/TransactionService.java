@@ -15,7 +15,6 @@ import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class TransactionService implements Runnable {
 
     private static final int TIME_DELAY_TRADE = 1000;
@@ -58,6 +57,10 @@ public class TransactionService implements Runnable {
                         if (trade == null) {
                             trade = PLAYER_TRADE.get(plMap);
                         }
+                        if (pl.session.actived == 0) {
+                            Service.gI().sendThongBao(pl, "Chưa mở thành viên!!");
+                            return;
+                        }
                         if (trade == null) {
                             if (action == SEND_INVITE_TRADE) {
                                 if (Util.canDoWithTime(pl.iDMark.getLastTimeTrade(), TIME_DELAY_TRADE)
@@ -80,10 +83,15 @@ public class TransactionService implements Runnable {
                                     }
                                     pl.iDMark.setLastTimeTrade(System.currentTimeMillis());
                                     pl.iDMark.setPlayerTradeId((int) plMap.id);
-                                    sendInviteTrade(pl, plMap);
+                                    if (pl.session.actived == 1 && plMap.session.actived == 1) {
+                                        sendInviteTrade(pl, plMap);
+                                        return;
+                                    }
+                                    Service.gI().sendThongBao(pl, "Bạn kia chưa mở thành viên!!");
                                 } else {
                                     Service.gI().sendThongBao(pl, "Thử lại sau " +
-                                            TimeUtil.getTimeLeft(Math.max(pl.iDMark.getLastTimeTrade(), plMap.iDMark.getLastTimeTrade()), TIME_DELAY_TRADE / 1000));
+                                            TimeUtil.getTimeLeft(Math.max(pl.iDMark.getLastTimeTrade(),
+                                                    plMap.iDMark.getLastTimeTrade()), TIME_DELAY_TRADE / 1000));
                                 }
                             } else {
                                 if (plMap.iDMark.getPlayerTradeId() == pl.id) {
@@ -100,7 +108,7 @@ public class TransactionService implements Runnable {
                     if (trade != null) {
                         byte index = msg.reader().readByte();
                         int quantity = msg.reader().readInt();
-                        if (quantity == 0) {//do
+                        if (quantity == 0) {// do
                             quantity = 1;
                         }
                         if (index != -1 && quantity > Trade.QUANLITY_MAX) {
@@ -171,16 +179,16 @@ public class TransactionService implements Runnable {
 
     @Override
     public void run() {
-//        while (true) {
-//            try {
-//                long st = System.currentTimeMillis();
-//                Set<Map.Entry<Player, Trade>> entrySet = PLAYER_TRADE.entrySet();
-//                for (Map.Entry entry : entrySet) {
-//                    ((Trade) entry.getValue()).update();
-//                }
-//                Thread.sleep(300 - (System.currentTimeMillis() - st));
-//            } catch (Exception e) {
-//            }
-//        }
+        // while (true) {
+        // try {
+        // long st = System.currentTimeMillis();
+        // Set<Map.Entry<Player, Trade>> entrySet = PLAYER_TRADE.entrySet();
+        // for (Map.Entry entry : entrySet) {
+        // ((Trade) entry.getValue()).update();
+        // }
+        // Thread.sleep(300 - (System.currentTimeMillis() - st));
+        // } catch (Exception e) {
+        // }
+        // }
     }
 }

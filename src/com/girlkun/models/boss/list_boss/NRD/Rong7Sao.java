@@ -27,12 +27,12 @@ public class Rong7Sao extends Boss {
                 this.chat("Xí hụt");
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage/7);
+            damage = this.nPoint.subDameInjureWithDeff(damage/3);
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                  damage = damage/4;
+                  damage = damage/2;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {

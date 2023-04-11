@@ -46,6 +46,10 @@ public class ShopServiceNew {
         try {
             Shop shop = this.getShop(tagName);
             shop = this.resolveShop(player, shop, allGender);
+            if (tagName.equals("SANTA_RUBY")) {
+                openShopType3(player, shop);
+                return;
+            }
             switch (shop.typeShop) {
                 case NORMAL_SHOP:
                     openShopType0(player, shop);

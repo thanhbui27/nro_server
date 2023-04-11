@@ -43,7 +43,7 @@ public class BlackGokuTl extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = 1;
+                damage = damage/2;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {

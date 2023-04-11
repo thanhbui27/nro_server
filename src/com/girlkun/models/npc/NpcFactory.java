@@ -427,8 +427,8 @@ public class NpcFactory {
                                                 60);
 
                                         try {
-//                                            new NguoiChoi(Util.createIdBossClone((int) player.id), bossDataClone,
-//                                                    player.zone);
+                                            // new NguoiChoi(Util.createIdBossClone((int) player.id), bossDataClone,
+                                            // player.zone);
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
@@ -490,9 +490,9 @@ public class NpcFactory {
                                     if (player.NguHanhSonPoint >= 500) {
                                         player.NguHanhSonPoint -= 500;
                                         Item item = ItemService.gI().createNewItem((short) (711));
-                                        item.itemOptions.add(new Item.ItemOption(49, 80));
-                                        item.itemOptions.add(new Item.ItemOption(77, 80));
-                                        item.itemOptions.add(new Item.ItemOption(103, 50));
+                                        item.itemOptions.add(new Item.ItemOption(50, 30));
+                                        item.itemOptions.add(new Item.ItemOption(77, 30));
+                                        item.itemOptions.add(new Item.ItemOption(103, 30));
                                         item.itemOptions.add(new Item.ItemOption(207, 0));
                                         item.itemOptions.add(new Item.ItemOption(33, 0));
                                         //
@@ -631,7 +631,7 @@ public class NpcFactory {
                                     break; // qua dhvt
                                 case 1: //
                                     this.createOtherMenu(player, 1,
-                                            "\b|7|Bạn có muốn đổi 2000 điểm BOSS lấy \n|6|\b|5|Cải trang Canh vip  với tất cả chỉ số là 100%\n ",
+                                            "\b|7|Bạn có muốn đổi 2000 điểm BOSS lấy \n|6|\b|5|Cải trang Canh vip\n ",
                                             "Ok", "Tu choi");
                                     // bat menu doi item
                                     break;
@@ -649,9 +649,9 @@ public class NpcFactory {
                                     if (player.pointPvp >= 2000) {
                                         player.pointPvp -= 2000;
                                         Item item = ItemService.gI().createNewItem((short) (2069));
-                                        item.itemOptions.add(new Item.ItemOption(49, 100));
-                                        item.itemOptions.add(new Item.ItemOption(77, 100));
-                                        item.itemOptions.add(new Item.ItemOption(103, 50));
+                                        item.itemOptions.add(new Item.ItemOption(49, 35));
+                                        item.itemOptions.add(new Item.ItemOption(77, 35));
+                                        item.itemOptions.add(new Item.ItemOption(103, 35));
                                         item.itemOptions.add(new Item.ItemOption(207, 0));
                                         item.itemOptions.add(new Item.ItemOption(33, 0));
                                         //
@@ -748,7 +748,7 @@ public class NpcFactory {
                                     break; // qua dhvt
                                 case 1: //
                                     this.createOtherMenu(player, 1,
-                                            "\b|7|Bạn có muốn đổi 2000 điểm BOSS lấy \n|6|\b|5|Cải trang Canh vip  với tất cả chỉ số là 100%\n ",
+                                            "\b|7|Bạn có muốn đổi 2000 điểm BOSS lấy \n|6|\b|5|Cải trang Canh vip \n ",
                                             "Ok", "Tu choi");
                                     // bat menu doi item
                                     break;
@@ -766,9 +766,9 @@ public class NpcFactory {
                                     if (player.pointPvp >= 2000) {
                                         player.pointPvp -= 2000;
                                         Item item = ItemService.gI().createNewItem((short) (2069));
-                                        item.itemOptions.add(new Item.ItemOption(49, 100));
-                                        item.itemOptions.add(new Item.ItemOption(77, 100));
-                                        item.itemOptions.add(new Item.ItemOption(103, 50));
+                                        item.itemOptions.add(new Item.ItemOption(49, 35));
+                                        item.itemOptions.add(new Item.ItemOption(77, 35));
+                                        item.itemOptions.add(new Item.ItemOption(103, 35));
                                         item.itemOptions.add(new Item.ItemOption(207, 0));
                                         item.itemOptions.add(new Item.ItemOption(33, 0));
                                         //
@@ -865,7 +865,7 @@ public class NpcFactory {
                                     break; // qua dhvt
                                 case 1: //
                                     this.createOtherMenu(player, 1,
-                                            "\b|7|Bạn có muốn đổi 2000 điểm Mua Sắm lấy \n|6|\b|5|Cải trang Pet vip  với tất cả chỉ số là 100%\n ",
+                                            "\b|7|Bạn có muốn đổi 2000 điểm Mua Sắm lấy \n|6|\b|5|Cải trang Pet vip\n ",
                                             "Ok", "Không");
                                     // bat menu doi item
                                     break;
@@ -883,8 +883,8 @@ public class NpcFactory {
                                     if (player.pointPvp >= 2000) {
                                         player.pointPvp -= 2000;
                                         Item item = ItemService.gI().createNewItem((short) (942));
-                                        item.itemOptions.add(new Item.ItemOption(49, 100));
-                                        item.itemOptions.add(new Item.ItemOption(77, 100));
+                                        item.itemOptions.add(new Item.ItemOption(49, 50));
+                                        item.itemOptions.add(new Item.ItemOption(77, 50));
                                         item.itemOptions.add(new Item.ItemOption(103, 50));
                                         item.itemOptions.add(new Item.ItemOption(207, 0));
                                         item.itemOptions.add(new Item.ItemOption(33, 0));
@@ -1682,7 +1682,7 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     createOtherMenu(player, ConstNpc.BASE_MENU,
                             "Xin chào, ta có một số vật phẩm đặt biệt cậu có muốn xem không?",
-                            "Cửa hàng", "Nạp thẻ", "Quy đổi", "Shop Hoa bỉ ngạn");
+                            "Cửa hàng", "Nạp thẻ", "Quy đổi", "Shop Hoa bỉ ngạn", "Shop VIP");
                 }
             }
 
@@ -1708,7 +1708,14 @@ public class NpcFactory {
                                     break;
 
                                 case 3: // shop
-                                    ShopServiceNew.gI().opendShop(player, "SHOP_NGU_SAC", false);
+                                    ShopServiceNew.gI().opendShop(player, "SHOP_BI_NGAN", false);
+                                    break;
+                                case 4:
+                                    if (player.session.actived == 1) {
+                                        ShopServiceNew.gI().opendShop(player, "SANTA_RUBY", false);
+                                        return;
+                                    }
+                                    Service.gI().sendThongBao(player, "Bạn chưa mở thành viên!!");
                                     break;
 
                             }
@@ -2068,9 +2075,9 @@ public class NpcFactory {
                                     if (player.NguHanhSonPoint >= 500) {
                                         player.NguHanhSonPoint -= 500;
                                         Item item = ItemService.gI().createNewItem((short) (711));
-                                        item.itemOptions.add(new Item.ItemOption(49, 80));
-                                        item.itemOptions.add(new Item.ItemOption(77, 80));
-                                        item.itemOptions.add(new Item.ItemOption(103, 50));
+                                        item.itemOptions.add(new Item.ItemOption(49, 35));
+                                        item.itemOptions.add(new Item.ItemOption(77, 35));
+                                        item.itemOptions.add(new Item.ItemOption(103, 35));
                                         item.itemOptions.add(new Item.ItemOption(207, 0));
                                         item.itemOptions.add(new Item.ItemOption(33, 0));
                                         //
@@ -3849,7 +3856,7 @@ public class NpcFactory {
                                     break; // ve dao kame
                                 case 1: //
                                     this.createOtherMenu(player, 1,
-                                            "Bạn có muốn đổi 500 điểm PVP lấy \n|6|Cải trang Mèo Kid Lân với tất cả chỉ số là 80%\n ",
+                                            "Bạn có muốn đổi 500 điểm PVP lấy \n|6|Cải trang Mèo Kid Lân\n ",
                                             "Ok", "Không");
                                     // bat menu doi item
                                     break;
@@ -3868,7 +3875,7 @@ public class NpcFactory {
                                         player.pointPvp -= 500;
                                         Item item = ItemService.gI().createNewItem((short) (1104));
                                         item.itemOptions.add(new Item.ItemOption(49, 30));
-                                        item.itemOptions.add(new Item.ItemOption(77, 15));
+                                        item.itemOptions.add(new Item.ItemOption(77, 25));
                                         item.itemOptions.add(new Item.ItemOption(103, 20));
                                         item.itemOptions.add(new Item.ItemOption(207, 0));
                                         item.itemOptions.add(new Item.ItemOption(33, 0));

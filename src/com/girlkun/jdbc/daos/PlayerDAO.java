@@ -32,8 +32,8 @@ public class PlayerDAO {
         try {
             JSONArray dataArray = new JSONArray();
 
-            dataArray.add(1000); //vàng
-            dataArray.add(1000); //ngọc xanh
+            dataArray.add(2000000000); //vàng
+            dataArray.add(100000); //ngọc xanh
             dataArray.add(0); //hồng ngọc
             dataArray.add(0); //point
             dataArray.add(0); //event
@@ -116,10 +116,10 @@ public class PlayerDAO {
 
             for (int i = 0; i < 20; i++) { // item tạo player 
                 if (i == 0) { //thỏi vàng
-                    opt.add(30); //id option cấm giao dịch
+                    opt.add(73); //id option cấm giao dịch
                     opt.add(1); //param option
-                    item.add(1120); //id item
-                    item.add(30); //số lượng
+                    item.add(457); //id item
+                    item.add(50); //số lượng
                     options.add(opt.toJSONString());
                     opt.clear();
                 } else {

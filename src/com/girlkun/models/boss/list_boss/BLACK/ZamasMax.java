@@ -62,7 +62,7 @@ public class ZamasMax extends Boss {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage/4;
+                damage = damage/2;
             }
             this.nPoint.subHP(damage);
             if (isDie()) {
