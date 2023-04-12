@@ -1710,12 +1710,13 @@ public class NpcFactory {
                                     ShopServiceNew.gI().opendShop(player, "SHOP_BI_NGAN", false);
                                     break;
                                 case 4:
-                                    if (player.session.actived == 1) {
+                                    // if (player.session.actived == 1) {
                                         ShopServiceNew.gI().opendShop(player, "SANTA_RUBY", false);
-                                        return;
-                                    }
-                                    Service.gI().sendThongBao(player, "Bạn chưa mở thành viên!!");
-                                    break;
+                                        // return;
+                                        break;
+                                    // }
+                                    // Service.gI().sendThongBao(player, "Bạn chưa mở thành viên!!");
+                                    // break;
 
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.NAP_THE) {
