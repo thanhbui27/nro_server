@@ -527,7 +527,7 @@ public class Service {
 
             }
             if (text.equals("menu")) {
-                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Quản trị admin Arriety: " + Client.gI().getPlayers().size() + "\n",
+                NpcService.gI().createMenuConMeo(player, ConstNpc.MENU_ADMIN, -1, "Quản trị admin Noob: " + Client.gI().getPlayers().size() + "\n",
                         "Ngọc rồng", "Đệ tử", "Bảo trì", "Tìm kiếm\nngười chơi", "Boss","Giftcode", "Đóng");
                 return;
 
@@ -1478,19 +1478,20 @@ private void activeNamecShenron(Player pl) {
         } catch (Exception e) {
         }
     }
-    public void doiTVSangRuby(Player player, String soluong) {
+
+    public void doiTVSangRuby(Player player, String soluongTv) {
         try {
-            int sl = Integer.parseInt(soluong);
+            int sl = Integer.parseInt(soluongTv);
             Item thoivang = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 457);
             if (thoivang.quantity < sl) {
-                Service.getInstance().sendThongBao(player, "Không đủ thỏi vàng để đổi: " + sl + " hồng ngọc");
+                Service.getInstance().sendThongBao(player, "Không đủ thỏi vàng để đổi: " + sl*20 + " hồng ngọc");
                 return;
             }
-            player.inventory.ruby += sl;
+            player.inventory.ruby += sl*20;
             Service.getInstance().sendMoney(player);
             InventoryServiceNew.gI().subQuantityItemsBag(player, thoivang, sl);
             InventoryServiceNew.gI().sendItemBags(player);
-            Service.getInstance().sendThongBao(player, "Bạn đã nhận: " + sl + " hồng ngọc");
+            Service.getInstance().sendThongBao(player, "Bạn đã nhận: " + sl*20 + " hồng ngọc");
         } catch (Exception e) {
         }
     }

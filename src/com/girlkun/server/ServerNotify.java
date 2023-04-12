@@ -43,7 +43,7 @@ public class ServerNotify extends Thread {
                     sendThongBaoBenDuoi(notifies.remove(0));
                 }
                 if (Util.canDoWithTime(this.lastTimeGK, 1200)) {
-                    sendThongBaoBenDuoi("Ông Trùm Nro Tea!");
+                    sendThongBaoBenDuoi("Liên hệ admin Noob để nạp vàng, ngọc giá rẻ!!!");
                     this.lastTimeGK = System.currentTimeMillis();
                 }
             } catch (Exception ignored) {

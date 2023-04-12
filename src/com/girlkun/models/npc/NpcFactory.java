@@ -1175,8 +1175,7 @@ public class NpcFactory {
                                 strings.replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê"
                                         : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru"
                                                 : "Vua Vegeta"),
-                                "Đổi mật khẩu", "Nhận ngọc xanh", "Nhận vàng", "Nhận đệ tử", "Cách kiếm vàng",
-                                "Kích hoạt\n Tài khoản", "GiftCode");
+                                "Đổi mật khẩu", "Nhận ngọc xanh", "Nhận đệ tử", "Kích hoạt\n Tài khoản", "GiftCode");
                     }
                 }
             }
@@ -1191,23 +1190,23 @@ public class NpcFactory {
                                 break;
                             case 1:
                                 if (player.inventory.gem == 200000) {
-                                    this.npcChat(player, "Bú ít thôi con");
+                                    this.npcChat(player, "Đạt giới hạn!!!");
                                     break;
                                 }
                                 player.inventory.gem = 200000;
                                 Service.gI().sendMoney(player);
                                 Service.gI().sendThongBao(player, "Bạn vừa nhận được 200K ngọc xanh");
                                 break;
+                            // case 2:
+                            //     if (!(player.inventory.gold == Inventory.LIMIT_GOLD)) {
+                            //         player.inventory.gold = Inventory.LIMIT_GOLD;
+                            //         Service.gI().sendMoney(player);
+                            //         Service.gI().sendThongBao(player, "Bạn vừa nhận được 2 tỉ vàng");
+                            //     } else {
+                            //         this.npcChat(player, "Bú ít thôi con");
+                            //     }
+                            //     break;
                             case 2:
-                                if (!(player.inventory.gold == Inventory.LIMIT_GOLD)) {
-                                    player.inventory.gold = Inventory.LIMIT_GOLD;
-                                    Service.gI().sendMoney(player);
-                                    Service.gI().sendThongBao(player, "Bạn vừa nhận được 2 tỉ vàng");
-                                } else {
-                                    this.npcChat(player, "Bú ít thôi con");
-                                }
-                                break;
-                            case 3:
                                 if (player.pet == null) {
                                     PetService.gI().createNormalPet(player);
                                     Service.gI().sendThongBao(player, "Bạn vừa nhận được đệ tử");
@@ -1215,10 +1214,10 @@ public class NpcFactory {
                                     this.npcChat(player, "Bạn đã có rồi");
                                 }
                                 break;
-                            case 4:
-                                NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_CAY);
-                                break;
-                            case 5:
+                            // case 3:
+                            //     NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_CAY);
+                            //     break;
+                            case 3:
                                 if (player.getSession().actived == 0) {
                                     if (player.vnd >= 20000) {
                                         try {
@@ -1240,7 +1239,7 @@ public class NpcFactory {
                                     this.npcChat(player, "Bạn đã kích hoạt thành viên rồi!");
                                 }
                                 break;
-                            case 6:
+                            case 4:
                                 Input.gI().createFormGiftCode(player);
                                 break;
 
@@ -3316,8 +3315,8 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     createOtherMenu(player, ConstNpc.BASE_MENU,
-                            "Ngươi chỉ cần mang Mảnh Chiến Lực đến đây\n Ta sẽ giúp ngươi có được những trang bị\n xịn nhất của ta!",
-                            "Shop Bill", "Đóng");
+                            "Ngươi muốn gì nào?",
+                            "Xem Điểm ", "SHOP HỦY DIỆT", "Top Sức Mạnh", "Top Nhiệm Vụ", "Đóng");
                 }
             }
 
@@ -3326,17 +3325,27 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     switch (this.mapId) {
                         case 48:
+                        case 5:
                             switch (player.iDMark.getIndexMenu()) {
                                 case ConstNpc.BASE_MENU:
                                     if (select == 0) {
-                                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                                                "Ngươi đang có: " + player.inventory.coupon + " điểm", "Đóng");
+                                        createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ngươi đang có: " + player.inventory.coupon + " điểm", "Đóng");
                                         break;
                                     }
                                     if (select == 1) {
                                         ShopServiceNew.gI().opendShop(player, "BILL", false);
                                         break;
+
                                     }
+                                    if (select == 2) {
+                                        Util.showListTop(player, (byte) 0);
+                                        break;
+                                    }
+                                    if (select == 3) {
+                                        Util.showListTop(player, (byte) 1);
+                                        break;
+                                    }
+                                    break;
                             }
                             break;
                     }
@@ -3638,11 +3647,11 @@ public class NpcFactory {
                             switch (select) {
                                 case 0:
                                     this.createOtherMenu(player, 1,
-                                            "|7|Cần Khỉ Lv1 hoặc 2,4,6 để nâng cấp lên lv8\b|2|Mỗi lần nâng cấp tiếp thì mỗi cấp cần thêm 10 đá ngũ sắc",
-                                            "Khỉ\ncấp 2",
-                                            "Khỉ\ncấp 4",
-                                            "Khỉ\ncấp 6",
-                                            "Khỉ\ncấp 8",
+                                            "|7|Cần Khỉ Lv1 hoặc 2,3,4 để nâng cấp",
+                                            "Khỉ\n Gold LV2",
+                                            "Khỉ\n Oranger LV3",
+                                            "Khỉ\n Whiter Ylerbo LV4",
+                                            "Khỉ\n Ultra LV5",
                                             "Từ chối");
                                     break;
                                 case 1: // shop
@@ -3651,7 +3660,7 @@ public class NpcFactory {
                             }
                         } else if (player.iDMark.getIndexMenu() == 1) { // action đổi dồ húy diệt
                             switch (select) {
-                                case 0: // trade
+                                case 0: // trade khỉ lv2
                                     try {
                                         Item dns = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 674);
                                         Item klv1 = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 1137);
@@ -3662,13 +3671,12 @@ public class NpcFactory {
                                         for (int i = 0; i < 12; i++) {
                                             Item klv = InventoryServiceNew.gI().findItem(player.inventory.itemsBag,
                                                     1137 + i);
-
                                             if (InventoryServiceNew.gI().isExistItemBag(player, 1137 + i)
                                                     && soLuong >= 20) {
                                                 CombineServiceNew.gI().khilv2(player, 1138 + i);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, dns, 20);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, klv, 1);
-                                                this.npcChat(player, "Upgrede Thành Công!");
+                                                this.npcChat(player, "Nâng cấp Thành Công!");
 
                                                 break;
                                             } else {
@@ -3681,7 +3689,7 @@ public class NpcFactory {
 
                                     }
                                     break;
-                                case 1: // trade
+                                case 1: // trade khỉ lv3
                                     try {
                                         Item dns = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 674);
                                         Item klv2 = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 1138);
@@ -3698,7 +3706,7 @@ public class NpcFactory {
                                                 CombineServiceNew.gI().khilv3(player, 1139 + i);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, dns, 30);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, klv, 1);
-                                                this.npcChat(player, "Upgrede Thành Công!");
+                                                this.npcChat(player, "Nâng cấp Thành Công!");
 
                                                 break;
                                             } else {
@@ -3711,7 +3719,7 @@ public class NpcFactory {
 
                                     }
                                     break;
-                                case 2: // trade
+                                case 2: // trade khỉ lv4
                                     try {
                                         Item dns = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 674);
                                         Item klv2 = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 1139);
@@ -3728,7 +3736,7 @@ public class NpcFactory {
                                                 CombineServiceNew.gI().khilv4(player, 1140 + i);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, dns, 40);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, klv, 1);
-                                                this.npcChat(player, "Upgrede Thành Công!");
+                                                this.npcChat(player, "Nâng cấp Thành Công!");
 
                                                 break;
                                             } else {
@@ -3741,7 +3749,7 @@ public class NpcFactory {
 
                                     }
                                     break;
-                                case 3: // trade
+                                case 3: // trade khỉ lv5
                                     try {
                                         Item dns = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 674);
                                         Item klv2 = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 1140);
@@ -3758,21 +3766,20 @@ public class NpcFactory {
                                                 CombineServiceNew.gI().khilv5(player, 1136 + i);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, dns, 50);
                                                 InventoryServiceNew.gI().subQuantityItemsBag(player, klv, 1);
-                                                this.npcChat(player, "Upgrede Thành Công!");
+                                                this.npcChat(player, "Nâng cấp Thành Công!");
 
                                                 break;
                                             } else {
                                                 this.npcChat(player,
-                                                        "Yêu cầu cần cái trang khỉ cấp 3 với 50 đá ngũ sắc");
+                                                        "Yêu cầu cần cái trang khỉ cấp 4 với 50 đá ngũ sắc");
                                             }
-
                                         }
                                     } catch (Exception e) {
 
                                     }
                                     break;
 
-                                case 5: // canel
+                                case 4: // cancel
                                     break;
                             }
                         }
