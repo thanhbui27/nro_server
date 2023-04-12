@@ -1533,23 +1533,23 @@ public class CombineServiceNew {
     private float getRatioPhaLeHoa(int star) { //tile dap do chi hat mit
         switch (star) {
             case 0:
-                return 50f;
+                return 70f;
             case 1:
-                return 40f;
+                return 60f;
             case 2:
-                return 30f;
+                return 50f;
             case 3:
-                return 20f;
+                return 40f;
             case 4:
-                return 10f;
+                return 30f;
             case 5:
-                return 5f;
+                return 20f;
             case 6:
-                return 2f;
+                return 7f;
             case 7:
-                return 1f;
+                return 5f;
             case 8:
-                return 0.9f;    
+                return 5f;    
             case 9:
                 return 0.7f;    
             case 10:

@@ -1178,8 +1178,7 @@ public class NpcFactory {
                                 strings.replaceAll("%1", player.gender == ConstPlayer.TRAI_DAT ? "Quy lão Kamê"
                                         : player.gender == ConstPlayer.NAMEC ? "Trưởng lão Guru"
                                                 : "Vua Vegeta"),
-                                "Đổi mật khẩu", "Nhận ngọc xanh", "Nhận vàng", "Nhận đệ tử", "Cách kiếm vàng",
-                                "Kích hoạt\n Tài khoản", "GiftCode");
+                                "Đổi mật khẩu", "Nhận ngọc xanh", "Nhận đệ tử", "Kích hoạt\n Tài khoản", "GiftCode");
                     }
                 }
             }
@@ -1194,23 +1193,23 @@ public class NpcFactory {
                                 break;
                             case 1:
                                 if (player.inventory.gem == 200000) {
-                                    this.npcChat(player, "Bú ít thôi con");
+                                    this.npcChat(player, "Đạt giới hạn!!!");
                                     break;
                                 }
                                 player.inventory.gem = 200000;
                                 Service.gI().sendMoney(player);
                                 Service.gI().sendThongBao(player, "Bạn vừa nhận được 200K ngọc xanh");
                                 break;
+                            // case 2:
+                            //     if (!(player.inventory.gold == Inventory.LIMIT_GOLD)) {
+                            //         player.inventory.gold = Inventory.LIMIT_GOLD;
+                            //         Service.gI().sendMoney(player);
+                            //         Service.gI().sendThongBao(player, "Bạn vừa nhận được 2 tỉ vàng");
+                            //     } else {
+                            //         this.npcChat(player, "Bú ít thôi con");
+                            //     }
+                            //     break;
                             case 2:
-                                if (!(player.inventory.gold == Inventory.LIMIT_GOLD)) {
-                                    player.inventory.gold = Inventory.LIMIT_GOLD;
-                                    Service.gI().sendMoney(player);
-                                    Service.gI().sendThongBao(player, "Bạn vừa nhận được 2 tỉ vàng");
-                                } else {
-                                    this.npcChat(player, "Bú ít thôi con");
-                                }
-                                break;
-                            case 3:
                                 if (player.pet == null) {
                                     PetService.gI().createNormalPet(player);
                                     Service.gI().sendThongBao(player, "Bạn vừa nhận được đệ tử");
@@ -1218,10 +1217,10 @@ public class NpcFactory {
                                     this.npcChat(player, "Bạn đã có rồi");
                                 }
                                 break;
-                            case 4:
-                                NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_CAY);
-                                break;
-                            case 5:
+                            // case 3:
+                            //     NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_CAY);
+                            //     break;
+                            case 3:
                                 if (player.getSession().actived == 0) {
                                     if (player.vnd >= 20000) {
                                         try {
@@ -1243,7 +1242,7 @@ public class NpcFactory {
                                     this.npcChat(player, "Bạn đã kích hoạt thành viên rồi!");
                                 }
                                 break;
-                            case 6:
+                            case 4:
                                 Input.gI().createFormGiftCode(player);
                                 break;
 
@@ -1714,12 +1713,13 @@ public class NpcFactory {
                                     ShopServiceNew.gI().opendShop(player, "SHOP_BI_NGAN", false);
                                     break;
                                 case 4:
-                                    if (player.session.actived == 1) {
+                                    // if (player.session.actived == 1) {
                                         ShopServiceNew.gI().opendShop(player, "SANTA_RUBY", false);
-                                        return;
-                                    }
-                                    Service.gI().sendThongBao(player, "Bạn chưa mở thành viên!!");
-                                    break;
+                                        // return;
+                                        break;
+                                    // }
+                                    // Service.gI().sendThongBao(player, "Bạn chưa mở thành viên!!");
+                                    // break;
 
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.NAP_THE) {
@@ -3584,8 +3584,8 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     createOtherMenu(player, ConstNpc.BASE_MENU,
-                            "Ngươi chỉ cần mang Mảnh Chiến Lực đến đây\n Ta sẽ giúp ngươi có được những trang bị\n xịn nhất của ta!",
-                            "Shop Bill", "Đóng");
+                            "Ngươi muốn gì nào?",
+                            "Xem Điểm ", "SHOP HỦY DIỆT", "Top Sức Mạnh", "Top Nhiệm Vụ", "Đóng");
                 }
             }
 
@@ -3594,17 +3594,27 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     switch (this.mapId) {
                         case 48:
+                        case 5:
                             switch (player.iDMark.getIndexMenu()) {
                                 case ConstNpc.BASE_MENU:
                                     if (select == 0) {
-                                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                                                "Ngươi đang có: " + player.inventory.coupon + " điểm", "Đóng");
+                                        createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ngươi đang có: " + player.inventory.coupon + " điểm", "Đóng");
                                         break;
                                     }
                                     if (select == 1) {
                                         ShopServiceNew.gI().opendShop(player, "BILL", false);
                                         break;
+
                                     }
+                                    if (select == 2) {
+                                        Util.showListTop(player, (byte) 0);
+                                        break;
+                                    }
+                                    if (select == 3) {
+                                        Util.showListTop(player, (byte) 1);
+                                        break;
+                                    }
+                                    break;
                             }
                             break;
                     }
