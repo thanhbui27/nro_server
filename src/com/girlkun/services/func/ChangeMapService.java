@@ -176,7 +176,7 @@ public class ChangeMapService {
                 return;
             }
         }
-        if (pl.isAdmin() || pl.isBoss || Util.canDoWithTime(pl.iDMark.getLastTimeChangeZone(), 10000)) {
+        if (pl.isAdmin() || pl.isBoss || Util.canDoWithTime(pl.iDMark.getLastTimeChangeZone(), 5000)) {
             pl.iDMark.setLastTimeChangeZone(System.currentTimeMillis());
             Map map = pl.zone.map;
             if (zoneId >= 0 && zoneId <= map.zones.size() - 1) {
@@ -193,7 +193,7 @@ public class ChangeMapService {
             }
         } else {
             Service.gI().sendThongBaoOK(pl, "Không thể đổi khu vực lúc này, vui lòng đợi "
-                    + TimeUtil.getTimeLeft(pl.iDMark.getLastTimeChangeZone(), 10));
+                    + TimeUtil.getTimeLeft(pl.iDMark.getLastTimeChangeZone(), 5));
         }
     }
 

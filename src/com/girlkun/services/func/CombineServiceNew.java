@@ -28,7 +28,7 @@ public class CombineServiceNew {
 
     private static final int TIME_COMBINE = 1;
 
-    private static final byte MAX_STAR_ITEM = 12;
+    private static final byte MAX_STAR_ITEM = 8;
     private static final byte MAX_LEVEL_ITEM = 8;
 
     private static final byte OPEN_TAB_COMBINE = 0;
@@ -695,11 +695,11 @@ public class CombineServiceNew {
     }
     public void khilv3(Player player, int id){
         Item item = ItemService.gI().createNewItem((short)id);
-        item.itemOptions.add(new ItemOption(50,40));//sd
-        item.itemOptions.add(new ItemOption(77,40));//hp
-        item.itemOptions.add(new ItemOption(103,40));//ki
-        item.itemOptions.add(new ItemOption(14,40));//cm
-        item.itemOptions.add(new ItemOption(5,40));//sd cm
+        item.itemOptions.add(new ItemOption(50,30));//sd
+        item.itemOptions.add(new ItemOption(77,30));//hp
+        item.itemOptions.add(new ItemOption(103,30));//ki
+        item.itemOptions.add(new ItemOption(14,30));//cm
+        item.itemOptions.add(new ItemOption(5,30));//sd cm
         item.itemOptions.add(new ItemOption(106,0));
         item.itemOptions.add(new ItemOption(35,0));
         InventoryServiceNew.gI().addItemBag(player, item);
@@ -707,11 +707,11 @@ public class CombineServiceNew {
     }
     public void khilv4(Player player, int id){
         Item item = ItemService.gI().createNewItem((short)id);
-        item.itemOptions.add(new ItemOption(50,60));//sd
-        item.itemOptions.add(new ItemOption(77,60));//hp
-        item.itemOptions.add(new ItemOption(103,60));//ki
-        item.itemOptions.add(new ItemOption(14,60));//cm
-        item.itemOptions.add(new ItemOption(5,60));//sd cm
+        item.itemOptions.add(new ItemOption(50,40));//sd
+        item.itemOptions.add(new ItemOption(77,40));//hp
+        item.itemOptions.add(new ItemOption(103,40));//ki
+        item.itemOptions.add(new ItemOption(14,40));//cm
+        item.itemOptions.add(new ItemOption(5,40));//sd cm
         item.itemOptions.add(new ItemOption(106,0));
         item.itemOptions.add(new ItemOption(36,0));
         InventoryServiceNew.gI().addItemBag(player, item);
@@ -719,11 +719,11 @@ public class CombineServiceNew {
     }
     public void khilv5(Player player, int id){
         Item item = ItemService.gI().createNewItem((short)id);
-        item.itemOptions.add(new ItemOption(50,80));//sd
-        item.itemOptions.add(new ItemOption(77,80));//hp
-        item.itemOptions.add(new ItemOption(103,80));//ki
-        item.itemOptions.add(new ItemOption(14,80));//cm
-        item.itemOptions.add(new ItemOption(5,80));//sd cm
+        item.itemOptions.add(new ItemOption(50,50));//sd
+        item.itemOptions.add(new ItemOption(77,50));//hp
+        item.itemOptions.add(new ItemOption(103,50));//ki
+        item.itemOptions.add(new ItemOption(14,50));//cm
+        item.itemOptions.add(new ItemOption(5,50));//sd cm
         item.itemOptions.add(new ItemOption(106,0));
         item.itemOptions.add(new ItemOption(36,0));
         InventoryServiceNew.gI().addItemBag(player, item);

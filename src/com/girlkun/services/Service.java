@@ -595,12 +595,12 @@ public class Service {
 
         if (text.startsWith("ten con la ")) {
             PetService.gI().changeNamePet(player, text.replaceAll("ten con la ", ""));
-        } else if (text.equals("mabu")) {
-            sendThongBao(player, "Khởi Tạo Mabu Thành Công: " + (player.mabuEgg != null));
-            MabuEgg.createMabuEgg(player);
-        } else if (text.equals("bill")) {
-            sendThongBao(player, "Khởi Tạo bill Thành Công: " + (player.billEgg != null));
-            BillEgg.createBillEgg(player);
+ //       } else if (text.equals("mabu")) {
+ //           sendThongBao(player, "Khởi Tạo Mabu Thành Công: " + (player.mabuEgg != null));
+ //           MabuEgg.createMabuEgg(player);
+ //       } else if (text.equals("bill")) {
+ //           sendThongBao(player, "Khởi Tạo bill Thành Công: " + (player.billEgg != null));
+//            BillEgg.createBillEgg(player);
             // System.exit(0);
             // } else if (text.equals("freakydb")) {
             // try {
@@ -1434,11 +1434,11 @@ public class Service {
             sendThongBao(pl, "Không thể đổi cờ lúc này!");
             return;
         }
-        if (Util.canDoWithTime(pl.iDMark.getLastTimeChangeFlag(), 60000)) {
+        if (Util.canDoWithTime(pl.iDMark.getLastTimeChangeFlag(), 30000)) {
             changeFlag(pl, index);
         } else {
             sendThongBao(pl, "Không thể đổi cờ lúc này! Vui lòng đợi "
-                    + TimeUtil.getTimeLeft(pl.iDMark.getLastTimeChangeFlag(), 60) + " nữa!");
+                    + TimeUtil.getTimeLeft(pl.iDMark.getLastTimeChangeFlag(), 30) + " nữa!");
         }
     }
 

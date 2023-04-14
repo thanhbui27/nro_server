@@ -867,7 +867,7 @@ public class BossesData {
             "Cô Bé Shizuka", //name
             ConstPlayer.XAYDA, //gender
             new short[]{802, 803, 804, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            111111, //dame
+            51111, //dame
             new int[]{500000000}, //hp
             new int[]{19}, //map join
             new int[][]{
@@ -888,7 +888,7 @@ public class BossesData {
             "Mõm Nhọn Suneo", //name
             ConstPlayer.XAYDA, //gender
             new short[]{850, 851, 852, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            111111, //dame
+            51111, //dame
             new int[]{700000000}, //hp
             new int[]{19}, //map join
             new int[][]{
@@ -909,7 +909,7 @@ public class BossesData {
             "Khỉ Đột Chaien", //name
             ConstPlayer.XAYDA, //gender
             new short[]{847, 848, 849, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            111111, //dame
+            51111, //dame
             new int[]{700000000}, //hp
             new int[]{19}, //map join
             new int[][]{
@@ -931,7 +931,7 @@ public class BossesData {
             "Chú Bé Đần Nobita", //name
             ConstPlayer.XAYDA, //gender
             new short[]{844, 845, 846, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
-            111111, //dame
+            51111, //dame
             new int[]{500000000}, //hp
             new int[]{19}, //map join
             new int[][]{
@@ -953,7 +953,7 @@ public class BossesData {
             "Người Máy Doraemon",
             ConstPlayer.XAYDA,
             new short[]{790, 791, 792, -1, -1, -1},
-            100000,
+            50000,
             new int[]{550000000},
             new int[]{19},
 //            new int[]{14},
@@ -1195,7 +1195,7 @@ public class BossesData {
             new int[]{500000000}, //hp
             new int[]{5}, //map join
             new int[][]{
-                    {Skill.THAI_DUONG_HA_SAN, 5, 10000},
+                    {Skill.THAI_DUONG_HA_SAN, 2, 10000},
                     {Skill.ANTOMIC, 3, 1000}}, //skill
             new String[]{
                     "|-1|Gaaaaaa",
@@ -1218,7 +1218,7 @@ public class BossesData {
             new int[]{1000000000}, //hp
             new int[]{5}, //map join
             new int[][]{
-                    {Skill.DICH_CHUYEN_TUC_THOI, 7, 1000},
+                    {Skill.DICH_CHUYEN_TUC_THOI, 1, 1000},
                     {Skill.KAMEJOKO, 7, 1000}}, //skill
             new String[]{
                     "|-1|Tuy không biết các ngươi là ai, nhưng ta rất ấn tượng đấy!",
@@ -1243,8 +1243,8 @@ public class BossesData {
             new int[][]{
                  {Skill.SOCOLA, 7, 6000},
                   {Skill.DE_TRUNG, 7, 6000},
-                     {Skill.TROI, 7, 6000},
-                    {Skill.DICH_CHUYEN_TUC_THOI, 7, 6000},
+                     {Skill.TROI, 1, 6000},
+                    {Skill.DICH_CHUYEN_TUC_THOI, 1, 6000},
                     {Skill.LIEN_HOAN, 7, 100},
                     {Skill.KAMEJOKO, 7, 1000}}, //skill
             new String[]{
