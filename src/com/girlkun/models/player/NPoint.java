@@ -1112,9 +1112,9 @@ public class NPoint {
             case 7:
                 return 80999999999L;
             case 8:
-                return 2000999999999L;
+                return 200999999999L;
             case 9:
-                return 2500999999999L;
+                return 250999999999L;
             default:
                 return 0;
         }
@@ -1139,9 +1139,9 @@ public class NPoint {
             case 7:
                 return 80999999999L;
             case 8:
-                return 2000999999999L;
+                return 200999999999L;
             case 9:
-                return 2500999999999L;
+                return 250999999999L;
             default:
                 return 0;
         }

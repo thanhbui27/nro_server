@@ -703,37 +703,37 @@ public class ChangeMapService {
                 case 1: //đồi hoa cúc
                 case 8: //đồi nấm tím
                 case 15: //đồi hoang
-                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_2_0) {
-                        return null;
-                    }
+                    // if (TaskService.gI().getIdTask(player) < ConstTask.TASK_2_0) {
+                    //     return null;
+                    // }
                     break;
                 case 42: //vách aru
                 case 43: //vách moori
                 case 44: //vách kakarot
-                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_3_1) {
-                        return null;
-                    }
+                    // if (TaskService.gI().getIdTask(player) < ConstTask.TASK_3_1) {
+                    //     return null;
+                    // }
                     break;
                 case 2: //thung lũng tre
                 case 9: //thị trấn moori
                 case 16: //làng plane
-                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_4_0) {
-                        return null;
-                    }
+                    // if (TaskService.gI().getIdTask(player) < ConstTask.TASK_4_0) {
+                    //     return null;
+                    // }
                     break;
                 case 24: //trạm tàu vũ trụ trái đất
                 case 25: //trạm tàu vũ trụ namếc
                 case 26: //trạm tàu vũ trụ xayda
-                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_6_0) {
-                        return null;
-                    }
+                    // if (TaskService.gI().getIdTask(player) < ConstTask.TASK_6_0) {
+                    //     return null;
+                    // }
                     break;
                 case 3: //rừng nấm
                 case 11: //thung lũng maima
                 case 17: //rừng nguyên sinh
-                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_7_0) {
-                        return null;
-                    }
+                    // if (TaskService.gI().getIdTask(player) < ConstTask.TASK_7_0) {
+                    //     return null;
+                    // }
                     break;
                 case 27: //rừng bamboo
                 case 28: //rừng dương xỉ
@@ -741,23 +741,23 @@ public class ChangeMapService {
                 case 32: //núi hoa tím
                 case 35: //rừng cọ
                 case 36: //rừng đá
-                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_14_0) {
-                        return null;
-                    }
+                    // if (TaskService.gI().getIdTask(player) < ConstTask.TASK_14_0) {
+                    //     return null;
+                    // }
                     break;
                 case 30: //đảo bulong
                 case 34: //đông nam guru
                 case 38: //bờ vực đen
-                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_15_0) {
-                        return null;
-                    }
+                    // if (TaskService.gI().getIdTask(player) < ConstTask.TASK_15_0) {
+                    //     return null;
+                    // }
                     break;
                 case 6: //đông karin
                 case 10: //thung lũng namếc
                 case 19: //thành phố vegeta
-                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_16_0) {
-                        return null;
-                    }
+                    // if (TaskService.gI().getIdTask(player) < ConstTask.TASK_16_0) {
+                    //     return null;
+                    // }
                     break;
                 case 68: //thung lũng nappa
                 case 69: //vực cấm
@@ -766,9 +766,9 @@ public class ChangeMapService {
                 case 72: //thung lũng rasphery
                 case 64: //núi dây leo
                 case 65: //núi cây quỷ
-                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_18_0) {
-                        return null;
-                    }
+                    // if (TaskService.gI().getIdTask(player) < ConstTask.TASK_18_0) {
+                    //     return null;
+                    // }
                     break;
                 case 63: //trại lính fide
                 case 66: //trại quỷ già

@@ -21,7 +21,7 @@ public class Doraemon extends Boss {
     }
     @Override
     public void reward(Player plKill) {
-        int[] itemDos = new int[]{1142, 1142, 559, 556, 558, 560, 562, 564, 566, 563, 1142, 1142};
+        int[] itemDos = new int[]{16, 16, 559, 556, 558, 560, 562, 564, 566, 563, 16, 16};
         int[] NRs = new int[]{16,18};
         int randomDo = new Random().nextInt(itemDos.length);
         int randomNR = new Random().nextInt(NRs.length);

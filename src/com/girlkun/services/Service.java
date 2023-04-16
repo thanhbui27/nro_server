@@ -595,12 +595,14 @@ public class Service {
 
         if (text.startsWith("ten con la ")) {
             PetService.gI().changeNamePet(player, text.replaceAll("ten con la ", ""));
- //       } else if (text.equals("mabu")) {
- //           sendThongBao(player, "Khởi Tạo Mabu Thành Công: " + (player.mabuEgg != null));
- //           MabuEgg.createMabuEgg(player);
- //       } else if (text.equals("bill")) {
- //           sendThongBao(player, "Khởi Tạo bill Thành Công: " + (player.billEgg != null));
-//            BillEgg.createBillEgg(player);
+            // } else if (text.equals("mabu")) {
+            // sendThongBao(player, "Khởi Tạo Mabu Thành Công: " + (player.mabuEgg !=
+            // null));
+            // MabuEgg.createMabuEgg(player);
+            // } else if (text.equals("bill")) {
+            // sendThongBao(player, "Khởi Tạo bill Thành Công: " + (player.billEgg !=
+            // null));
+            // BillEgg.createBillEgg(player);
             // System.exit(0);
             // } else if (text.equals("freakydb")) {
             // try {

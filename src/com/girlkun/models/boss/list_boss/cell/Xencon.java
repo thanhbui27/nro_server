@@ -32,8 +32,8 @@ public class Xencon extends Boss {
 
    @Override
     public void reward(Player plKill) {
-        int[] itemDos = new int[]{1142,1116,1117,1118,1142};
-        int[] NRs = new int[]{17};
+        int[] itemDos = new int[]{16};
+        int[] NRs = new int[]{16};
         int randomDo = new Random().nextInt(itemDos.length);
         int randomNR = new Random().nextInt(NRs.length);
         if (Util.isTrue(15, 100)) {

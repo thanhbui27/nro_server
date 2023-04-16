@@ -357,7 +357,7 @@ public class SummonDragon {
                                     playerSummonShenron.pet.openSkill3();
                                 }
                             } else {
-                                Service.gI().sendThongBao(playerSummonShenron, "Ít nhất đệ tử ngươi phải có chiêu 2 chứ!");
+                                Service.gI().sendThongBao(playerSummonShenron, "Đệ tử của người phải có chiêu 2, 3 chứ!");
                                 reOpenShenronWishes(playerSummonShenron);
                                 return;
                             }

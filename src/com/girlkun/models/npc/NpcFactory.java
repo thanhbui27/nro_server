@@ -298,6 +298,7 @@ public class NpcFactory {
         };
     }
 
+    //Loi ne
     private static Npc nrotea(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
@@ -312,7 +313,7 @@ public class NpcFactory {
                             this.createOtherMenu(player, ConstNpc.BASE_MENU,
                                     "Chào con đang khuyến mãi x2, tiền trong tài khoản con là: " + player.session.vnd
                                             + "Coin",
-                                    "Top Sức Mạnh", "Giải tán bang hội", "Rút vàng từ coin", "Đổi thỏi vàng sang ruby");
+                                    "Giải tán bang hội", "Rút vàng từ coin", "Đổi thỏi vàng sang ruby");
                         }
                     }
                 }
@@ -324,9 +325,6 @@ public class NpcFactory {
                     if (player.iDMark.isBaseMenu()) {
                         switch (select) {
                             case 0:
-                                Service.getInstance().sendThongBaoFromAdmin(player, BXH.getStringBXH(0));
-                                break;
-                            case 1:
                                 Clan clan = player.clan;
                                 if (clan != null) {
                                     ClanMember cm = clan.getClanMember((int) player.id);
@@ -348,14 +346,14 @@ public class NpcFactory {
                                 }
                                 Service.getInstance().sendThongBao(player, "Có bang hội đâu ba!!!");
                                 break;
-                            case 2:
+                            case 1:
                                 NpcService.gI().createMenuConMeo(player, ConstNpc.RUT_VANG, -1,
                                         "Con đang có: " + player.session.vnd
                                                 + " coin trong tài khoản, chọn số lượng rút:",
                                         "20000 40 Thỏi Vàng", "50000 120 Thỏi Vàng", "100000 280 Thỏi Vàng",
                                         "500000 2000 Thỏi Vàng", "Huỷ");
                                 break;
-                            case 3:
+                            case 2:
                                 Input.gI().createFormDoiTVSangRuby(player);
                                 break;
                         }
@@ -1201,14 +1199,14 @@ public class NpcFactory {
                                 Service.gI().sendThongBao(player, "Bạn vừa nhận được 200K ngọc xanh");
                                 break;
                             // case 2:
-                            //     if (!(player.inventory.gold == Inventory.LIMIT_GOLD)) {
-                            //         player.inventory.gold = Inventory.LIMIT_GOLD;
-                            //         Service.gI().sendMoney(player);
-                            //         Service.gI().sendThongBao(player, "Bạn vừa nhận được 2 tỉ vàng");
-                            //     } else {
-                            //         this.npcChat(player, "Bú ít thôi con");
-                            //     }
-                            //     break;
+                            // if (!(player.inventory.gold == Inventory.LIMIT_GOLD)) {
+                            // player.inventory.gold = Inventory.LIMIT_GOLD;
+                            // Service.gI().sendMoney(player);
+                            // Service.gI().sendThongBao(player, "Bạn vừa nhận được 2 tỉ vàng");
+                            // } else {
+                            // this.npcChat(player, "Bú ít thôi con");
+                            // }
+                            // break;
                             case 2:
                                 if (player.pet == null) {
                                     PetService.gI().createNormalPet(player);
@@ -1218,13 +1216,13 @@ public class NpcFactory {
                                 }
                                 break;
                             // case 3:
-                            //     NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_CAY);
-                            //     break;
+                            // NpcService.gI().createTutorial(player, this.avartar, ConstNpc.HUONG_DAN_CAY);
+                            // break;
                             case 3:
                                 if (player.getSession().actived == 0) {
-                                    if (player.vnd >= 20000) {
+                                    if (player.vnd >= 10000) {
                                         try {
-                                            long sum = player.vnd - 20000;
+                                            long sum = player.vnd - 10000;
                                             GirlkunDB.executeUpdate(
                                                     "update account set active = ?, vnd = ? where id = ?", 1, sum,
                                                     player.account_id);
@@ -1571,16 +1569,20 @@ public class NpcFactory {
                                     Boss boss = BossManager.gI().getBossById(BossID.KUKU);
                                     if (boss != null && !boss.isDie()) {
                                         if (player.inventory.gold >= COST_FIND_BOSS) {
-                                            Zone z = MapService.gI().getMapCanJoin(player, boss.zone.map.mapId,
-                                                    boss.zone.zoneId);
-                                            if (z != null && z.getNumOfPlayers() < z.maxPlayer) {
-                                                player.inventory.gold -= COST_FIND_BOSS;
-                                                ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
-                                                        boss.location.y);
-                                                Service.gI().sendMoney(player);
-                                            } else {
-                                                Service.gI().sendThongBao(player, "Khu vực đang full.");
-                                            }
+                                            // Zone z = MapService.gI().getMapCanJoin(player, boss.zone.map.mapId,
+                                            // boss.zone.zoneId);
+                                            // if (z != null && z.getNumOfPlayers() < z.maxPlayer) {
+                                            // player.inventory.gold -= COST_FIND_BOSS;
+                                            // ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
+                                            // boss.location.y);
+                                            // Service.gI().sendMoney(player);
+                                            // } else {
+                                            // Service.gI().sendThongBao(player, "Khu vực đang full.");
+                                            // }
+                                            player.inventory.gold -= COST_FIND_BOSS;
+                                            ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
+                                                    boss.location.y);
+                                            Service.gI().sendMoney(player);
                                         } else {
                                             Service.gI().sendThongBao(player, "Không đủ vàng, còn thiếu "
                                                     + Util.numberToMoney(COST_FIND_BOSS - player.inventory.gold)
@@ -1603,16 +1605,20 @@ public class NpcFactory {
                                     Boss boss = BossManager.gI().getBossById(BossID.MAP_DAU_DINH);
                                     if (boss != null && !boss.isDie()) {
                                         if (player.inventory.gold >= COST_FIND_BOSS) {
-                                            Zone z = MapService.gI().getMapCanJoin(player, boss.zone.map.mapId,
-                                                    boss.zone.zoneId);
-                                            if (z != null && z.getNumOfPlayers() < z.maxPlayer) {
-                                                player.inventory.gold -= COST_FIND_BOSS;
-                                                ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
-                                                        boss.location.y);
-                                                Service.gI().sendMoney(player);
-                                            } else {
-                                                Service.gI().sendThongBao(player, "Khu vực đang full.");
-                                            }
+                                            // Zone z = MapService.gI().getMapCanJoin(player, boss.zone.map.mapId,
+                                            // boss.zone.zoneId);
+                                            // if (z != null && z.getNumOfPlayers() < z.maxPlayer) {
+                                            // player.inventory.gold -= COST_FIND_BOSS;
+                                            // ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
+                                            // boss.location.y);
+                                            // Service.gI().sendMoney(player);
+                                            // } else {
+                                            // Service.gI().sendThongBao(player, "Khu vực đang full.");
+                                            // }
+                                            player.inventory.gold -= COST_FIND_BOSS;
+                                            ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
+                                                    boss.location.y);
+                                            Service.gI().sendMoney(player);
                                         } else {
                                             Service.gI().sendThongBao(player, "Không đủ vàng, còn thiếu "
                                                     + Util.numberToMoney(COST_FIND_BOSS - player.inventory.gold)
@@ -1635,16 +1641,20 @@ public class NpcFactory {
                                     Boss boss = BossManager.gI().getBossById(BossID.RAMBO);
                                     if (boss != null && !boss.isDie()) {
                                         if (player.inventory.gold >= COST_FIND_BOSS) {
-                                            Zone z = MapService.gI().getMapCanJoin(player, boss.zone.map.mapId,
-                                                    boss.zone.zoneId);
-                                            if (z != null && z.getNumOfPlayers() < z.maxPlayer) {
-                                                player.inventory.gold -= COST_FIND_BOSS;
-                                                ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
-                                                        boss.location.y);
-                                                Service.gI().sendMoney(player);
-                                            } else {
-                                                Service.gI().sendThongBao(player, "Khu vực đang full.");
-                                            }
+                                            // Zone z = MapService.gI().getMapCanJoin(player, boss.zone.map.mapId,
+                                            // boss.zone.zoneId);
+                                            // if (z != null && z.getNumOfPlayers() < z.maxPlayer) {
+                                            // player.inventory.gold -= COST_FIND_BOSS;
+                                            // ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
+                                            // boss.location.y);
+                                            // Service.gI().sendMoney(player);
+                                            // } else {
+                                            // Service.gI().sendThongBao(player, "Khu vực đang full.");
+                                            // }
+                                            player.inventory.gold -= COST_FIND_BOSS;
+                                            ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
+                                                    boss.location.y);
+                                            Service.gI().sendMoney(player);
                                         } else {
                                             Service.gI().sendThongBao(player, "Không đủ vàng, còn thiếu "
                                                     + Util.numberToMoney(COST_FIND_BOSS - player.inventory.gold)
@@ -1714,12 +1724,12 @@ public class NpcFactory {
                                     break;
                                 case 4:
                                     // if (player.session.actived == 1) {
-                                        ShopServiceNew.gI().opendShop(player, "SANTA_RUBY", false);
-                                        // return;
-                                        break;
-                                    // }
-                                    // Service.gI().sendThongBao(player, "Bạn chưa mở thành viên!!");
-                                    // break;
+                                    ShopServiceNew.gI().opendShop(player, "SANTA_RUBY", false);
+                                    // return;
+                                    break;
+                                // }
+                                // Service.gI().sendThongBao(player, "Bạn chưa mở thành viên!!");
+                                // break;
 
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.NAP_THE) {
@@ -3585,7 +3595,7 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     createOtherMenu(player, ConstNpc.BASE_MENU,
                             "Ngươi muốn gì nào?",
-                            "Xem Điểm ", "SHOP HỦY DIỆT", "Top Sức Mạnh", "Top Nhiệm Vụ", "Đóng");
+                            "Xem Điểm ", "SHOP HỦY DIỆT", "Đóng");
                 }
             }
 
@@ -3598,7 +3608,8 @@ public class NpcFactory {
                             switch (player.iDMark.getIndexMenu()) {
                                 case ConstNpc.BASE_MENU:
                                     if (select == 0) {
-                                        createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ngươi đang có: " + player.inventory.coupon + " điểm", "Đóng");
+                                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                                "Ngươi đang có: " + player.inventory.coupon + " điểm", "Đóng");
                                         break;
                                     }
                                     if (select == 1) {
@@ -4019,34 +4030,35 @@ public class NpcFactory {
                                     }
                                     break;
                                 // case 3: // trade khỉ lv5
-                                //     try {
-                                //         Item dns = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 674);
-                                //         Item klv2 = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 1140);
-                                //         int soLuong = 0;
-                                //         if (dns != null) {
-                                //             soLuong = dns.quantity;
-                                //         }
-                                //         for (int i = 0; i < 12; i++) {
-                                //             Item klv = InventoryServiceNew.gI().findItem(player.inventory.itemsBag,
-                                //                     1140 + i);
+                                // try {
+                                // Item dns = InventoryServiceNew.gI().findItem(player.inventory.itemsBag, 674);
+                                // Item klv2 = InventoryServiceNew.gI().findItem(player.inventory.itemsBag,
+                                // 1140);
+                                // int soLuong = 0;
+                                // if (dns != null) {
+                                // soLuong = dns.quantity;
+                                // }
+                                // for (int i = 0; i < 12; i++) {
+                                // Item klv = InventoryServiceNew.gI().findItem(player.inventory.itemsBag,
+                                // 1140 + i);
 
-                                //             if (InventoryServiceNew.gI().isExistItemBag(player, 1140 + i)
-                                //                     && soLuong >= 50) {
-                                //                 CombineServiceNew.gI().khilv5(player, 1136 + i);
-                                //                 InventoryServiceNew.gI().subQuantityItemsBag(player, dns, 50);
-                                //                 InventoryServiceNew.gI().subQuantityItemsBag(player, klv, 1);
-                                //                 this.npcChat(player, "Nâng cấp Thành Công!");
+                                // if (InventoryServiceNew.gI().isExistItemBag(player, 1140 + i)
+                                // && soLuong >= 50) {
+                                // CombineServiceNew.gI().khilv5(player, 1136 + i);
+                                // InventoryServiceNew.gI().subQuantityItemsBag(player, dns, 50);
+                                // InventoryServiceNew.gI().subQuantityItemsBag(player, klv, 1);
+                                // this.npcChat(player, "Nâng cấp Thành Công!");
 
-                                //                 break;
-                                //             } else {
-                                //                 this.npcChat(player,
-                                //                         "Yêu cầu cần cái trang khỉ cấp 4 với 50 đá ngũ sắc");
-                                //             }
-                                //         }
-                                //     } catch (Exception e) {
+                                // break;
+                                // } else {
+                                // this.npcChat(player,
+                                // "Yêu cầu cần cái trang khỉ cấp 4 với 50 đá ngũ sắc");
+                                // }
+                                // }
+                                // } catch (Exception e) {
 
-                                //     }
-                                //     break;
+                                // }
+                                // break;
 
                                 case 3: // cancel
                                     break;

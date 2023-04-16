@@ -19,8 +19,8 @@ public class Broly extends Boss {
     }
      @Override
     public void reward(Player plKill) {
-      int[] itemDos = new int[]{1115,1116,1117,1118,1119};
-        int[] NRs = new int[]{17,18};
+      int[] itemDos = new int[]{555,556,557,558,559,560,561,562,563,564,566,567,565};
+        int[] NRs = new int[]{16,17,18};
         int randomDo = new Random().nextInt(itemDos.length);
         int randomNR = new Random().nextInt(NRs.length);
         if (Util.isTrue(15, 100)) {
