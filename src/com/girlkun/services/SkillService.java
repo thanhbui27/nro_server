@@ -298,19 +298,19 @@ public class SkillService {
                     for (Player pl : playersMap) {
                         if (pl != null && !player.equals(pl) && !player.nPoint.khangTDHS) {
                             boolean result0 = Util.usingStandardWay(Util.getDistance(player, pl));
-                            if (result0) {
-                                if (Util.getDistance(player, pl) <= SkillUtil
-                                        .getRangeStun(player.playerSkill.skillSelect.point)
-                                // && canAttackPlayer(player, pl) //&& (!pl.playerSkill.prepareQCKK &&
-                                // !pl.playerSkill.prepareLaze && !pl.playerSkill.prepareTuSat)
-                                ) {
-                                    if (player.isPet && ((Pet) player).master.equals(pl)) {
-                                        continue;
-                                    }
-                                    EffectSkillService.gI().startStun(pl, System.currentTimeMillis(), timeStun);
-                                    players.add(pl);
+                            // if (result0) {
+                            if (Util.getDistance(player, pl) <= SkillUtil
+                                    .getRangeStun(player.playerSkill.skillSelect.point)
+                            // && canAttackPlayer(player, pl) //&& (!pl.playerSkill.prepareQCKK &&
+                            // !pl.playerSkill.prepareLaze && !pl.playerSkill.prepareTuSat)
+                            ) {
+                                if (player.isPet && ((Pet) player).master.equals(pl)) {
+                                    continue;
                                 }
+                                EffectSkillService.gI().startStun(pl, System.currentTimeMillis(), timeStun);
+                                players.add(pl);
                             }
+                            // }
                         }
                     }
                 }

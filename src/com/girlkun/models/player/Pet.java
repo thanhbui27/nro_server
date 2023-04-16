@@ -710,7 +710,7 @@ public class Pet extends Player {
         this.playerSkill.skills.set(2, skill);
     }
 
-    private void openSkill4() {
+    public void openSkill4() {
         Skill skill = null;
         int tiLeBienKhi = 30;
         int tiLeDeTrung = 30;

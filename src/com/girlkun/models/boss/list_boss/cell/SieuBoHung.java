@@ -24,8 +24,8 @@ public class SieuBoHung extends Boss {
 
    @Override
     public void reward(Player plKill) {
-        int[] itemDos = new int[]{15,16,17};
-        int[] NRs = new int[]{16,17,15};
+        int[] itemDos = new int[]{15,16};
+        int[] NRs = new int[]{16,15};
         int randomDo = new Random().nextInt(itemDos.length);
         int randomNR = new Random().nextInt(NRs.length);
         if (Util.isTrue(15, 100)) {

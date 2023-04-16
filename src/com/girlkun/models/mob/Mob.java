@@ -295,16 +295,16 @@ public class Mob {
 //        nplayer
         List<ItemMap> itemReward = new ArrayList<>();
         try {
-            if ((!player.isPet && player.getSession().actived == 1 && player.setClothes.setDHD == 5) || (player.isPet && ((Pet) player).master.getSession().actived == 1 && ((Pet) player).setClothes.setDHD == 5)) {
+            if ((!player.isPet && player.getSession().actived == 1 && player.setClothes.setDHD == 5) || (player.isPet
+                    && ((Pet) player).master.getSession().actived == 1 && ((Pet) player).setClothes.setDHD == 5)) {
                 byte random = 1;
-                if (Util.isTrue(5, 100)) {
-                    random = 2;
+                if (Util.isTrue(1, 300)) {
+                    Item i = Manager.RUBY_REWARDS.get(Util.nextInt(0, Manager.RUBY_REWARDS.size() - 1));
+                    i.quantity = random;
+                    InventoryServiceNew.gI().addItemBag(player, i);
+                    InventoryServiceNew.gI().sendItemBags(player);
+                    Service.gI().sendThongBao(player, "Bạn vừa nhận được " + random + " hồng ngọc");
                 }
-                Item i = Manager.RUBY_REWARDS.get(Util.nextInt(0, Manager.RUBY_REWARDS.size() - 1));
-                i.quantity = random;
-                InventoryServiceNew.gI().addItemBag(player, i);
-                InventoryServiceNew.gI().sendItemBags(player);
-                Service.gI().sendThongBao(player, "Bạn vừa nhận được " + random + " hồng ngọc");
             }
 
             itemReward = this.getItemMobReward(player, this.location.x + Util.nextInt(-10, 10),

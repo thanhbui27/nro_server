@@ -55,8 +55,8 @@ public class CombineServiceNew {
 
     private static final int GOLD_BONG_TAI = 500_000_000;
     private static final int GEM_BONG_TAI = 5_000;
-    private static final int RATIO_BONG_TAI = 50;
-    private static final int RATIO_NANG_CAP = 45;
+    private static final int RATIO_BONG_TAI = 60;
+    private static final int RATIO_NANG_CAP = 60;
 
     private final Npc baHatMit;
     private final Npc npsthiensu64;

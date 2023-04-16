@@ -17,8 +17,8 @@ public class Vados extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        int[] manhthuong = new int[]{1142, 1142};
-        int[] manhhiem = new int[]{1142, 1067, 1142};
+        int[] manhthuong = new int[]{1066, 1068};
+        int[] manhhiem = new int[]{1067, 1069, 1070};
 
         int randomAWJ = new Random().nextInt(manhthuong.length);
         int randomGR = new Random().nextInt(manhhiem.length);

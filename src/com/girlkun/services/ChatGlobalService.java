@@ -33,11 +33,11 @@ public class ChatGlobalService implements Runnable {
     }
 
     public void chat(Player player, String text) {
-        if (player.getSession().actived == 0) {
-            Service.gI().sendThongBaoFromAdmin(player,
-                    "|5|VUI LÒNG Kích Hoạt Thành Viên\n|7|Bằng\n|5 Npc Trong Nhà!");
-            return;
-        }
+//        if (player.getSession().actived == 0) {
+//            Service.gI().sendThongBaoFromAdmin(player,
+//                    "|5|VUI LÒNG Kích Hoạt Thành Viên\n|7|Bằng\n|5 Npc Trong Nhà!");
+//            return;
+//        }
         if (waitingChat.size() >= COUNT_WAIT) {
             Service.gI().sendThongBao(player, "Kênh thế giới hiện đang quá tải, không thể chat lúc này");
             return;

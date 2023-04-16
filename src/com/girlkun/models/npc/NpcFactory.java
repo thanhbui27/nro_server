@@ -298,7 +298,7 @@ public class NpcFactory {
         };
     }
 
-    //Loi ne
+    // Loi ne
     private static Npc nrotea(int mapId, int status, int cx, int cy, int tempId, int avartar) {
         return new Npc(mapId, status, cx, cy, tempId, avartar) {
             @Override
@@ -1156,9 +1156,12 @@ public class NpcFactory {
                                     "Cửa hàng chuyên nhận ký gửi mua bán vật phẩm\bChỉ với 5 hồng ngọc\bGiá trị ký gửi 10k-200Tr vàng hoặc 2-2k ngọc\bMột người bán, vạn người mua, mại dô, mại dô");
                             break;
                         case 1:
-                            ShopKyGuiService.gI().openShopKyGui(pl);
+                            if (pl.session.actived == 1) {
+                                ShopKyGuiService.gI().openShopKyGui(pl);
+                                return;
+                            }
+                            this.npcChat(pl, "bạn chưa kích hoạt thành viên!!!");
                             break;
-
                     }
                 }
             }
@@ -1569,20 +1572,20 @@ public class NpcFactory {
                                     Boss boss = BossManager.gI().getBossById(BossID.KUKU);
                                     if (boss != null && !boss.isDie()) {
                                         if (player.inventory.gold >= COST_FIND_BOSS) {
-                                            // Zone z = MapService.gI().getMapCanJoin(player, boss.zone.map.mapId,
-                                            // boss.zone.zoneId);
-                                            // if (z != null && z.getNumOfPlayers() < z.maxPlayer) {
+                                            Zone z = MapService.gI().getMapCanJoin(player, boss.zone.map.mapId,
+                                                    boss.zone.zoneId);
+                                            if (z != null && z.getNumOfPlayers() < z.maxPlayer) {
+                                                player.inventory.gold -= COST_FIND_BOSS;
+                                                ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
+                                                        boss.location.y);
+                                                Service.gI().sendMoney(player);
+                                            } else {
+                                                Service.gI().sendThongBao(player, "Khu vực đang full.");
+                                            }
                                             // player.inventory.gold -= COST_FIND_BOSS;
                                             // ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
                                             // boss.location.y);
                                             // Service.gI().sendMoney(player);
-                                            // } else {
-                                            // Service.gI().sendThongBao(player, "Khu vực đang full.");
-                                            // }
-                                            player.inventory.gold -= COST_FIND_BOSS;
-                                            ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
-                                                    boss.location.y);
-                                            Service.gI().sendMoney(player);
                                         } else {
                                             Service.gI().sendThongBao(player, "Không đủ vàng, còn thiếu "
                                                     + Util.numberToMoney(COST_FIND_BOSS - player.inventory.gold)
@@ -1605,20 +1608,20 @@ public class NpcFactory {
                                     Boss boss = BossManager.gI().getBossById(BossID.MAP_DAU_DINH);
                                     if (boss != null && !boss.isDie()) {
                                         if (player.inventory.gold >= COST_FIND_BOSS) {
-                                            // Zone z = MapService.gI().getMapCanJoin(player, boss.zone.map.mapId,
-                                            // boss.zone.zoneId);
-                                            // if (z != null && z.getNumOfPlayers() < z.maxPlayer) {
+                                            Zone z = MapService.gI().getMapCanJoin(player, boss.zone.map.mapId,
+                                                    boss.zone.zoneId);
+                                            if (z != null && z.getNumOfPlayers() < z.maxPlayer) {
+                                                player.inventory.gold -= COST_FIND_BOSS;
+                                                ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
+                                                        boss.location.y);
+                                                Service.gI().sendMoney(player);
+                                            } else {
+                                                Service.gI().sendThongBao(player, "Khu vực đang full.");
+                                            }
                                             // player.inventory.gold -= COST_FIND_BOSS;
                                             // ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
                                             // boss.location.y);
                                             // Service.gI().sendMoney(player);
-                                            // } else {
-                                            // Service.gI().sendThongBao(player, "Khu vực đang full.");
-                                            // }
-                                            player.inventory.gold -= COST_FIND_BOSS;
-                                            ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
-                                                    boss.location.y);
-                                            Service.gI().sendMoney(player);
                                         } else {
                                             Service.gI().sendThongBao(player, "Không đủ vàng, còn thiếu "
                                                     + Util.numberToMoney(COST_FIND_BOSS - player.inventory.gold)
@@ -1641,20 +1644,20 @@ public class NpcFactory {
                                     Boss boss = BossManager.gI().getBossById(BossID.RAMBO);
                                     if (boss != null && !boss.isDie()) {
                                         if (player.inventory.gold >= COST_FIND_BOSS) {
-                                            // Zone z = MapService.gI().getMapCanJoin(player, boss.zone.map.mapId,
-                                            // boss.zone.zoneId);
-                                            // if (z != null && z.getNumOfPlayers() < z.maxPlayer) {
+                                            Zone z = MapService.gI().getMapCanJoin(player, boss.zone.map.mapId,
+                                                    boss.zone.zoneId);
+                                            if (z != null && z.getNumOfPlayers() < z.maxPlayer) {
+                                                player.inventory.gold -= COST_FIND_BOSS;
+                                                ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
+                                                        boss.location.y);
+                                                Service.gI().sendMoney(player);
+                                            } else {
+                                                Service.gI().sendThongBao(player, "Khu vực đang full.");
+                                            }
                                             // player.inventory.gold -= COST_FIND_BOSS;
                                             // ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
                                             // boss.location.y);
                                             // Service.gI().sendMoney(player);
-                                            // } else {
-                                            // Service.gI().sendThongBao(player, "Khu vực đang full.");
-                                            // }
-                                            player.inventory.gold -= COST_FIND_BOSS;
-                                            ChangeMapService.gI().changeMap(player, boss.zone, boss.location.x,
-                                                    boss.location.y);
-                                            Service.gI().sendMoney(player);
                                         } else {
                                             Service.gI().sendThongBao(player, "Không đủ vàng, còn thiếu "
                                                     + Util.numberToMoney(COST_FIND_BOSS - player.inventory.gold)
