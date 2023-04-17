@@ -578,7 +578,7 @@ public class BossesData {
             ConstPlayer.XAYDA,
             new short[]{234, 235, 236, -1, -1, -1},
             350000,
-            new int[]{1500000000},
+            new int[]{2000000000},
             new int[]{100},
             new int[][]{
                     {Skill.KAMEJOKO, 7, 1000},
@@ -616,7 +616,7 @@ public class BossesData {
             ConstPlayer.XAYDA,
             new short[]{234, 235, 236, -1, -1, -1},
             300000,
-            new int[]{2000000000},
+            new int[]{1500000000},
             new int[]{103},
             new int[][]{
                    {Skill.LIEN_HOAN, 7, 10000},
@@ -652,7 +652,7 @@ public class BossesData {
             ConstPlayer.XAYDA,
             new short[]{234, 235, 236, -1, -1, -1},
             200000,
-            new int[]{2000000000},
+            new int[]{1500000000},
             new int[]{103},
             new int[][]{
                
@@ -686,7 +686,7 @@ public class BossesData {
             ConstPlayer.XAYDA,
             new short[]{234, 235, 236, -1, -1, -1},
             300000,
-            new int[]{2000000000},
+            new int[]{1500000000},
             new int[]{103},
             new int[][]{
                 {Skill.DEMON, 3, 1}, {Skill.DEMON, 6, 2}, {Skill.DRAGON, 7, 3}, {Skill.DRAGON, 1, 4}, {Skill.GALICK, 5, 5},
@@ -1698,7 +1698,7 @@ public class BossesData {
             TypeAppear.APPEAR_WITH_ANOTHER
     );
  public static final BossData SUPER_ANDROID_17 = new BossData(
-            "Super SooMe", //name
+            "Super Noob", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{636, 637, 638, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             100000, //dame
@@ -1717,11 +1717,11 @@ public class BossesData {
             REST_15_M
     );
      public static final BossData SUPER_XEN = new BossData(
-            "Super Xên SooMe", //name
+            "Super Xên Noob", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{2000, 2001, 2002, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             100000, //dame
-            new int[]{2000000000}, //hp
+            new int[]{1500000000}, //hp
             new int[]{103}, //map join
             new int[][]{
                 {Skill.LIEN_HOAN, 1, 300},{Skill.LIEN_HOAN, 2, 400},{Skill.LIEN_HOAN, 3, 500},{Skill.LIEN_HOAN, 4, 600},{Skill.LIEN_HOAN, 5, 700},{Skill.LIEN_HOAN, 6, 800},{Skill.LIEN_HOAN, 7, 900},
@@ -1736,7 +1736,7 @@ public class BossesData {
             REST_30_M
     );
       public static final BossData KAMIRIN = new BossData(
-            "Super Super SooMe", //name
+            "Super Super Noob", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{356, 357, 358, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             100000, //dame
@@ -1745,11 +1745,11 @@ public class BossesData {
      
             (int[][]) Util.addArray(FULL_GALICK, FULL_KAMEJOKO,FULL_LIENHOAN,FULL_ANTOMIC,FULL_DEMON,FULL_MASENKO,FULL_DRAGON), //skill
              new String[]{"|-1|Sôn..gôku",
-                    "|-2|Lại là Soome à.. rốt cuộc ông ta đã tạo ra bao nhiêu Anhrin nhân tạo thế nhỉ?",
-                    "|-1|Bọn ta là rôbốt sát thủ, sinh ra từ máy tính ngài Soome,..",
+                    "|-2|Lại là Noob à.. rốt cuộc ông ta đã tạo ra bao nhiêu Anhrin nhân tạo thế nhỉ?",
+                    "|-1|Bọn ta là rôbốt sát thủ, sinh ra từ máy tính ngài Noob,..",
                     "|-1|..cho một mục tiêu duy nhất là giết Sôngôku!",
                     "|-2|Máy tính? Để giết Gôku sao?",
-                    "|-1|Mong muốn trả thù Gôku của ngài Soome đã được lưu hết vào máy tính..",
+                    "|-1|Mong muốn trả thù Gôku của ngài Noob đã được lưu hết vào máy tính..",
                     "|-1|.., Bọn ta sinh ra từ lòng căm thù ngày một tăng bên trong chiếc máy tính có chứa mong muốn trả thù",
                     "|-1|Mục tiêu của bọn ta chỉ là Gôku, nhưng mà.. nếu ngươi mà cản đường thì là chuyện khác!",}, //text chat 1
             new String[]{"|-1|Sao thế hả? Ta mới chỉ khởi động thôi mà!",
@@ -1764,7 +1764,7 @@ public class BossesData {
     );
 
     public static final BossData KAMILOC = new BossData(
-            "Super Super Super SooMe", //name
+            "Super Super Super Noob", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{397, 398, 399, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             100000, //dame
@@ -1781,13 +1781,13 @@ public class BossesData {
                     "|-2|Ta hiểu rồi, các ngươi là rôbốt sát thủ do tiến sĩ Kôrê tạo ra chứ gì?"
             }, //text chat 1
             new String[]{}, //text chat 2
-            new String[]{"|0| Soome  tiêu tùng cả rồi à?"}, //text chat 3
+            new String[]{"|0| Noob  tiêu tùng cả rồi à?"}, //text chat 3
             REST_30_M,
             new int[]{BossID.KAMIRIN, BossID.KAMI_SOOME}
     );
 
     public static final BossData KAMI_SOOME = new BossData(
-            "Super Super Super Super SooMe", //name
+            "Super Super Super Super Noob", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{409, 410, 411, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             100000, //dame
@@ -1806,7 +1806,7 @@ public class BossesData {
             TypeAppear.APPEAR_WITH_ANOTHER
     );
     public static final BossData CUMBERBLACK = new BossData(
-            "CumBer SooMe Black", //name
+            "CumBer Noob Black", //name
             ConstPlayer.TRAI_DAT, //gender
             new short[]{907, 908, 909, -1, -1, -1}, //outfit {head, body, leg, bag, aura, eff}
             100000, //dame
