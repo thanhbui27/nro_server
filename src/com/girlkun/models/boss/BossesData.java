@@ -577,7 +577,7 @@ public class BossesData {
             "Xên hoàn thiện",
             ConstPlayer.XAYDA,
             new short[]{234, 235, 236, -1, -1, -1},
-            350000,
+            250000,
             new int[]{2000000000},
             new int[]{100},
             new int[][]{
@@ -587,7 +587,7 @@ public class BossesData {
                     {Skill.KHIEN_NANG_LUONG, 3, 100000},
                     {Skill.TAI_TAO_NANG_LUONG, 1, 20000},
                     {Skill.LIEN_HOAN, 7, 10000},
-                    {Skill.THOI_MIEN, 7, 100000}},
+                    {Skill.THOI_MIEN, 1, 100000}},
             //skill
 
             new String[]{"|-2|Cuối cùng hắn cũng đã biến đổi",
@@ -615,17 +615,17 @@ public class BossesData {
             "Xên Hoàn Thiện",
             ConstPlayer.XAYDA,
             new short[]{234, 235, 236, -1, -1, -1},
-            300000,
+            200000,
             new int[]{1500000000},
             new int[]{103},
             new int[][]{
                    {Skill.LIEN_HOAN, 7, 10000},
-                    {Skill.THOI_MIEN, 7, 100000},
+                    {Skill.THOI_MIEN, 1, 100000},
                     {Skill.KAMEJOKO, 7, 10000},
-                    {Skill.DICH_CHUYEN_TUC_THOI, 7, 10000},
+                    {Skill.DICH_CHUYEN_TUC_THOI, 1, 50000},
                     {Skill.TAI_TAO_NANG_LUONG, 1, 20000},
                     {Skill.LIEN_HOAN, 7, 1000},
-                    {Skill.THAI_DUONG_HA_SAN, 7, 10000}},
+                    {Skill.THAI_DUONG_HA_SAN, 1, 50000}},
             //skill
             new String[]{"|-1|Cuối cùng thì ngươi cũng đến Goku,... ta đang đợi ngươi đây...",
                     "|-1|Chào mừng đến với giải đấu!!!",

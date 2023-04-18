@@ -661,22 +661,22 @@ public class UseItem {
                 pl.itemTime.isUseMayDo = true;
                 break;
             case 1099:// cn
-                pl.itemTime.lastTimeCuongNo2 = System.currentTimeMillis();
-                pl.itemTime.isUseCuongNo2 = true;
-                Service.gI().point(pl);
+//                pl.itemTime.lastTimeCuongNo2 = System.currentTimeMillis();
+//                pl.itemTime.isUseCuongNo2 = true;
+//                Service.gI().point(pl);
 
                 break;
             case 1100:// bo huyet
-                pl.itemTime.lastTimeBoHuyet2 = System.currentTimeMillis();
-                pl.itemTime.isUseBoHuyet2 = true;
+//                pl.itemTime.lastTimeBoHuyet2 = System.currentTimeMillis();
+//                pl.itemTime.isUseBoHuyet2 = true;
                 break;
             case 1101:// bo khi
-                pl.itemTime.lastTimeBoKhi2 = System.currentTimeMillis();
-                pl.itemTime.isUseBoKhi2 = true;
+//                pl.itemTime.lastTimeBoKhi2 = System.currentTimeMillis();
+//                pl.itemTime.isUseBoKhi2 = true;
                 break;
             case 1102:// xbh
-                pl.itemTime.lastTimeGiapXen2 = System.currentTimeMillis();
-                pl.itemTime.isUseGiapXen2 = true;
+//                pl.itemTime.lastTimeGiapXen2 = System.currentTimeMillis();
+//                pl.itemTime.isUseGiapXen2 = true;
                 break;
             case 1103:// an danh
                 pl.itemTime.lastTimeAnDanh2 = System.currentTimeMillis();

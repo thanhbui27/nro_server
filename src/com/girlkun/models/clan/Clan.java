@@ -56,7 +56,7 @@ public class Clan {
         this.id = NEXT_ID++;
         this.name = "";
         this.slogan = "";
-        this.maxMember = 50;
+        this.maxMember = 12;
         this.createTime = (int) (System.currentTimeMillis() / 1000);
         this.members = new ArrayList<>();
         this.membersInGame = new ArrayList<>();

@@ -2469,19 +2469,19 @@ public class NpcFactory {
                             switch (select) {
                                 case 0:
                                     this.createOtherMenu(player, 1,
-                                            "Bạn muốn đổi 30 điểm phân rã \n|6|Để đổi lấy 1 món đồ húy diệt trái đất có tý lệ ra skh không?",
+                                            "Bạn muốn đổi 40 điểm phân rã \n|6|Để đổi lấy 1 món đồ húy diệt trái đất có tý lệ ra skh không?",
                                             "áo\nhúy diệt", "quần\nhúy diệt", "găng\nhúy diệt", "giày\nhúy diệt",
                                             "nhẫn\nhúy diệt", "Từ chối");
                                     break;
                                 case 1:
                                     this.createOtherMenu(player, 2,
-                                            "Bạn muốn đổi 30 điểm phân rã \n|6|Để đổi lấy 1 món đồ húy diệt namec có tý lệ ra skh không?",
+                                            "Bạn muốn đổi 40 điểm phân rã \n|6|Để đổi lấy 1 món đồ húy diệt namec có tý lệ ra skh không?",
                                             "áo\nhúy diệt", "quần\nhúy diệt", "găng\nhúy diệt", "giày\nhúy diệt",
                                             "nhẫn\nhúy diệt", "Từ chối");
                                     break;
                                 case 2:
                                     this.createOtherMenu(player, 3,
-                                            "Bạn muốn đổi 30 điểm phân rã \n|6|Để đổi lấy 1 món đồ húy diệt xayda có tý lệ ra skh không?",
+                                            "Bạn muốn đổi 40 điểm phân rã \n|6|Để đổi lấy 1 món đồ húy diệt xayda có tý lệ ra skh không?",
                                             "áo\nhúy diệt", "quần\nhúy diệt", "găng\nhúy diệt", "giày\nhúy diệt",
                                             "nhẫn\nhúy diệt", "Từ chối");
                                     break;
@@ -2491,78 +2491,78 @@ public class NpcFactory {
                                 case 0: // trade áo td
                                     try {
                                         int coupon = player.inventory.coupon;
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 650);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                                 case 1: // trade quần td
                                     try {
                                         int coupon = player.inventory.coupon;
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 651);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
 
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                                 case 2: // trade găng td
                                     try {
                                         int coupon = player.inventory.coupon;
 
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 657);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
 
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                                 case 3: // trade giày td
                                     try {
                                         int coupon = player.inventory.coupon;
 
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 658);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
 
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                                 case 4: // trade nhẫn td
                                     try {
                                         int coupon = player.inventory.coupon;
 
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 656);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
 
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                             }
@@ -2571,78 +2571,78 @@ public class NpcFactory {
                                 case 0: // trade áo nm
                                     try {
                                         int coupon = player.inventory.coupon;
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 652);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                                 case 1: // trade quần nm
                                     try {
                                         int coupon = player.inventory.coupon;
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 653);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
 
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                                 case 2: // trade găng nm
                                     try {
                                         int coupon = player.inventory.coupon;
 
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 659);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
 
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                                 case 3: // trade giày nm
                                     try {
                                         int coupon = player.inventory.coupon;
 
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 660);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
 
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                                 case 4: // trade nhẫn nm
                                     try {
                                         int coupon = player.inventory.coupon;
 
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 656);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
 
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                             }
@@ -2651,78 +2651,78 @@ public class NpcFactory {
                                 case 0: // trade áo xd
                                     try {
                                         int coupon = player.inventory.coupon;
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 654);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                                 case 1: // trade quần xd
                                     try {
                                         int coupon = player.inventory.coupon;
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 655);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
 
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                                 case 2: // trade găng xd
                                     try {
                                         int coupon = player.inventory.coupon;
 
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 661);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
 
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                                 case 3: // trade giày xd
                                     try {
                                         int coupon = player.inventory.coupon;
 
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 662);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
 
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                                 case 4: // trade nhẫn xd
                                     try {
                                         int coupon = player.inventory.coupon;
 
-                                        if (coupon >= 30) {
+                                        if (coupon >= 40) {
                                             CombineServiceNew.gI().GetTrangBiKichHoathuydiet(player, 656);
                                             this.npcChat(player, "Chuyển Hóa Thành Công!");
                                         } else {
                                             this.npcChat(player,
-                                                    "Yêu cầu 30 điểm phân rã!!!");
+                                                    "Yêu cầu 40 điểm phân rã!!!");
                                         }
 
                                     } catch (Exception e) {
-                                        this.npcChat(player, "Yêu cầu 30 điểm phân rã!!!");
+                                        this.npcChat(player, "Yêu cầu 40 điểm phân rã!!!");
                                     }
                                     break;
                             }

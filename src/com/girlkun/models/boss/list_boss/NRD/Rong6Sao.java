@@ -17,7 +17,7 @@ public class Rong6Sao extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        ItemMap it = new ItemMap(this.zone, 377, 1, this.location.x, this.location.y, -1);
+        ItemMap it = new ItemMap(this.zone, 457, 5, this.location.x, this.location.y, -1);
         Service.gI().dropItemMap(this.zone, it);
     }
 @Override

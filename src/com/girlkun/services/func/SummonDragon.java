@@ -58,16 +58,16 @@ public class SummonDragon {
             = "Ta sẽ ban cho người 1 điều ước, ngươi có 5 phút, hãy suy nghĩ thật kỹ trước khi quyết định";
 
     public static final String[] SHENRON_1_STAR_WISHES_1
-            = new String[]{"Giàu có\n+2 Tỏi\nVàng", "Găng tay\nđang mang\nlên 1 cấp", "Chí mạng\nGốc +2%",
+            = new String[]{"Giàu có\n+200 Tr\nVàng", "Găng tay\nđang mang\nlên 1 cấp", "Chí mạng\nGốc +2%",
                 "Thay\nChiêu 2-3\nĐệ tử", "Điều ước\nkhác"};
     public static final String[] SHENRON_1_STAR_WISHES_2
             = new String[]{"Đẹp trai\nnhất\nVũ trụ", "Giàu có\n+10K\nNgọc", "+200 Tr\nSức mạnh\nvà tiềm\nnăng",
                 "Găng tay đệ\nđang mang\nlên 1 cấp",
                 "Điều ước\nkhác"};
     public static final String[] SHENRON_2_STARS_WHISHES
-            = new String[]{"Giàu có\n+2K\nNgọc", "+20 Tr\nSức mạnh\nvà tiềm năng", "Giàu có\n+200 Tr\nVàng"};
+            = new String[]{"Giàu có\n+2K\nNgọc", "+20 Tr\nSức mạnh\nvà tiềm năng", "Giàu có\n+20 Tr\nVàng"};
     public static final String[] SHENRON_3_STARS_WHISHES
-            = new String[]{"Giàu có\n+200\nNgọc", "+2 Tr\nSức mạnh\nvà tiềm năng", "Giàu có\n+20 Tr\nVàng"};
+            = new String[]{"Giàu có\n+200\nNgọc", "+2 Tr\nSức mạnh\nvà tiềm năng", "Giàu có\n+200k\nVàng"};
     //--------------------------------------------------------------------------
     private static SummonDragon instance;
     private final Map pl_dragonStar;
@@ -302,7 +302,7 @@ public class SummonDragon {
             case ConstNpc.SHENRON_1_1:
                 switch (this.select) {
                     case 0: //20 tr vàng
-                        this.playerSummonShenron.inventory.gold = 2000000000;
+                        this.playerSummonShenron.inventory.gold = 200000000;
                         PlayerService.gI().sendInfoHpMpMoney(this.playerSummonShenron);
                         break;
                     case 1: //găng tay đang đeo lên 1 cấp
@@ -451,7 +451,7 @@ public class SummonDragon {
                         if (this.playerSummonShenron.inventory.gold > 1800000000) {
                             this.playerSummonShenron.inventory.gold = Inventory.LIMIT_GOLD;
                         } else {
-                            this.playerSummonShenron.inventory.gold += 200000000;
+                            this.playerSummonShenron.inventory.gold += 2000000;
                         }
                         PlayerService.gI().sendInfoHpMpMoney(this.playerSummonShenron);
                         break;
@@ -470,7 +470,7 @@ public class SummonDragon {
                         if (this.playerSummonShenron.inventory.gold > (2000000000 - 20000000)) {
                             this.playerSummonShenron.inventory.gold = Inventory.LIMIT_GOLD;
                         } else {
-                            this.playerSummonShenron.inventory.gold += 20000000;
+                            this.playerSummonShenron.inventory.gold += 200000;
                         }
                         PlayerService.gI().sendInfoHpMpMoney(this.playerSummonShenron);
                         break;
@@ -483,14 +483,14 @@ public class SummonDragon {
                             if(Client.gI().getPlayer(m.id) != null){
                                 Player p = Client.gI().getPlayer(m.id);
                                 Item it = ItemService.gI().createNewItem((short)19);
-                                it.quantity = 99;
+                                it.quantity = 10;
                                 InventoryServiceNew.gI().addItemBag(p, it);
                                 InventoryServiceNew.gI().sendItemBags(p);
                             }else{
                                 Player p = GodGK.loadById(m.id);
                                 if(p != null){
                                     Item it = ItemService.gI().createNewItem((short)19);
-                                    it.quantity = 99;
+                                    it.quantity = 10;
                                     InventoryServiceNew.gI().addItemBag(p, it);
                                     PlayerDAO.updatePlayer(p);
                                 }
@@ -498,7 +498,7 @@ public class SummonDragon {
                         });
                     }else{
                         Item it = ItemService.gI().createNewItem((short)19);
-                        it.quantity = 99;
+                        it.quantity = 10;
                         InventoryServiceNew.gI().addItemBag(playerSummonShenron, it);
                         InventoryServiceNew.gI().sendItemBags(playerSummonShenron);
                     }
@@ -526,7 +526,7 @@ public class SummonDragon {
                 wish = SHENRON_3_STARS_WHISHES[select];
                 break;
             case ConstNpc.NAMEC_1:
-                wish = "x99 ngọc rồng 3 sao";
+                wish = "x10 ngọc rồng 3 sao";
                 break;
         }
         NpcService.gI().createMenuRongThieng(pl, ConstNpc.SHENRON_CONFIRM, "Ngươi có chắc muốn ước?", wish, "Từ chối");
