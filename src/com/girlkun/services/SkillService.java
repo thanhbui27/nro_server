@@ -51,8 +51,8 @@ public class SkillService {
         }
         if ((player.effectSkill.isHaveEffectSkill()
                 && (player.playerSkill.skillSelect.template.id != Skill.TU_SAT
-                        && player.playerSkill.skillSelect.template.id != Skill.QUA_CAU_KENH_KHI
-                        && player.playerSkill.skillSelect.template.id != Skill.MAKANKOSAPPO))
+                && player.playerSkill.skillSelect.template.id != Skill.QUA_CAU_KENH_KHI
+                && player.playerSkill.skillSelect.template.id != Skill.MAKANKOSAPPO))
                 || (plTarget != null && !canAttackPlayer(player, plTarget))
                 || (mobTarget != null && mobTarget.isDie())
                 || !canUseSkillWithMana(player) || !canUseSkillWithCooldown(player)) {
@@ -164,7 +164,7 @@ public class SkillService {
                         for (Mob mob : player.zone.mobs) {
                             if (!mob.isDie()
                                     && Util.getDistance(plTarget, mob) <= SkillUtil
-                                            .getRangeQCKK(player.playerSkill.skillSelect.point)) {
+                                    .getRangeQCKK(player.playerSkill.skillSelect.point)) {
                                 mobs.add(mob);
                             }
                         }
@@ -174,7 +174,7 @@ public class SkillService {
                         for (Mob mob : player.zone.mobs) {
                             if (!mob.equals(mobTarget) && !mob.isDie()
                                     && Util.getDistance(mob, mobTarget) <= SkillUtil
-                                            .getRangeQCKK(player.playerSkill.skillSelect.point)) {
+                                    .getRangeQCKK(player.playerSkill.skillSelect.point)) {
                                 mobs.add(mob);
                             }
                         }
@@ -296,29 +296,27 @@ public class SkillService {
                 if (!MapService.gI().isMapOffline(player.zone.map.mapId)) {
                     List<Player> playersMap = player.zone.getHumanoids();
                     for (Player pl : playersMap) {
-                        // if (pl != null && !player.equals(pl) && !player.nPoint.khangTDHS) {
-                        //     boolean result0 = Util.usingStandardWay(Util.getDistance(player, pl));
-                        //     // if (result0) {
-                        //     if (Util.getDistance(player, pl) <= SkillUtil
-                        //             .getRangeStun(player.playerSkill.skillSelect.point)
-                        //     // && canAttackPlayer(player, pl) //&& (!pl.playerSkill.prepareQCKK &&
-                        //     // !pl.playerSkill.prepareLaze && !pl.playerSkill.prepareTuSat)
-                        //     ) {
-                        //         if (player.isPet && ((Pet) player).master.equals(pl)) {
-                        //             continue;
-                        //         }
-                        //         EffectSkillService.gI().startStun(pl, System.currentTimeMillis(), timeStun);
-                        //         players.add(pl);
-                        //     }
-                        //     // }
-                        // }
+//                        if (pl != null && !player.equals(pl) && !player.nPoint.khangTDHS) {
+//                            boolean result0 = Util.usingStandardWay(Util.getDistance(player, pl));
+//                            if (result0) {
+//                                if (Util.getDistance(player, pl) <= SkillUtil
+//                                        .getRangeStun(player.playerSkill.skillSelect.point) // && canAttackPlayer(player, pl) //&& (!pl.playerSkill.prepareQCKK &&
+//                                        // !pl.playerSkill.prepareLaze && !pl.playerSkill.prepareTuSat)
+//                                        ) {
+//                                    if (player.isPet && ((Pet) player).master.equals(pl)) {
+//                                        continue;
+//                                    }
+//                                    EffectSkillService.gI().startStun(pl, System.currentTimeMillis(), timeStun);
+//                                    players.add(pl);
+//                                }
+//                            }
+//                        }
                         if (pl != null && !player.equals(pl) && !pl.nPoint.khangTDHS) {
-                            if (Util.getDistance(player, pl) <= SkillUtil
-                                    .getRangeStun(player.playerSkill.skillSelect.point)
+                            if (Util.getDistance(player, pl) <= SkillUtil.getRangeStun(player.playerSkill.skillSelect.point)
                                     && canAttackPlayer(player, pl) // && (!pl.playerSkill.prepareQCKK &&
-                                                                   // !pl.playerSkill.prepareLaze &&
-                                                                   // !pl.playerSkill.prepareTuSat)
-                            ) {
+                                    // !pl.playerSkill.prepareLaze &&
+                                    // !pl.playerSkill.prepareTuSat)
+                                    ) {
                                 if (player.isPet && ((Pet) player).master.equals(pl)) {
                                     continue;
                                 }

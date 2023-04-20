@@ -28,8 +28,8 @@ public class NapThe {
         System.out.println(seri);
     }
     public static final void SendCard(Player p, String loaiThe, String menhGia, String soSeri, String maPin) {
-       String partnerId = "72461046463"; //0086879143
-            String partnerKey = "16502d49bf5e949c3f27238c2a762115"; //edc3a8086e2db06925438495b0cf88df
+       String partnerId = ""; //0086879143
+            String partnerKey = ""; //edc3a8086e2db06925438495b0cf88df
            String api = MD5Hash(partnerKey+maPin+soSeri);
             int requestID = Util.nextInt(100000000, 999999999);
                String t = String.valueOf(requestID);

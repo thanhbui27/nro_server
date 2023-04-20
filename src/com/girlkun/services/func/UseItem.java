@@ -318,6 +318,9 @@ public class UseItem {
                         case 1108: // đổi đệ tử
                             changePetBerus(pl, item);
                             break;
+                        case 1159: // đổi đệ tử
+                             changePetAnubis(pl, item);
+                            break;
                         case 722: // đổi đệ tử
                             changePetPic(pl, item);
                             break;
@@ -521,6 +524,16 @@ public class UseItem {
         if (player.pet != null) {
             int gender = player.pet.gender;
             PetService.gI().changeBerusPet(player, gender);
+            InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
+        } else {
+            Service.gI().sendThongBao(player, "Không thể thực hiện");
+        }
+    }
+
+    private void changePetAnubis(Player player, Item item) {
+        if (player.pet != null) {
+            int gender = player.pet.gender;
+            PetService.gI().changeAnubisPet(player, gender);
             InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
         } else {
             Service.gI().sendThongBao(player, "Không thể thực hiện");

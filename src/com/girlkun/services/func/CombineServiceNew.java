@@ -1759,7 +1759,7 @@ public class CombineServiceNew {
 
     private boolean isTrangBiPhaLeHoa(Item item) {
         if (item != null && item.isNotNullItem()) {
-            if (item.template.type < 6 || item.template.type == 11 || item.template.type == 32 || item.template.type == 72 || item.template.type == 23 || item.template.type == 24 || item.template.type == 27) {
+            if (item.template.type < 6 || item.template.type == 11 || item.template.type == 32 || item.template.type == 72 || item.template.type == 23 || item.template.type == 24 || item.template.type == 1) {
                 return true;
             } else {
                 return false;
