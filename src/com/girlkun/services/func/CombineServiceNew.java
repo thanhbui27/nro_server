@@ -1267,8 +1267,8 @@ public class CombineServiceNew {
                         }
                         sendEffectSuccessCombine(player);
                         if (optionStar != null && optionStar.param >= 7) {
-                            ServerNotify.gI().notify("Chúc mừng " + player.name + " vừa pha lê hóa "
-                                    + "thành công " + item.template.name + " lên " + optionStar.param + " sao pha lê");
+                            // ServerNotify.gI().notify("Chúc mừng " + player.name + " vừa pha lê hóa "
+                            //         + "thành công " + item.template.name + " lên " + optionStar.param + " sao pha lê");
                         }
                     } else {
                         sendEffectFailCombine(player);
@@ -1759,7 +1759,7 @@ public class CombineServiceNew {
 
     private boolean isTrangBiPhaLeHoa(Item item) {
         if (item != null && item.isNotNullItem()) {
-            if (item.template.type < 6 || item.template.type == 11 || item.template.type == 32 || item.template.type == 72 || item.template.type == 23 || item.template.type == 24 || item.template.type == 1) {
+            if (item.template.type < 6 || item.template.type == 11 || item.template.type == 32 || item.template.type == 1 || item.template.type == 1 || item.template.type == 1 || item.template.type == 1) {
                 return true;
             } else {
                 return false;

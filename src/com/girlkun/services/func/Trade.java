@@ -97,40 +97,45 @@ public class Trade {
                 if (quantity > item.quantity || quantity < 0) {
                     return;
                 } else {
-                    if (quantity > 99) {
-                        int n = quantity / 99;
-                        int left = quantity % 99;
-                        for (int i = 0; i < n; i++) {
-                            Item itemTrade = ItemService.gI().copyItem(item);
-                            itemTrade.quantity = 99;
-                            if (pl.equals(this.player1)) {
-                                InventoryServiceNew.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
-                                itemsTrade1.add(itemTrade);
-                            } else {
-                                InventoryServiceNew.gI().subQuantityItem(itemsBag2, item, itemTrade.quantity);
-                                itemsTrade2.add(itemTrade);
-                            }
-                        }
-                        if (left > 0) {
-                            Item itemTrade = ItemService.gI().copyItem(item);
-                            itemTrade.quantity = left;
-                            if (pl.equals(this.player1)) {
-                                InventoryServiceNew.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
-                                itemsTrade1.add(itemTrade);
-                            } else {
-                                InventoryServiceNew.gI().subQuantityItem(itemsBag2, item, itemTrade.quantity);
-                                itemsTrade2.add(itemTrade);
-                            }
-                        }
+                    if (item.template.type == 5 || item.template.type == 11 || item.template.type == 23
+                            || item.template.type == 27 || item.template.type == 24 || item.template.type == 72) {
+                        removeItemTrade(pl, index);
                     } else {
-                        Item itemTrade = ItemService.gI().copyItem(item);
-                        itemTrade.quantity = quantity != 0 ? quantity : 1;
-                        if (pl.equals(this.player1)) {
-                            InventoryServiceNew.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
-                            itemsTrade1.add(itemTrade);
+                        if (quantity > 99) {
+                            int n = quantity / 99;
+                            int left = quantity % 99;
+                            for (int i = 0; i < n; i++) {
+                                Item itemTrade = ItemService.gI().copyItem(item);
+                                itemTrade.quantity = 99;
+                                if (pl.equals(this.player1)) {
+                                    InventoryServiceNew.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
+                                    itemsTrade1.add(itemTrade);
+                                } else {
+                                    InventoryServiceNew.gI().subQuantityItem(itemsBag2, item, itemTrade.quantity);
+                                    itemsTrade2.add(itemTrade);
+                                }
+                            }
+                            if (left > 0) {
+                                Item itemTrade = ItemService.gI().copyItem(item);
+                                itemTrade.quantity = left;
+                                if (pl.equals(this.player1)) {
+                                    InventoryServiceNew.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
+                                    itemsTrade1.add(itemTrade);
+                                } else {
+                                    InventoryServiceNew.gI().subQuantityItem(itemsBag2, item, itemTrade.quantity);
+                                    itemsTrade2.add(itemTrade);
+                                }
+                            }
                         } else {
-                            InventoryServiceNew.gI().subQuantityItem(itemsBag2, item, itemTrade.quantity);
-                            itemsTrade2.add(itemTrade);
+                            Item itemTrade = ItemService.gI().copyItem(item);
+                            itemTrade.quantity = quantity != 0 ? quantity : 1;
+                            if (pl.equals(this.player1)) {
+                                InventoryServiceNew.gI().subQuantityItem(itemsBag1, item, itemTrade.quantity);
+                                itemsTrade1.add(itemTrade);
+                            } else {
+                                InventoryServiceNew.gI().subQuantityItem(itemsBag2, item, itemTrade.quantity);
+                                itemsTrade2.add(itemTrade);
+                            }
                         }
                     }
                 }

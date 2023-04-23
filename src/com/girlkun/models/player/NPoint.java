@@ -550,7 +550,7 @@ public class NPoint {
         }
         // set nappa
         if (this.player.setClothes.nappa == 5) {
-            this.hpMax += ((long) this.hpMax * 100 / 100);
+            this.hpMax += ((long) this.hpMax * 80 / 100);
         }
         // set worldcup
         if (this.player.setClothes.worldcup == 2) {
@@ -617,7 +617,7 @@ public class NPoint {
         }
         // bổ huyết
         if (this.player.itemTime != null && this.player.itemTime.isUseBoHuyet) {
-            this.hpMax *= 2;
+            this.hpMax *= 1.3;
         } // item sieu cawsp
         if (this.player.itemTime != null && this.player.itemTime.isUseBoHuyet2) {
             this.hpMax *= 2.2;
@@ -766,7 +766,7 @@ public class NPoint {
         }
         // cuồng nộ
         if (this.player.itemTime != null && this.player.itemTime.isUseCuongNo) {
-            this.dame *= 2;
+            this.dame *= 1.5;
         }
         if (this.player.itemTime != null && this.player.itemTime.isUseCuongNo2) {
             this.dame += this.dame * 2.2;

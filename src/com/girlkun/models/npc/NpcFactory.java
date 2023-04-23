@@ -845,7 +845,7 @@ public class NpcFactory {
                     if (this.mapId == 5) {
                         this.createOtherMenu(player, 0,
                                 "\b|2|Con muốn gì nào?\nCon đang còn : " + player.pointPvp + " \b|7|điểm Mua Sắm",
-                                "Đến Siêu Thị 2.0", "Đổi Đồ", "Top Mua Sắm");
+                                "Đến Siêu Thị 2.0", "Đổi Đồ", "Top Mua Sắm", "Đổi hòm sự kiện");
                     }
                     if (this.mapId == 129) {
                         this.createOtherMenu(player, 0,
@@ -875,6 +875,12 @@ public class NpcFactory {
                                     Service.gI().showListTop(player, Manager.topPVP);
                                     // mo top pvp
                                     break;
+                                case 3: //
+                                    this.createOtherMenu(player, 2,
+                                            "\b|7|Bạn có muốn đổi 1 mảnh Thanos và 150tr vàng để lấy \n|3|\b|2|Hòm Thanos không?\n ",
+                                            "Ok", "Không");
+                                    // bat menu doi item
+                                    break;
 
                             }
                         }
@@ -898,6 +904,43 @@ public class NpcFactory {
                                                 "Không đủ điểm bạn còn " + (2000 - player.pointPvp) + " Điểm nữa");
                                     }
                                     break;
+                            }
+                        }
+                        if (player.iDMark.getIndexMenu() == 2) { // action doi item
+                            switch (select) {
+                                case 0: // trade
+                                    try {
+                                        Item manhthanos = InventoryServiceNew.gI().findItem(player.inventory.itemsBag,
+                                                1161);
+                                        Item hbn = InventoryServiceNew.gI().findItem(player.inventory.itemsBag,
+                                                2044);
+                                        int soLuong = 0;
+                                        int slhbn = 0;
+                                        if (manhthanos != null) {
+                                            soLuong = manhthanos.quantity;
+                                        }
+                                        if (hbn != null) {
+                                            slhbn = hbn.quantity;
+                                        }
+                                        if (soLuong >= 1 && player.inventory.gold >= 150000000) {
+                                            Item item = ItemService.gI().createNewItem((short) (1162));
+                                            InventoryServiceNew.gI().addItemBag(player, item);
+                                            InventoryServiceNew.gI().subQuantityItemsBag(player, manhthanos, 99);
+                                            player.inventory.gold -= 150000000;
+                                            // InventoryServiceNew.gI().subQuantityItemsBag(player, hbn, 1);
+                                            InventoryServiceNew.gI().sendItemBags(player);
+                                            Service.gI().sendMoney(player);
+                                            Service.getInstance().sendThongBao(player,
+                                                    "Chúc Mừng Bạn Đổi hộp quà Thanos thành công !");
+                                        } else {
+                                            Service.getInstance().sendThongBao(player,
+                                                    "Không đủ mảnh Thanos hoặc vàng!!");
+                                        }
+                                        break;
+                                    } catch (Exception e) {
+                                        Service.getInstance().sendThongBao(player,
+                                                "Không đủ mảnh Thanos hoặc vàng!!");
+                                    }
                             }
                         }
                     }
@@ -2420,7 +2463,7 @@ public class NpcFactory {
                 if (canOpenNpc(player)) {
                     if (this.mapId == 45) {
                         this.createOtherMenu(player, ConstNpc.BASE_MENU,
-                                "Con muốn làm gì nào", "Đến Kaio", "Đổi đồ hủy diệt", "Quay số\nmay mắn");
+                                "Con muốn làm gì nào", "Đến Kaio", "Quay số\nmay mắn");
                     }
                 }
             }
@@ -2434,14 +2477,14 @@ public class NpcFactory {
                                 case 0:
                                     ChangeMapService.gI().changeMapBySpaceShip(player, 48, -1, 354);
                                     break;
+                                // case 1:
+                                // this.createOtherMenu(player, ConstNpc.MENU_DOI_DO_HD,
+                                // "Đổi" + player.inventory.coupon + " điểm phân rã đồ thần linh!!",
+                                // "Đổi đồ\nhủy diệt\ntrái đất",
+                                // "Đổi đồ\nhủy diệt\nnamec",
+                                // "Đổi đồ\nhủy diệt\nxayda");
+                                // break;
                                 case 1:
-                                    this.createOtherMenu(player, ConstNpc.MENU_DOI_DO_HD,
-                                            "Đổi" + player.inventory.coupon + " điểm phân rã đồ thần linh!!",
-                                            "Đổi đồ\nhủy diệt\ntrái đất",
-                                            "Đổi đồ\nhủy diệt\nnamec",
-                                            "Đổi đồ\nhủy diệt\nxayda");
-                                    break;
-                                case 2:
                                     this.createOtherMenu(player, ConstNpc.MENU_CHOOSE_LUCKY_ROUND,
                                             "Con muốn làm gì nào?", "Quay bằng\nvàng",
                                             "Rương phụ\n("

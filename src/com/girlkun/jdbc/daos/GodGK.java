@@ -447,10 +447,7 @@ public class GodGK {
                             int timeMeal = Integer.parseInt(String.valueOf(dataArray.get(7)));
                             int iconMeal = Integer.parseInt(String.valueOf(dataArray.get(8)));
 
-                            int timeUseTDLT = 0;
-                            if (dataArray.size() == 10) {
-                                timeUseTDLT = Integer.parseInt(String.valueOf(dataArray.get(9)));
-                            }
+                            int timeUseTDLT = Integer.parseInt(String.valueOf(dataArray.get(10)));
 
                             player.itemTime.lastTimeBoHuyet = System.currentTimeMillis()
                                     - (ItemTime.TIME_ITEM - timeBoHuyet);

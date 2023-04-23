@@ -343,6 +343,46 @@ public class ItemService {
             e.printStackTrace();
         }
     }
+
+    public void OpenItem1162(Player player, Item itemUse) {
+        try {
+            if (InventoryServiceNew.gI().getCountEmptyBag(player) <= 1) {
+                Service.gI().sendThongBao(player, "Bạn phải có ít nhất 2 ô trống hành trang");
+                return;
+            }
+            short[] icon = new short[2];
+            int rd = Util.nextInt(1, 100);
+            int rac = 45;
+            int ruby = 20;
+            int dbv = 10;
+            int ct = 25;
+            Item item = randomRac();
+            if (rd <= rac) {
+                item = randomRac();
+            } else if (rd <= rac + ruby) {
+                item = randomRac();
+            } else if (rd <= rac + ruby + dbv) {
+                item = daBaoVe();
+            } else if (rd <= rac + ruby + dbv + ct) {
+                item = SuKienThanos(true);
+            }
+            if (item.template.id == 861) {
+                item.quantity = Util.nextInt(5, 10);
+            }
+            icon[0] = itemUse.template.iconID;
+            icon[1] = item.template.iconID;
+            InventoryServiceNew.gI().subQuantityItemsBag(player, itemUse, 1);
+            InventoryServiceNew.gI().addItemBag(player, item);
+            InventoryServiceNew.gI().sendItemBags(player);
+            player.inventory.event++;
+            Service.gI().sendThongBao(player, "Bạn đã nhận được " + item.template.name);
+            CombineServiceNew.gI().sendEffectOpenItem(player, icon[0], icon[1]);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    
     
     public void settaiyoken(Player player) throws Exception {
         for (int i = 0 ; i < 12;i++){
@@ -830,6 +870,19 @@ public class ItemService {
         item.itemOptions.add(new Item.ItemOption(117, 18));//Đẹp + 18% sd
         if (Util.isTrue(995, 1000) && rating) {// tỉ lệ ra hsd
             item.itemOptions.add(new Item.ItemOption(93, new Random().nextInt(3) + 1));//hsd
+        }
+        return item;
+    }
+
+    public Item SuKienThanos(boolean rating) {
+        Item item = createItemSetKichHoat(1160, 1);
+        // item.itemOptions.add(new Item.ItemOption(76, 1));//VIP
+        item.itemOptions.add(new Item.ItemOption(77, 15));// hp 28%
+        item.itemOptions.add(new Item.ItemOption(103, 15));// ki 25%
+        item.itemOptions.add(new Item.ItemOption(147, 19));// sd 15%
+        // item.itemOptions.add(new Item.ItemOption(117, 18));//Đẹp + 18% sd
+        if (Util.isTrue(90, 100) && rating) {// tỉ lệ ra hsd
+            item.itemOptions.add(new Item.ItemOption(93, new Random().nextInt(3) + 1));// hsd
         }
         return item;
     }

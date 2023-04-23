@@ -319,7 +319,7 @@ public class UseItem {
                             changePetBerus(pl, item);
                             break;
                         case 1159: // đổi đệ tử
-                             changePetAnubis(pl, item);
+                            changePetAnubis(pl, item);
                             break;
                         case 722: // đổi đệ tử
                             changePetPic(pl, item);
@@ -346,6 +346,9 @@ public class UseItem {
                             break;
                         case 736:
                             ItemService.gI().OpenItem736(pl, item);
+                            break;
+                        case 1162:
+                            ItemService.gI().OpenItem1162(pl, item);
                             break;
                         case 987:
                             Service.gI().sendThongBao(pl, "Bảo vệ trang bị không bị rớt cấp"); // đá bảo vệ
@@ -674,22 +677,22 @@ public class UseItem {
                 pl.itemTime.isUseMayDo = true;
                 break;
             case 1099:// cn
-//                pl.itemTime.lastTimeCuongNo2 = System.currentTimeMillis();
-//                pl.itemTime.isUseCuongNo2 = true;
-//                Service.gI().point(pl);
+                // pl.itemTime.lastTimeCuongNo2 = System.currentTimeMillis();
+                // pl.itemTime.isUseCuongNo2 = true;
+                // Service.gI().point(pl);
 
                 break;
             case 1100:// bo huyet
-//                pl.itemTime.lastTimeBoHuyet2 = System.currentTimeMillis();
-//                pl.itemTime.isUseBoHuyet2 = true;
+                // pl.itemTime.lastTimeBoHuyet2 = System.currentTimeMillis();
+                // pl.itemTime.isUseBoHuyet2 = true;
                 break;
             case 1101:// bo khi
-//                pl.itemTime.lastTimeBoKhi2 = System.currentTimeMillis();
-//                pl.itemTime.isUseBoKhi2 = true;
+                // pl.itemTime.lastTimeBoKhi2 = System.currentTimeMillis();
+                // pl.itemTime.isUseBoKhi2 = true;
                 break;
             case 1102:// xbh
-//                pl.itemTime.lastTimeGiapXen2 = System.currentTimeMillis();
-//                pl.itemTime.isUseGiapXen2 = true;
+                // pl.itemTime.lastTimeGiapXen2 = System.currentTimeMillis();
+                // pl.itemTime.isUseGiapXen2 = true;
                 break;
             case 1103:// an danh
                 pl.itemTime.lastTimeAnDanh2 = System.currentTimeMillis();
