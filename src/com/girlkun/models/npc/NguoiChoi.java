@@ -1,4 +1,4 @@
-package com.girlkun.models.boss.list_boss;
+package com.girlkun.models.npc;
 
 import com.girlkun.models.boss.*;
 import com.girlkun.models.map.ItemMap;

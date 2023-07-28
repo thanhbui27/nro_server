@@ -76,10 +76,11 @@ public class BossManager implements Runnable {
     public void addBoss(Boss boss) {
         this.bosses.add(boss);
     }
-    
+
     public void removeBoss(Boss boss) {
         this.bosses.remove(boss);
     }
+
     public void loadBoss() {
         if (this.loadedBoss) {
             return;
@@ -90,7 +91,7 @@ public class BossManager implements Runnable {
             this.createBoss(BossID.KAMI_SOOME);
             this.createBoss(BossID.CUMBERBLACK);
             this.createBoss(BossID.CUMBERYELLOW);
-             this.createBoss(BossID.SUPER_XEN);
+            this.createBoss(BossID.SUPER_XEN);
             this.createBoss(BossID.TDST);
             this.createBoss(BossID.BROLY);
             this.createBoss(BossID.PIC);
@@ -105,17 +106,17 @@ public class BossManager implements Runnable {
             this.createBoss(BossID.XEN_CON_1);
             this.createBoss(BossID.XEN_CON_1);
             this.createBoss(BossID.XEN_CON_1);
+            this.createBoss(BossID.COOLER);
+            this.createBoss(BossID.THIEN_SU_VADOS);
+            this.createBoss(BossID.THIEN_SU_WHIS);
+            this.createBoss(BossID.THIEN_SU_VADOS);
+            this.createBoss(BossID.THIEN_SU_WHIS);
+            this.createBoss(BossID.THIEN_SU_VADOS);
+            this.createBoss(BossID.THIEN_SU_WHIS);
+            this.createBoss(BossID.THIEN_SU_VADOS);
+            this.createBoss(BossID.THIEN_SU_WHIS);
 
-            this.createBoss(BossID.THIEN_SU_VADOS);
-            this.createBoss(BossID.THIEN_SU_WHIS);
-            this.createBoss(BossID.THIEN_SU_VADOS);
-            this.createBoss(BossID.THIEN_SU_WHIS);
-            this.createBoss(BossID.THIEN_SU_VADOS);
-            this.createBoss(BossID.THIEN_SU_WHIS);
-            this.createBoss(BossID.THIEN_SU_VADOS);
-            this.createBoss(BossID.THIEN_SU_WHIS);
-            
-            
+
             this.createBoss(BossID.DORAEMON);
             this.createBoss(BossID.NOBITA);
             this.createBoss(BossID.XUKA);
@@ -136,7 +137,7 @@ public class BossManager implements Runnable {
             this.createBoss(BossID.DR_KORE);
 
             this.createBoss(BossID.ANDROID_14);
-//            this.createBoss(BossID.SUPER_ANDROID_17); 
+            this.createBoss(BossID.SUPER_ANDROID_17);
             this.createBoss(BossID.MABU);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -204,8 +205,8 @@ public class BossManager implements Runnable {
                     return new Android15();
                 case BossID.SUPER_XEN:
                     return new SuperXen();
-//                    case BossID.SUPER_ANDROID_17:
-//                    return new SuperAndroid17();
+                case BossID.SUPER_ANDROID_17:
+                    return new SuperAndroid17();
                 case BossID.PIC:
                     return new Pic();
                 case BossID.POC:
@@ -232,8 +233,8 @@ public class BossManager implements Runnable {
                     return new Kingcold();
                 case BossID.FIDE_ROBOT:
                     return new FideRobot();
-              //  case BossID.COOLER:
-                  //  return new Cooler();
+                case BossID.COOLER:
+                    return new Cooler();
                 case BossID.ZAMASMAX:
                     return new ZamasMax();
                 case BossID.ZAMASZIN:
@@ -244,8 +245,8 @@ public class BossManager implements Runnable {
                     return new BlackGokuTl();
                 case BossID.BLACK:
                     return new Black();
-                 case BossID.BLACK3:
-                    return new BlackGokuBase();   
+                case BossID.BLACK3:
+                    return new BlackGokuBase();
                 case BossID.XEN_CON_1:
                     return new Xencon();
                 case BossID.MABU:
@@ -289,24 +290,29 @@ public class BossManager implements Runnable {
             msg = new Message(-96);
             msg.writer().writeByte(0);
             msg.writer().writeUTF("Boss");
-            msg.writer().writeByte((int) bosses.stream().filter(boss -> !MapService.gI().isMapMaBu(boss.data[0].getMapJoin()[0]) && !MapService.gI().isMapBlackBallWar(boss.data[0].getMapJoin()[0])).count());
+            msg.writer().writeByte((int) bosses.stream()
+                    .filter(boss -> !MapService.gI().isMapMaBu(boss.data[0].getMapJoin()[0])
+                            && !MapService.gI().isMapBlackBallWar(boss.data[0].getMapJoin()[0]))
+                    .count());
             for (int i = 0; i < bosses.size(); i++) {
                 Boss boss = this.bosses.get(i);
-                if (MapService.gI().isMapMaBu(boss.data[0].getMapJoin()[0]) || MapService.gI().isMapBlackBallWar(boss.data[0].getMapJoin()[0])) {
+                if (MapService.gI().isMapMaBu(boss.data[0].getMapJoin()[0])
+                        || MapService.gI().isMapBlackBallWar(boss.data[0].getMapJoin()[0])) {
                     continue;
                 }
                 msg.writer().writeInt(i);
                 msg.writer().writeInt(i);
                 msg.writer().writeShort(boss.data[0].getOutfit()[0]);
                 msg.writer().writeShort(boss.data[0].getOutfit()[1]);
-                if(player.getSession().version > 214){
+                if (player.getSession().version > 214) {
                     msg.writer().writeShort(-1);
                 }
                 msg.writer().writeShort(boss.data[0].getOutfit()[2]);
                 msg.writer().writeUTF(boss.data[0].getName());
                 if (boss.zone != null) {
                     msg.writer().writeUTF("Sống");
-                    msg.writer().writeUTF(boss.zone.map.mapName + "(" + boss.zone.map.mapId + ") khu " + boss.zone.zoneId + "");
+                    msg.writer().writeUTF(boss.zone.map.mapName + "(" + boss.zone.map.mapId
+                            + ") khu " + boss.zone.zoneId + "");
                 } else {
                     msg.writer().writeUTF("Chết");
                     msg.writer().writeUTF("Chết rồi");
@@ -321,9 +327,11 @@ public class BossManager implements Runnable {
 
     public synchronized void callBoss(Player player, int mapId) {
         try {
-            if (BossManager.gI().existBossOnPlayer(player) ||
-                    player.zone.items.stream().anyMatch(itemMap -> ItemMapService.gI().isBlackBall(itemMap.itemTemplate.id)) ||
-                    player.zone.getPlayers().stream().anyMatch(p -> p.iDMark.isHoldBlackBall())) {
+            if (BossManager.gI().existBossOnPlayer(player)
+                    || player.zone.items.stream().anyMatch(
+                            itemMap -> ItemMapService.gI().isBlackBall(itemMap.itemTemplate.id))
+                    || player.zone.getPlayers().stream()
+                            .anyMatch(p -> p.iDMark.isHoldBlackBall())) {
                 return;
             }
             Boss k = null;
@@ -360,7 +368,8 @@ public class BossManager implements Runnable {
     }
 
     public Boss getBossById(int bossId) {
-        return BossManager.gI().bosses.stream().filter(boss -> boss.id == bossId && !boss.isDie()).findFirst().orElse(null);
+        return BossManager.gI().bosses.stream().filter(boss -> boss.id == bossId && !boss.isDie())
+                .findFirst().orElse(null);
     }
 
     @Override

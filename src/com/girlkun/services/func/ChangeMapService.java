@@ -691,9 +691,9 @@ public class ChangeMapService {
     // kiểm tra map có thể vào với nhiệm vụ hiện tại
     public Zone checkMapCanJoin(Player player, Zone zoneJoin) {
         // //dong map
-        if (zoneJoin.map.mapId == 154 || zoneJoin.map.mapId == 160) {
-            return null;
-        }
+        // if (zoneJoin.map.mapId == 154 || zoneJoin.map.mapId == 160) {
+        //     return null;
+        // }
         if (player.isPet || player.isBoss || player.getSession() != null && player.isAdmin()) {
             return zoneJoin;
         }
@@ -823,23 +823,23 @@ public class ChangeMapService {
                         return null;
                     }
                     break;
-                // case 146: // hành tinh ngục tù
-                // case 147: // hành tinh ngục tù
-                // case 148:
-                //     if (TaskService.gI().getIdTask(player) < ConstTask.TASK_28_0) {
-                //         return null;
-                //     }
-                //     break;
-                // case 154: // hành tinh ngục tù
-                //     if (TaskService.gI().getIdTask(player) < ConstTask.TASK_28_0) {
-                //         return null;
-                //     }
-                //     break;
-                // case 160: // hành tinh ngục tù
-                //     if (TaskService.gI().getIdTask(player) < ConstTask.TASK_28_0) {
-                //         return null;
-                //     }
-                //     break;
+                case 146: // hành tinh ngục tù
+                case 147: // hành tinh ngục tù
+                case 148:
+                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_28_0) {
+                        return null;
+                    }
+                    break;
+                case 154: // hành tinh ngục tù
+                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_28_0) {
+                        return null;
+                    }
+                    break;
+                case 160: // hành tinh ngục tù
+                    if (TaskService.gI().getIdTask(player) < ConstTask.TASK_28_0) {
+                        return null;
+                    }
+                    break;
             }
         }
         if (zoneJoin != null) {

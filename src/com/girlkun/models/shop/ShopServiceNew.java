@@ -50,6 +50,7 @@ public class ShopServiceNew {
                 openShopType3(player, shop);
                 return;
             }
+            System.out.println(shop.tagName + " " + shop.typeShop);
             switch (shop.typeShop) {
                 case NORMAL_SHOP:
                     openShopType0(player, shop);
@@ -61,6 +62,7 @@ public class ShopServiceNew {
         } catch (Exception ex) {
             ex.printStackTrace();
             Service.gI().sendThongBao(player, ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -74,12 +76,12 @@ public class ShopServiceNew {
     }
 
     private void _________________Xử_lý_cửa_hàng_trước_khi_gửi_______________() {
-        //**********************************************************************
+        // **********************************************************************
     }
 
     private Shop resolveShop(Player player, Shop shop, boolean allGender) {
-        if (shop.tagName != null && (shop.tagName.equals("BUA_1H")
-                || shop.tagName.equals("BUA_8H") || shop.tagName.equals("BUA_1M"))) {
+        if (shop.tagName != null && (shop.tagName.equals("BUA_1H") || shop.tagName.equals("BUA_8H")
+                || shop.tagName.equals("BUA_1M"))) {
             return this.resolveShopBua(player, new Shop(shop));
         }
         return allGender ? new Shop(shop) : new Shop(shop, player.gender);
@@ -140,23 +142,26 @@ public class ShopServiceNew {
     }
 
     private void _________________Gửi_cửa_hàng_cho_người_chơi________________() {
-        //**********************************************************************
+        // **********************************************************************
     }
 
     private void openShopType0(Player player, Shop shop) {
         player.iDMark.setShopOpen(shop);
         player.iDMark.setTagNameShop(shop.tagName);
+        System.out.println(shop.tagName);
         if (shop != null) {
             Message msg;
             try {
                 msg = new Message(-44);
                 msg.writer().writeByte(NORMAL_SHOP);
                 msg.writer().writeByte(shop.tabShops.size());
+
                 for (TabShop tab : shop.tabShops) {
                     msg.writer().writeUTF(tab.name);
                     msg.writer().writeByte(tab.itemShops.size());
                     for (ItemShop itemShop : tab.itemShops) {
                         msg.writer().writeShort(itemShop.temp.id);
+
                         if (itemShop.typeSell == COST_GOLD) {
                             msg.writer().writeInt(itemShop.cost);
                             msg.writer().writeInt(0);
@@ -166,6 +171,7 @@ public class ShopServiceNew {
                         } else if (itemShop.typeSell == COST_RUBY) {
                             msg.writer().writeInt(0);
                             msg.writer().writeInt(itemShop.cost);
+                            // msg.writer().writeShort(itemShop.iconSpec);
                         } else if (itemShop.typeSell == COST_COUPON) {
                             msg.writer().writeInt(0);
                             msg.writer().writeInt(itemShop.cost);
@@ -191,6 +197,7 @@ public class ShopServiceNew {
                 msg.cleanup();
             } catch (Exception e) {
                 Logger.logException(ShopServiceNew.class, e);
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -198,6 +205,7 @@ public class ShopServiceNew {
     private void openShopType3(Player player, Shop shop) {
         player.iDMark.setShopOpen(shop);
         player.iDMark.setTagNameShop(shop.tagName);
+        System.out.println(shop.tagName);
         if (shop != null) {
             Message msg;
             try {
@@ -241,6 +249,7 @@ public class ShopServiceNew {
             return;
         }
         player.iDMark.setTagNameShop(tagName);
+        System.out.println(tagName);
         Message msg;
         try {
             msg = new Message(-44);
@@ -256,7 +265,7 @@ public class ShopServiceNew {
                     msg.writer().writeByte(io.optionTemplate.id);
                     msg.writer().writeShort(io.param);
                 }
-                //số lượng
+                // số lượng
                 msg.writer().writeByte(31);
                 msg.writer().writeShort(item.quantity);
                 //
@@ -279,12 +288,12 @@ public class ShopServiceNew {
     }
 
     private void _________________Mua_vật_phẩm______________________________() {
-        //**********************************************************************
+        // **********************************************************************
     }
 
     public void takeItem(Player player, byte type, int tempId) {
         String tagName = player.iDMark.getTagNameShop();
-        if(tagName == null || tagName.length() <= 0){
+        if (tagName == null || tagName.length() <= 0) {
             return;
         }
         if (tagName.equals("ITEMS_LUCKY_ROUND")) {
@@ -340,7 +349,7 @@ public class ShopServiceNew {
             return false;
         }
         player.inventory.gold -= is.temp.gold;
-        player.inventory.gem -= is.temp.gem;
+        player.inventory.gem -= gem;
         player.inventory.ruby -= ruby;
         player.inventory.coupon -= coupon;
         return true;
@@ -349,7 +358,7 @@ public class ShopServiceNew {
     /**
      * Mua bùa
      *
-     * @param player     người chơi
+     * @param player người chơi
      * @param itemTempId id template vật phẩm
      */
     private void buyItemBua(Player player, int itemTempId) {
@@ -370,7 +379,7 @@ public class ShopServiceNew {
     /**
      * Mua vật phẩm trong cửa hàng
      *
-     * @param player     người chơi
+     * @param player người chơi
      * @param itemTempId id template vật phẩm
      */
     public void buyItem(Player player, int itemTempId) {
@@ -392,22 +401,26 @@ public class ShopServiceNew {
             if (!this.subIemByItemShop(player, is)) {
                 return;
             }
-        }
+        } ;
+
         Item item = ItemService.gI().createItemFromItemShop(is);
+        System.out.println(item.template.iconID);
         InventoryServiceNew.gI().addItemBag(player, item);
         InventoryServiceNew.gI().sendItemBags(player);
         Service.gI().sendThongBao(player, "Mua thành công " + is.temp.name);
     }
 
     private void _________________Bán_vật_phẩm______________________________() {
-        //**********************************************************************
+        // **********************************************************************
     }
 
     private boolean subIemByItemShop(Player pl, ItemShop itemShop) {
+
         boolean isBuy = false;
         short itSpec = ItemService.gI().getItemIdByIcon((short) itemShop.iconSpec);
         int buySpec = itemShop.cost;
         Item itS = ItemService.gI().createNewItem(itSpec);
+
         switch (itS.template.id) {
             case 76:
             case 188:
@@ -431,21 +444,24 @@ public class ShopServiceNew {
                 }
                 break;
             default:
-                if (InventoryServiceNew.gI().findItemBag(pl, itSpec) == null || !InventoryServiceNew.gI().findItemBag(pl, itSpec).isNotNullItem()) {
+                if (InventoryServiceNew.gI().findItemBag(pl, itSpec) == null
+                        || !InventoryServiceNew.gI().findItemBag(pl, itSpec).isNotNullItem()) {
                     Service.gI().sendThongBao(pl, "Không tìm thấy " + itS.template.name);
                     isBuy = false;
                 } else if (InventoryServiceNew.gI().findItemBag(pl, itSpec).quantity < buySpec) {
-                    Service.gI().sendThongBao(pl, "Bạn không có đủ " + buySpec + " " + itS.template.name);
+                    Service.gI().sendThongBao(pl,
+                            "Bạn không có đủ " + buySpec + " " + itS.template.name);
                     isBuy = false;
                 } else {
-                    InventoryServiceNew.gI().subQuantityItemsBag(pl, InventoryServiceNew.gI().findItemBag(pl, itSpec), buySpec);
+                    InventoryServiceNew.gI().subQuantityItemsBag(pl,
+                            InventoryServiceNew.gI().findItemBag(pl, itSpec), buySpec);
                     isBuy = true;
                 }
                 break;
         }
         return isBuy;
     }
-    
+
     public void showConfirmSellItem(Player pl, int where, int index) {
         if (index == 2 || index == 1) {
             return;
@@ -472,8 +488,8 @@ public class ShopServiceNew {
             }
             cost *= quantity;
 
-            String text = "Bạn có muốn bán\nx" + quantity
-                    + " " + item.template.name + "\nvới giá là " + Util.numberToMoney(cost) + " vàng?";
+            String text = "Bạn có muốn bán\nx" + quantity + " " + item.template.name
+                    + "\nvới giá là " + Util.numberToMoney(cost) + " vàng?";
             Message msg = new Message(7);
             try {
                 msg.writer().writeByte(where);
@@ -512,8 +528,8 @@ public class ShopServiceNew {
             }
             pl.inventory.gold += cost;
             Service.gI().sendMoney(pl);
-            Service.gI().sendThongBao(pl, "Đã bán " + item.template.name
-                    + " thu được " + Util.numberToMoney(cost) + " vàng");
+            Service.gI().sendThongBao(pl, "Đã bán " + item.template.name + " thu được "
+                    + Util.numberToMoney(cost) + " vàng");
             if (where == 0) {
                 InventoryServiceNew.gI().subQuantityItemsBody(pl, item, quantity);
                 InventoryServiceNew.gI().sendItemBody(pl);
@@ -528,7 +544,7 @@ public class ShopServiceNew {
     }
 
     private void _________________Nhận_vật_phẩm_từ_rương_đặc_biệt___________() {
-        //**********************************************************************
+        // **********************************************************************
     }
 
     private void getItemSideBoxLuckyRound(Player player, List<Item> items, byte type, int index) {
@@ -537,13 +553,14 @@ public class ShopServiceNew {
         }
         Item item = items.get(index);
         switch (type) {
-            case 0: //nhận
+            case 0: // nhận
                 if (item.isNotNullItem()) {
                     if (InventoryServiceNew.gI().getCountEmptyBag(player) != 0) {
                         InventoryServiceNew.gI().addItemBag(player, item);
                         Service.gI().sendThongBao(player,
                                 "Bạn nhận được " + (item.template.id == 189
-                                        ? Util.numberToMoney(item.quantity) + " vàng" : item.template.name));
+                                        ? Util.numberToMoney(item.quantity) + " vàng"
+                                        : item.template.name));
                         InventoryServiceNew.gI().sendItemBags(player);
                         items.remove(index);
                     } else {
@@ -553,17 +570,18 @@ public class ShopServiceNew {
                     Service.gI().sendThongBao(player, "Không thể thực hiện");
                 }
                 break;
-            case 1: //xóa
+            case 1: // xóa
                 items.remove(index);
                 Service.gI().sendThongBao(player, "Xóa vật phẩm thành công");
                 break;
-            case 2: //nhận hết
+            case 2: // nhận hết
                 for (int i = items.size() - 1; i >= 0; i--) {
                     item = items.get(i);
                     if (InventoryServiceNew.gI().addItemBag(player, item)) {
                         Service.gI().sendThongBao(player,
                                 "Bạn nhận được " + (item.template.id == 189
-                                        ? Util.numberToMoney(item.quantity) + " vàng" : item.template.name));
+                                        ? Util.numberToMoney(item.quantity) + " vàng"
+                                        : item.template.name));
                         items.remove(i);
                     }
                 }
@@ -575,6 +593,6 @@ public class ShopServiceNew {
 }
 
 /**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - Girl Béo
+ * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác giả của mã nguồn này.
+ * Xin cảm ơn! - Girl Béo
  */

@@ -42,10 +42,6 @@ public class ServerNotify extends Thread {
                 while (!notifies.isEmpty()) {
                     sendThongBaoBenDuoi(notifies.remove(0));
                 }
-                if (Util.canDoWithTime(this.lastTimeGK, 1200)) {
-                    sendThongBaoBenDuoi("Liên hệ admin Noob để nạp vàng, ngọc giá rẻ!!!");
-                    this.lastTimeGK = System.currentTimeMillis();
-                }
             } catch (Exception ignored) {
 
             }

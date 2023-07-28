@@ -10,31 +10,36 @@ import com.girlkun.utils.Logger;
 
 
 public class NpcService {
-    
+
     private static NpcService i;
-    
-    public static NpcService gI(){
-        if(i == null){
+
+    public static NpcService gI() {
+        if (i == null) {
             i = new NpcService();
         }
         return i;
     }
 
-    public void createMenuRongThieng(Player player, int indexMenu, String npcSay, String... menuSelect) {
+    public void createMenuRongThieng(Player player, int indexMenu, String npcSay,
+            String... menuSelect) {
         createMenu(player, indexMenu, ConstNpc.RONG_THIENG, 123, npcSay, menuSelect);
     }
 
-    public void createMenuConMeo(Player player, int indexMenu, int avatar, String npcSay, String... menuSelect) {
+    public void createMenuConMeo(Player player, int indexMenu, int avatar, String npcSay,
+            String... menuSelect) {
         createMenu(player, indexMenu, ConstNpc.CON_MEO, avatar, npcSay, menuSelect);
     }
-    
-    public void createMenuConMeo(Player player, int indexMenu, int avatar, String npcSay, String[] menuSelect, Object object) {
+
+    public void createMenuConMeo(Player player, int indexMenu, int avatar, String npcSay,
+            String[] menuSelect, Object object) {
         NpcFactory.PLAYERID_OBJECT.put(player.id, object);
         createMenuConMeo(player, indexMenu, avatar, npcSay, menuSelect);
     }
 
-    private void createMenu(Player player, int indexMenu, byte npcTempId, int avatar, String npcSay, String... menuSelect) {
-        if(player == null) return;
+    private void createMenu(Player player, int indexMenu, byte npcTempId, int avatar, String npcSay,
+            String... menuSelect) {
+        if (player == null)
+            return;
         Message msg;
         try {
             player.iDMark.setIndexMenu(indexMenu);
@@ -69,10 +74,10 @@ public class NpcService {
         } catch (Exception e) {
         }
     }
-    
-    public int getAvatar(int npcId){
-        for(Npc npc : Manager.NPCS){
-            if(npc.tempId == npcId){
+
+    public int getAvatar(int npcId) {
+        for (Npc npc : Manager.NPCS) {
+            if (npc.tempId == npcId) {
                 return npc.avartar;
             }
         }

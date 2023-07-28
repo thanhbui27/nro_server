@@ -81,9 +81,10 @@ public class GodGK {
                 session.actived = rs.getInt("active");
                 session.vnd = rs.getInt("vnd");
                 session.goldBar = rs.getInt("account.thoi_vang");
-                // session.hello = rs.getInt("account.hello_yo");
-                // session.dangu = rs.getInt("account.da_ngu_sac");
-                // session.nro3s = rs.getInt("account.nro_3s");
+                System.out.print(rs.getInt("account.thoi_vang"));
+                session.hello = rs.getInt("account.hello_yo");
+                session.dangu = rs.getInt("account.da_ngu_sac");
+                session.nro3s = rs.getInt("account.nro_3s");
                 session.bdPlayer = rs.getDouble("account.bd_player");
                 session.vnd = rs.getInt("vnd");
                 session.coinBar = rs.getInt("coin");
@@ -92,9 +93,9 @@ public class GodGK {
                 long lastTimeLogout = rs.getTimestamp("last_time_logout").getTime();
                 int secondsPass = (int) ((System.currentTimeMillis() - lastTimeLogout) / 1000);
 
-                // if (!session.isAdmin) {
-                // Service.gI().sendThongBaoOK(session, "Chi danh cho admin");
-                // }else
+                if (!session.isAdmin) {
+                Service.gI().sendThongBaoOK(session, "Chi danh cho admin");
+                }else
 
                 if (rs.getBoolean("ban")) {
                     Service.gI().sendThongBaoOK(session, "Tài khoản đã bị khóa, do liên tục thực hiện hành vi xấu!");
@@ -116,8 +117,7 @@ public class GodGK {
                         Service.gI().sendThongBaoOK(session, "Ai đó đã vô acc bạn :3");
                     } else {
                     }
-                    // Service.gI().sendThongBaoOK(session, "Tài khoản đang được đăng nhập tại máy
-                    // chủ khác");
+                    Service.gI().sendThongBaoOK(session, "Tài khoản đang được đăng nhập tại máy chủ khác");
                 } else {
                     if (secondsPass < Manager.SECOND_WAIT_LOGIN) {
                         Service.gI().sendThongBaoOK(session,
@@ -171,7 +171,7 @@ public class GodGK {
 
                             // data kim lượng
                             dataArray = (JSONArray) jv.parse(rs.getString("data_inventory"));
-                            player.inventory.gold = Integer.parseInt(String.valueOf(dataArray.get(0)));
+                            player.inventory.gold = Long.parseLong(String.valueOf(dataArray.get(0)));
                             player.inventory.gem = Integer.parseInt(String.valueOf(dataArray.get(1)));
                             player.inventory.ruby = Integer.parseInt(String.valueOf(dataArray.get(2)));
                             player.inventory.coupon = Integer.parseInt(String.valueOf(dataArray.get(3)));

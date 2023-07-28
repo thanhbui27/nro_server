@@ -846,6 +846,7 @@ public class PlayerDAO {
             ps.executeUpdate();
             ps.close();
             player.getSession().coinBar -= num;
+            System.out.println(player.getSession().coinBar);
         } catch (Exception e) {
             Logger.logException(PlayerDAO.class, e, "Lỗi update Coin " + player.name);
             return false;

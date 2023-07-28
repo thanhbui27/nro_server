@@ -23,7 +23,6 @@ import com.girlkun.consts.ConstTask;
 import com.girlkun.data.ItemData;
 import com.girlkun.jdbc.daos.PlayerDAO;
 import com.girlkun.kygui.ShopKyGuiService;
-import com.girlkun.models.boss.BossManager;
 import com.girlkun.models.map.blackball.BlackBallWar;
 import com.girlkun.models.npc.NpcManager;
 import com.girlkun.models.player.Player;

@@ -7,7 +7,7 @@ package com.girlkun.consts;
  */
 public class ConstPlayer {
     public static final int[] HEADMONKEY = {192, 195, 196, 199, 197, 200, 198};
-
+    
     public static final byte TRAI_DAT = 0;
     public static final byte NAMEC = 1;
     public static final byte XAYDA = 2;

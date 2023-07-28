@@ -59,6 +59,8 @@ public class CombineServiceNew {
     private static final int RATIO_NANG_CAP = 60;
 
     private final Npc baHatMit;
+    private final Npc whis54;
+
     private final Npc npsthiensu64;
 
 
@@ -67,6 +69,7 @@ public class CombineServiceNew {
     public CombineServiceNew() {
         this.baHatMit = NpcManager.getNpc(ConstNpc.BA_HAT_MIT);
         this.npsthiensu64 = NpcManager.getNpc(ConstNpc.NPC_64);
+        this.whis54 = NpcManager.getNpc(ConstNpc.WHIS);
     }
 
     public static CombineServiceNew gI() {
@@ -80,7 +83,7 @@ public class CombineServiceNew {
      * Mở tab đập đồ
      *
      * @param player
-     * @param type   kiểu đập đồ
+     * @param type kiểu đập đồ
      */
     public void openTabCombine(Player player, int type) {
         player.combineNew.setTypeCombine(type);
@@ -133,13 +136,18 @@ public class CombineServiceNew {
                         for (Item.ItemOption io : bongTai.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
-                        npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
+                        npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%"
+                                + "\n";
                         if (player.combineNew.goldCombine <= player.inventory.gold) {
-                            npcSay += "|1|Cần " + Util.numberToMoney(player.combineNew.goldCombine) + " vàng";
+                            npcSay += "|1|Cần " + Util.numberToMoney(player.combineNew.goldCombine)
+                                    + " vàng";
                             baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, npcSay,
                                     "Nâng cấp\ncần " + player.combineNew.gemCombine + " ngọc");
                         } else {
-                            npcSay += "Còn thiếu " + Util.numberToMoney(player.combineNew.goldCombine - player.inventory.gold) + " vàng";
+                            npcSay += "Còn thiếu "
+                                    + Util.numberToMoney(
+                                            player.combineNew.goldCombine - player.inventory.gold)
+                                    + " vàng";
                             baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, npcSay, "Đóng");
                         }
                     } else {
@@ -165,7 +173,8 @@ public class CombineServiceNew {
                             daXanhLam = item;
                         }
                     }
-                    if (bongTai != null && manhHon != null && daXanhLam != null && manhHon.quantity >= 99) {
+                    if (bongTai != null && manhHon != null && daXanhLam != null
+                            && manhHon.quantity >= 99) {
 
                         player.combineNew.goldCombine = GOLD_BONG_TAI;
                         player.combineNew.gemCombine = GEM_BONG_TAI;
@@ -175,22 +184,29 @@ public class CombineServiceNew {
                         for (Item.ItemOption io : bongTai.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
-                        npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
+                        npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%"
+                                + "\n";
                         if (player.combineNew.goldCombine <= player.inventory.gold) {
-                            npcSay += "|1|Cần " + Util.numberToMoney(player.combineNew.goldCombine) + " vàng";
+                            npcSay += "|1|Cần " + Util.numberToMoney(player.combineNew.goldCombine)
+                                    + " vàng";
                             baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, npcSay,
                                     "Nâng cấp\ncần " + player.combineNew.gemCombine + " ngọc");
                         } else {
-                            npcSay += "Còn thiếu " + Util.numberToMoney(player.combineNew.goldCombine - player.inventory.gold) + " vàng";
+                            npcSay += "Còn thiếu "
+                                    + Util.numberToMoney(
+                                            player.combineNew.goldCombine - player.inventory.gold)
+                                    + " vàng";
                             baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, npcSay, "Đóng");
                         }
                     } else {
                         this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                                "Cần 1 Bông tai Porata cấp 2, X99 Mảnh hồn bông tai và 1 Đá xanh lam", "Đóng");
+                                "Cần 1 Bông tai Porata cấp 2, X99 Mảnh hồn bông tai và 1 Đá xanh lam",
+                                "Đóng");
                     }
                 } else {
                     this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                            "Cần 1 Bông tai Porata cấp 2, X99 Mảnh hồn bông tai và 1 Đá xanh lam", "Đóng");
+                            "Cần 1 Bông tai Porata cấp 2, X99 Mảnh hồn bông tai và 1 Đá xanh lam",
+                            "Đóng");
                 }
                 break;
             case NANG_CAP_LINH_THU:
@@ -207,7 +223,8 @@ public class CombineServiceNew {
                             thucan = item;
                         }
                     }
-                    if (linhthu != null && thangtinhthach != null && thucan != null && thangtinhthach.quantity >= 99) {
+                    if (linhthu != null && thangtinhthach != null && thucan != null
+                            && thangtinhthach.quantity >= 99) {
 
                         player.combineNew.goldCombine = GOLD_BONG_TAI;
                         player.combineNew.gemCombine = GEM_BONG_TAI;
@@ -217,13 +234,18 @@ public class CombineServiceNew {
                         for (Item.ItemOption io : linhthu.itemOptions) {
                             npcSay += io.getOptionString() + "\n";
                         }
-                        npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
+                        npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%"
+                                + "\n";
                         if (player.combineNew.goldCombine <= player.inventory.gold) {
-                            npcSay += "|1|Cần " + Util.numberToMoney(player.combineNew.goldCombine) + " vàng";
+                            npcSay += "|1|Cần " + Util.numberToMoney(player.combineNew.goldCombine)
+                                    + " vàng";
                             baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, npcSay,
                                     "Nâng cấp\ncần " + player.combineNew.gemCombine + " ngọc");
                         } else {
-                            npcSay += "Còn thiếu " + Util.numberToMoney(player.combineNew.goldCombine - player.inventory.gold) + " vàng";
+                            npcSay += "Còn thiếu "
+                                    + Util.numberToMoney(
+                                            player.combineNew.goldCombine - player.inventory.gold)
+                                    + " vàng";
                             baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, npcSay, "Đóng");
                         }
                     } else {
@@ -234,7 +256,7 @@ public class CombineServiceNew {
                     this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
                             "Cần 1 Linh Thú, X99 Đá Ma Thuât và 1 Thức Ăn", "Đóng");
                 }
-                break;    
+                break;
             case EP_SAO_TRANG_BI:
                 if (player.combineNew.itemsCombine.size() == 2) {
                     Item trangBi = null;
@@ -246,8 +268,8 @@ public class CombineServiceNew {
                             daPhaLe = item;
                         }
                     }
-                    int star = 0; //sao pha lê đã ép
-                    int starEmpty = 0; //lỗ sao pha lê
+                    int star = 0; // sao pha lê đã ép
+                    int starEmpty = 0; // lỗ sao pha lê
                     if (trangBi != null && daPhaLe != null) {
                         for (Item.ItemOption io : trangBi.itemOptions) {
                             if (io.optionTemplate.id == 102) {
@@ -269,23 +291,30 @@ public class CombineServiceNew {
                                     npcSay += "|7|" + io.getOptionString() + "\n";
                                 }
                             } else {
-                                npcSay += "|7|" + ItemService.gI().getItemOptionTemplate(getOptionDaPhaLe(daPhaLe)).name.replaceAll("#", getParamDaPhaLe(daPhaLe) + "") + "\n";
+                                npcSay += "|7|" + ItemService.gI()
+                                        .getItemOptionTemplate(getOptionDaPhaLe(daPhaLe)).name
+                                                .replaceAll("#", getParamDaPhaLe(daPhaLe) + "")
+                                        + "\n";
                             }
-                            npcSay += "|1|Cần " + Util.numberToMoney(player.combineNew.gemCombine) + " ngọc";
+                            npcSay += "|1|Cần " + Util.numberToMoney(player.combineNew.gemCombine)
+                                    + " ngọc";
                             baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, npcSay,
                                     "Nâng cấp\ncần " + player.combineNew.gemCombine + " ngọc");
 
                         } else {
                             this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                                    "Cần 1 trang bị có lỗ sao pha lê và 1 loại đá pha lê để ép vào", "Đóng");
+                                    "Cần 1 trang bị có lỗ sao pha lê và 1 loại đá pha lê để ép vào",
+                                    "Đóng");
                         }
                     } else {
                         this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                                "Cần 1 trang bị có lỗ sao pha lê và 1 loại đá pha lê để ép vào", "Đóng");
+                                "Cần 1 trang bị có lỗ sao pha lê và 1 loại đá pha lê để ép vào",
+                                "Đóng");
                     }
                 } else {
                     this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                            "Cần 1 trang bị có lỗ sao pha lê và 1 loại đá pha lê để ép vào", "Đóng");
+                            "Cần 1 trang bị có lỗ sao pha lê và 1 loại đá pha lê để ép vào",
+                            "Đóng");
                 }
                 break;
             case PHA_LE_HOA_TRANG_BI:
@@ -310,57 +339,86 @@ public class CombineServiceNew {
                                     npcSay += io.getOptionString() + "\n";
                                 }
                             }
-                            npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%" + "\n";
+                            npcSay += "|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%"
+                                    + "\n";
                             if (player.combineNew.goldCombine <= player.inventory.gold) {
-                                npcSay += "|1|Cần " + Util.numberToMoney(player.combineNew.goldCombine) + " vàng";
-                                baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, npcSay,
+                                npcSay += "|1|Cần "
+                                        + Util.numberToMoney(player.combineNew.goldCombine)
+                                        + " vàng";
+                                baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE,
+                                        npcSay,
                                         "Nâng cấp\ncần " + player.combineNew.gemCombine + " ngọc");
                             } else {
-                                npcSay += "Còn thiếu " + Util.numberToMoney(player.combineNew.goldCombine - player.inventory.gold) + " vàng";
-                                baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, npcSay, "Đóng");
+                                npcSay += "Còn thiếu " + Util.numberToMoney(
+                                        player.combineNew.goldCombine - player.inventory.gold)
+                                        + " vàng";
+                                baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, npcSay,
+                                        "Đóng");
                             }
 
                         } else {
-                            this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Vật phẩm đã đạt tối đa sao pha lê", "Đóng");
+                            this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                    "Vật phẩm đã đạt tối đa sao pha lê", "Đóng");
                         }
                     } else {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Vật phẩm này không thể đục lỗ", "Đóng");
+                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Vật phẩm này không thể đục lỗ", "Đóng");
                     }
                 } else {
-                    this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hãy hãy chọn 1 vật phẩm để pha lê hóa", "Đóng");
+                    this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                            "Hãy hãy chọn 1 vật phẩm để pha lê hóa", "Đóng");
                 }
                 break;
             case NHAP_NGOC_RONG:
                 if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0) {
                     if (player.combineNew.itemsCombine.size() == 1) {
                         Item item = player.combineNew.itemsCombine.get(0);
-                        if (item != null && item.isNotNullItem() && (item.template.id > 14 && item.template.id <= 20) && item.quantity >= 7) {
-                            String npcSay = "|2|Con có muốn biến 7 " + item.template.name + " thành\n"
-                                    + "1 viên " + ItemService.gI().getTemplate((short) (item.template.id - 1)).name + "\n"
-                                    + "|7|Cần 7 " + item.template.name;
-                            this.baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE, npcSay, "Làm phép", "Từ chối");
+                        if (item != null && item.isNotNullItem()
+                                && (item.template.id > 14 && item.template.id <= 20)
+                                && item.quantity >= 7) {
+                            String npcSay = "|2|Con có muốn biến 7 " + item.template.name
+                                    + " thành\n" + "1 viên "
+                                    + ItemService.gI()
+                                            .getTemplate((short) (item.template.id - 1)).name
+                                    + "\n" + "|7|Cần 7 " + item.template.name;
+                            this.baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE,
+                                    npcSay, "Làm phép", "Từ chối");
                         } else {
-                            this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Cần 7 viên ngọc rồng 2 sao trở lên", "Đóng");
+                            this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                    "Cần 7 viên ngọc rồng 2 sao trở lên", "Đóng");
                         }
                     } else {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Cần 7 viên ngọc rồng 2 sao trở lên", "Đóng");
+                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Cần 7 viên ngọc rồng 2 sao trở lên", "Đóng");
                     }
                 } else {
-                    this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hành trang cần ít nhất 1 chỗ trống", "Đóng");
+                    this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                            "Hành trang cần ít nhất 1 chỗ trống", "Đóng");
                 }
                 break;
             case NANG_CAP_VAT_PHAM:
-                if (player.combineNew.itemsCombine.size() >= 2 && player.combineNew.itemsCombine.size() < 4) {
-                    if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.template.type < 5).count() < 1) {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Thiếu đồ nâng cấp", "Đóng");
+                if (player.combineNew.itemsCombine.size() >= 2
+                        && player.combineNew.itemsCombine.size() < 4) {
+                    if (player.combineNew.itemsCombine.stream()
+                            .filter(item -> item.isNotNullItem() && item.template.type < 5)
+                            .count() < 1) {
+                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Thiếu đồ nâng cấp", "Đóng");
                         break;
                     }
-                    if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.template.type == 14).count() < 1) {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Thiếu đá nâng cấp", "Đóng");
+                    if (player.combineNew.itemsCombine.stream()
+                            .filter(item -> item.isNotNullItem() && item.template.type == 14)
+                            .count() < 1) {
+                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Thiếu đá nâng cấp", "Đóng");
                         break;
                     }
-                    if (player.combineNew.itemsCombine.size() == 3 && player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.template.id == 987).count() < 1) {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Thiếu đồ nâng cấp", "Đóng");
+                    if (player.combineNew.itemsCombine.size() == 3
+                            && player.combineNew.itemsCombine.stream()
+                                    .filter(item -> item.isNotNullItem() && item.template.id == 987)
+                                    .count() < 1) {
+                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Thiếu đồ nâng cấp", "Đóng");
                         break;
                     }
                     Item itemDo = null;
@@ -368,7 +426,8 @@ public class CombineServiceNew {
                     Item itemDBV = null;
                     for (int j = 0; j < player.combineNew.itemsCombine.size(); j++) {
                         if (player.combineNew.itemsCombine.get(j).isNotNullItem()) {
-                            if (player.combineNew.itemsCombine.size() == 3 && player.combineNew.itemsCombine.get(j).template.id == 987) {
+                            if (player.combineNew.itemsCombine.size() == 3
+                                    && player.combineNew.itemsCombine.get(j).template.id == 987) {
                                 itemDBV = player.combineNew.itemsCombine.get(j);
                                 continue;
                             }
@@ -392,7 +451,8 @@ public class CombineServiceNew {
                             player.combineNew.ratioCombine = (float) getTileNangCapDo(level);
                             player.combineNew.countDaNangCap = getCountDaNangCapDo(level);
                             player.combineNew.countDaBaoVe = (short) getCountDaBaoVe(level);
-                            String npcSay = "|2|Hiện tại " + itemDo.template.name + " (+" + level + ")\n|0|";
+                            String npcSay = "|2|Hiện tại " + itemDo.template.name + " (+" + level
+                                    + ")\n|0|";
                             for (Item.ItemOption io : itemDo.itemOptions) {
                                 if (io.optionTemplate.id != 72) {
                                     npcSay += io.getOptionString() + "\n";
@@ -401,12 +461,9 @@ public class CombineServiceNew {
                             String option = null;
                             int param = 0;
                             for (Item.ItemOption io : itemDo.itemOptions) {
-                                if (io.optionTemplate.id == 47
-                                        || io.optionTemplate.id == 6
-                                        || io.optionTemplate.id == 0
-                                        || io.optionTemplate.id == 7
-                                        || io.optionTemplate.id == 14
-                                        || io.optionTemplate.id == 22
+                                if (io.optionTemplate.id == 47 || io.optionTemplate.id == 6
+                                        || io.optionTemplate.id == 0 || io.optionTemplate.id == 7
+                                        || io.optionTemplate.id == 14 || io.optionTemplate.id == 22
                                         || io.optionTemplate.id == 23) {
                                     option = io.optionTemplate.name;
                                     param = io.param + (io.param * 10 / 100);
@@ -415,46 +472,77 @@ public class CombineServiceNew {
                             }
                             npcSay += "|2|Sau khi nâng cấp (+" + (level + 1) + ")\n|7|"
                                     + option.replaceAll("#", String.valueOf(param))
-                                    + "\n|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine + "%\n"
-                                    + (player.combineNew.countDaNangCap > itemDNC.quantity ? "|7|" : "|1|")
-                                    + "Cần " + player.combineNew.countDaNangCap + " " + itemDNC.template.name
-                                    + "\n" + (player.combineNew.goldCombine > player.inventory.gold ? "|7|" : "|1|")
-                                    + "Cần " + Util.numberToMoney(player.combineNew.goldCombine) + " vàng";
+                                    + "\n|7|Tỉ lệ thành công: " + player.combineNew.ratioCombine
+                                    + "%\n"
+                                    + (player.combineNew.countDaNangCap > itemDNC.quantity ? "|7|"
+                                            : "|1|")
+                                    + "Cần " + player.combineNew.countDaNangCap + " "
+                                    + itemDNC.template.name + "\n"
+                                    + (player.combineNew.goldCombine > player.inventory.gold ? "|7|"
+                                            : "|1|")
+                                    + "Cần " + Util.numberToMoney(player.combineNew.goldCombine)
+                                    + " vàng";
 
-                            String daNPC = player.combineNew.itemsCombine.size() == 3 && itemDBV != null ? String.format("\nCần tốn %s đá bảo vệ", player.combineNew.countDaBaoVe) : "";
-                            if ((level == 2 || level == 4 || level == 6) && !(player.combineNew.itemsCombine.size() == 3 && itemDBV != null)) {
+                            String daNPC =
+                                    player.combineNew.itemsCombine.size() == 3 && itemDBV != null
+                                            ? String.format("\nCần tốn %s đá bảo vệ",
+                                                    player.combineNew.countDaBaoVe)
+                                            : "";
+                            if ((level == 2 || level == 4 || level == 6)
+                                    && !(player.combineNew.itemsCombine.size() == 3
+                                            && itemDBV != null)) {
                                 npcSay += "\nNếu thất bại sẽ rớt xuống (+" + (level - 1) + ")";
                             }
                             if (player.combineNew.countDaNangCap > itemDNC.quantity) {
-                                this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                                        npcSay, "Còn thiếu\n" + (player.combineNew.countDaNangCap - itemDNC.quantity) + " " + itemDNC.template.name);
+                                this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, npcSay,
+                                        "Còn thiếu\n"
+                                                + (player.combineNew.countDaNangCap
+                                                        - itemDNC.quantity)
+                                                + " " + itemDNC.template.name);
                             } else if (player.combineNew.goldCombine > player.inventory.gold) {
-                                this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                                        npcSay, "Còn thiếu\n" + Util.numberToMoney((player.combineNew.goldCombine - player.inventory.gold)) + " vàng");
-                            } else if (player.combineNew.itemsCombine.size() == 3 && Objects.nonNull(itemDBV) && itemDBV.quantity < player.combineNew.countDaBaoVe) {
-                                this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
-                                        npcSay, "Còn thiếu\n" + (player.combineNew.countDaBaoVe - itemDBV.quantity) + " đá bảo vệ");
+                                this.baHatMit
+                                        .createOtherMenu(player, ConstNpc.IGNORE_MENU, npcSay,
+                                                "Còn thiếu\n"
+                                                        + Util.numberToMoney(
+                                                                (player.combineNew.goldCombine
+                                                                        - player.inventory.gold))
+                                                        + " vàng");
+                            } else if (player.combineNew.itemsCombine.size() == 3
+                                    && Objects.nonNull(itemDBV)
+                                    && itemDBV.quantity < player.combineNew.countDaBaoVe) {
+                                this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, npcSay,
+                                        "Còn thiếu\n" + (player.combineNew.countDaBaoVe
+                                                - itemDBV.quantity) + " đá bảo vệ");
                             } else {
                                 this.baHatMit.createOtherMenu(player, ConstNpc.MENU_START_COMBINE,
-                                        npcSay, "Nâng cấp\n" + Util.numberToMoney(player.combineNew.goldCombine) + " vàng" + daNPC, "Từ chối");
+                                        npcSay,
+                                        "Nâng cấp\n"
+                                                + Util.numberToMoney(player.combineNew.goldCombine)
+                                                + " vàng" + daNPC,
+                                        "Từ chối");
                             }
                         } else {
-                            this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Trang bị của ngươi đã đạt cấp tối đa", "Đóng");
+                            this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                    "Trang bị của ngươi đã đạt cấp tối đa", "Đóng");
                         }
                     } else {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hãy chọn 1 trang bị và 1 loại đá nâng cấp", "Đóng");
+                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Hãy chọn 1 trang bị và 1 loại đá nâng cấp", "Đóng");
                     }
                 } else {
                     if (player.combineNew.itemsCombine.size() > 3) {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Cất đi con ta không thèm", "Đóng");
+                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Cất đi con ta không thèm", "Đóng");
                         break;
                     }
-                    this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hãy chọn 1 trang bị và 1 loại đá nâng cấp", "Đóng");
+                    this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                            "Hãy chọn 1 trang bị và 1 loại đá nâng cấp", "Đóng");
                 }
                 break;
             case PHAN_RA_DO_THAN_LINH:
                 if (player.combineNew.itemsCombine.size() == 0) {
-                    this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Con hãy đưa ta đồ thần linh để phân rã", "Đóng");
+                    this.whis54.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                            "Con hãy đưa ta đồ thần linh để phân rã", "Đóng");
                     return;
                 }
                 if (player.combineNew.itemsCombine.size() == 1) {
@@ -463,96 +551,125 @@ public class CombineServiceNew {
                     Item item = player.combineNew.itemsCombine.get(0);
                     if (item.isNotNullItem()) {
                         if (item.template.id >= 555 && item.template.id <= 567) {
-                            couponAdd = itemdov2.stream().anyMatch(t -> t == item.template.id) ? 2 : item.template.id == 561 ? 3 : 1;
+                            couponAdd = itemdov2.stream().anyMatch(t -> t == item.template.id) ? 2
+                                    : item.template.id == 561 ? 3 : 1;
                         }
                     }
                     if (couponAdd == 0) {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ta chỉ có thể phân rã đồ thần linh thôi", "Đóng");
+                        this.whis54.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Ta chỉ có thể phân rã đồ thần linh thôi", "Đóng");
                         return;
                     }
-                    String npcSay = "|2|Sau khi phân rải vật phẩm\n|7|"
-                            + "Bạn sẽ nhận được : " + couponAdd + " Điểm\n"
-                            + (500000000 > player.inventory.gold ? "|7|" : "|1|")
-                            + "Cần " + Util.numberToMoney(500000000) + " vàng";
+                    String npcSay = "|2|Sau khi phân rải vật phẩm\n|7|" + "Bạn sẽ nhận được : "
+                            + couponAdd + " Điểm\n"
+                            + (500000000 > player.inventory.gold ? "|7|" : "|1|") + "Cần "
+                            + Util.numberToMoney(500000000) + " vàng";
 
                     if (player.inventory.gold < 500000000) {
-                        this.baHatMit.npcChat(player, "Hết tiền rồi\nẢo ít thôi con");
+                        this.whis54.npcChat(player, "Hết tiền rồi\nẢo ít thôi con");
                         return;
                     }
-                    this.baHatMit.createOtherMenu(player, ConstNpc.MENU_PHAN_RA_DO_THAN_LINH,
-                            npcSay, "Nâng cấp\n" + Util.numberToMoney(500000000) + " vàng", "Từ chối");
+                    this.whis54.createOtherMenu(player, ConstNpc.MENU_PHAN_RA_DO_THAN_LINH, npcSay,
+                            "Nâng cấp\n" + Util.numberToMoney(500000000) + " vàng", "Từ chối");
                 } else {
-                    this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Ta chỉ có thể phân rã 1 lần 1 món đồ thần linh", "Đóng");
+                    this.whis54.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                            "Ta chỉ có thể phân rã 1 lần 1 món đồ thần linh", "Đóng");
                 }
                 break;
             case NANG_CAP_DO_TS:
                 if (player.combineNew.itemsCombine.size() == 0) {
-                    this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hãy đưa ta 2 món Hủy Diệt bất kì và 1 món Thần Linh cùng loại", "Đóng");
+                    this.whis54.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                            "Hãy đưa ta 2 món Hủy Diệt bất kì và 1 món Thần Linh cùng loại",
+                            "Đóng");
                     return;
                 }
                 if (player.combineNew.itemsCombine.size() == 4) {
-                    if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isDTL()).count() < 1) {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Thiếu đồ thần linh", "Đóng");
+                    if (player.combineNew.itemsCombine.stream()
+                            .filter(item -> item.isNotNullItem() && item.isDTL()).count() < 1) {
+                        this.whis54.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Thiếu đồ thần linh", "Đóng");
                         return;
                     }
-                    if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isDHD()).count() < 2) {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Thiếu đồ hủy diệt", "Đóng");
+                    if (player.combineNew.itemsCombine.stream()
+                            .filter(item -> item.isNotNullItem() && item.isDHD()).count() < 2) {
+                        this.whis54.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Thiếu đồ hủy diệt", "Đóng");
                         return;
                     }
-                    if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isManhTS() && item.quantity >= 5).count() < 1) {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Thiếu mảnh thiên sứ", "Đóng");
+                    if (player.combineNew.itemsCombine.stream().filter(
+                            item -> item.isNotNullItem() && item.isManhTS() && item.quantity >= 5)
+                            .count() < 1) {
+                        this.whis54.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Thiếu mảnh thiên sứ", "Đóng");
                         return;
                     }
 
                     String npcSay = "|2|Con có muốn đổi các món nguyên liệu ?\n|7|"
-                            + "Và nhận được " + player.combineNew.itemsCombine.stream().filter(Item::isManhTS).findFirst().get().typeNameManh() + " thiên sứ tương ứng\n"
-                            + "|1|Cần " + Util.numberToMoney(COST) + " vàng";
+                            + "Và nhận được "
+                            + player.combineNew.itemsCombine.stream().filter(Item::isManhTS)
+                                    .findFirst().get().typeNameManh()
+                            + " thiên sứ tương ứng\n" + "|1|Cần " + Util.numberToMoney(COST)
+                            + " vàng";
 
                     if (player.inventory.gold < COST) {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hết tiền rồi\nẢo ít thôi con", "Đóng");
+                        this.whis54.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Hết tiền rồi\nẢo ít thôi con", "Đóng");
                         return;
                     }
-                    this.baHatMit.createOtherMenu(player, ConstNpc.MENU_NANG_CAP_DO_TS,
-                            npcSay, "Nâng cấp\n" + Util.numberToMoney(COST) + " vàng", "Từ chối");
+                    this.whis54.createOtherMenu(player, ConstNpc.MENU_NANG_CAP_DO_TS, npcSay,
+                            "Nâng cấp\n" + Util.numberToMoney(COST) + " vàng", "Từ chối");
                 } else {
                     if (player.combineNew.itemsCombine.size() > 3) {
-                        this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Cất đi con ta không thèm", "Đóng");
+                        this.whis54.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Cất đi con ta không thèm", "Đóng");
                         return;
                     }
-                    this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Còn thiếu nguyên liệu để nâng cấp hãy quay lại sau", "Đóng");
+                    this.whis54.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                            "Còn thiếu nguyên liệu để nâng cấp hãy quay lại sau", "Đóng");
                 }
                 break;
             case NANG_CAP_SKH_VIP:
                 if (player.combineNew.itemsCombine.size() == 0) {
-                    this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hãy đưa ta 1 món thiên sứ và 2 món SKH ngẫu nhiên", "Đóng");
+                    this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                            "Hãy đưa ta 1 món thiên sứ và 2 món SKH ngẫu nhiên", "Đóng");
                     return;
                 }
                 if (player.combineNew.itemsCombine.size() == 3) {
-                    if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isDTS()).count() < 1) {
-                        this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Thiếu đồ thiên sứ", "Đóng");
+                    if (player.combineNew.itemsCombine.stream()
+                            .filter(item -> item.isNotNullItem() && item.isDTS()).count() < 1) {
+                        this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Thiếu đồ thiên sứ", "Đóng");
                         return;
                     }
-                    if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isSKH()).count() < 2) {
-                        this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Thiếu đồ kích hoạt ", "Đóng");
+                    if (player.combineNew.itemsCombine.stream()
+                            .filter(item -> item.isNotNullItem() && item.isSKH()).count() < 2) {
+                        this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Thiếu đồ kích hoạt ", "Đóng");
                         return;
                     }
 
                     String npcSay = "|2|Con có muốn đổi các món nguyên liệu ?\n|7|"
-                            + "Và nhận được " + player.combineNew.itemsCombine.stream().filter(Item::isDTS).findFirst().get().typeName() + " kích hoạt VIP tương ứng\n"
-                            + "|1|Cần " + Util.numberToMoney(COST) + " vàng";
+                            + "Và nhận được "
+                            + player.combineNew.itemsCombine.stream().filter(Item::isDTS)
+                                    .findFirst().get().typeName()
+                            + " kích hoạt VIP tương ứng\n" + "|1|Cần " + Util.numberToMoney(COST)
+                            + " vàng";
 
                     if (player.inventory.gold < COST) {
-                        this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hết tiền rồi\nẢo ít thôi con", "Đóng");
+                        this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Hết tiền rồi\nẢo ít thôi con", "Đóng");
                         return;
                     }
                     this.npsthiensu64.createOtherMenu(player, ConstNpc.MENU_NANG_DOI_SKH_VIP,
                             npcSay, "Nâng cấp\n" + Util.numberToMoney(COST) + " vàng", "Từ chối");
                 } else {
                     if (player.combineNew.itemsCombine.size() > 3) {
-                        this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Nguyên liệu không phù hợp", "Đóng");
+                        this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                "Nguyên liệu không phù hợp", "Đóng");
                         return;
                     }
-                    this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Còn thiếu nguyên liệu để nâng cấp hãy quay lại sau", "Đóng");
+                    this.npsthiensu64.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                            "Còn thiếu nguyên liệu để nâng cấp hãy quay lại sau", "Đóng");
                 }
                 break;
         }
@@ -564,6 +681,7 @@ public class CombineServiceNew {
      * @param player
      */
     public void startCombine(Player player) {
+        System.out.println("combineServiceNew : " + player.combineNew.typeCombine);
         switch (player.combineNew.typeCombine) {
             case EP_SAO_TRANG_BI:
                 epSaoTrangBi(player);
@@ -596,7 +714,7 @@ public class CombineServiceNew {
             case MO_CHI_SO_BONG_TAI:
                 moChiSoBongTai(player);
             case NANG_CAP_LINH_THU:
-                moChiSolinhthu(player);    
+                moChiSolinhthu(player);
                 break;
         }
 
@@ -605,130 +723,137 @@ public class CombineServiceNew {
         player.combineNew.lastTimeCombine = System.currentTimeMillis();
 
     }
-        public void GetTrangBiKichHoathuydiet(Player player, int id){
-        Item item = ItemService.gI().createNewItem((short)id);
-        int[][] optionNormal = {{127,128},{130,132},{133,135}};
-        int[][] paramNormal = {{139,140},{142,144},{136,138}};
-        int[][] optionVIP = {{129},{131},{134}};
-        int[][] paramVIP = {{141},{143},{137}};
+
+    public void GetTrangBiKichHoathuydiet(Player player, int id) {
+        Item item = ItemService.gI().createNewItem((short) id);
+        int[][] optionNormal = {{127, 128}, {130, 132}, {133, 135}};
+        int[][] paramNormal = {{139, 140}, {142, 144}, {136, 138}};
+        int[][] optionVIP = {{129}, {131}, {134}};
+        int[][] paramVIP = {{141}, {143}, {137}};
         int random = Util.nextInt(optionNormal.length);
         int randomSkh = Util.nextInt(100);
-        if (item.template.type== 0){
-            item.itemOptions.add(new ItemOption(47, Util.nextInt(1500,2000)));
+        if (item.template.type == 0) {
+            item.itemOptions.add(new ItemOption(47, Util.nextInt(1500, 2000)));
         }
-        if (item.template.type== 1){
-            item.itemOptions.add(new ItemOption(22, Util.nextInt(100,150)));
+        if (item.template.type == 1) {
+            item.itemOptions.add(new ItemOption(22, Util.nextInt(100, 150)));
         }
-        if (item.template.type== 2){
-            item.itemOptions.add(new ItemOption(0, Util.nextInt(9000,11000)));
+        if (item.template.type == 2) {
+            item.itemOptions.add(new ItemOption(0, Util.nextInt(9000, 11000)));
         }
-        if (item.template.type== 3){
-            item.itemOptions.add(new ItemOption(23, Util.nextInt(90,150)));
+        if (item.template.type == 3) {
+            item.itemOptions.add(new ItemOption(23, Util.nextInt(90, 150)));
         }
-        if (item.template.type== 4){
-            item.itemOptions.add(new ItemOption(14, Util.nextInt(15,20)));
+        if (item.template.type == 4) {
+            item.itemOptions.add(new ItemOption(14, Util.nextInt(15, 20)));
         }
-        if (randomSkh <= 20){//tile ra do kich hoat
-            if (randomSkh <= 5){ // tile ra option vip
-        item.itemOptions.add(new ItemOption(optionVIP[player.gender][0], 0));
-        item.itemOptions.add(new ItemOption(paramVIP[player.gender][0], 0));
-        item.itemOptions.add(new ItemOption(30, 0));
-            }else{// 
-        item.itemOptions.add(new ItemOption(optionNormal[player.gender][random], 0));
-        item.itemOptions.add(new ItemOption(paramNormal[player.gender][random], 0));
-        item.itemOptions.add(new ItemOption(30, 0));
+        if (randomSkh <= 20) {// tile ra do kich hoat
+            if (randomSkh <= 5) { // tile ra option vip
+                item.itemOptions.add(new ItemOption(optionVIP[player.gender][0], 0));
+                item.itemOptions.add(new ItemOption(paramVIP[player.gender][0], 0));
+                item.itemOptions.add(new ItemOption(30, 0));
+            } else {//
+                item.itemOptions.add(new ItemOption(optionNormal[player.gender][random], 0));
+                item.itemOptions.add(new ItemOption(paramNormal[player.gender][random], 0));
+                item.itemOptions.add(new ItemOption(30, 0));
             }
         }
-        
+
         InventoryServiceNew.gI().addItemBag(player, item);
         InventoryServiceNew.gI().sendItemBags(player);
     }
-    public void GetTrangBiKichHoatthiensu(Player player, int id){
-        Item item = ItemService.gI().createNewItem((short)id);
-        int[][] optionNormal = {{127,128},{130,132},{133,135}};
-        int[][] paramNormal = {{139,140},{142,144},{136,138}};
-        int[][] optionVIP = {{129},{131},{134}};
-        int[][] paramVIP = {{141},{143},{137}};
+
+    public void GetTrangBiKichHoatthiensu(Player player, int id) {
+        Item item = ItemService.gI().createNewItem((short) id);
+        int[][] optionNormal = {{127, 128}, {130, 132}, {133, 135}};
+        int[][] paramNormal = {{139, 140}, {142, 144}, {136, 138}};
+        int[][] optionVIP = {{129}, {131}, {134}};
+        int[][] paramVIP = {{141}, {143}, {137}};
         int random = Util.nextInt(optionNormal.length);
         int randomSkh = Util.nextInt(100);
-        if (item.template.type== 0){
-            item.itemOptions.add(new ItemOption(47, Util.nextInt(2000,2500)));
+        if (item.template.type == 0) {
+            item.itemOptions.add(new ItemOption(47, Util.nextInt(2000, 2500)));
         }
-        if (item.template.type== 1){
-            item.itemOptions.add(new ItemOption(22, Util.nextInt(150,200)));
+        if (item.template.type == 1) {
+            item.itemOptions.add(new ItemOption(22, Util.nextInt(150, 200)));
         }
-        if (item.template.type== 2){
-            item.itemOptions.add(new ItemOption(0, Util.nextInt(18000,20000)));
+        if (item.template.type == 2) {
+            item.itemOptions.add(new ItemOption(0, Util.nextInt(18000, 20000)));
         }
-        if (item.template.type== 3){
-            item.itemOptions.add(new ItemOption(23, Util.nextInt(150,200)));
+        if (item.template.type == 3) {
+            item.itemOptions.add(new ItemOption(23, Util.nextInt(150, 200)));
         }
-        if (item.template.type== 4){
-            item.itemOptions.add(new ItemOption(14, Util.nextInt(20,25)));
+        if (item.template.type == 4) {
+            item.itemOptions.add(new ItemOption(14, Util.nextInt(20, 25)));
         }
-        if (randomSkh <= 20){//tile ra do kich hoat
-            if (randomSkh <= 5){ // tile ra option vip
-        item.itemOptions.add(new ItemOption(optionVIP[player.gender][0], 0));
-        item.itemOptions.add(new ItemOption(paramVIP[player.gender][0], 0));
-        item.itemOptions.add(new ItemOption(30, 0));
-            }else{// 
-        item.itemOptions.add(new ItemOption(optionNormal[player.gender][random], 0));
-        item.itemOptions.add(new ItemOption(paramNormal[player.gender][random], 0));
-        item.itemOptions.add(new ItemOption(30, 0));
+        if (randomSkh <= 20) {// tile ra do kich hoat
+            if (randomSkh <= 5) { // tile ra option vip
+                item.itemOptions.add(new ItemOption(optionVIP[player.gender][0], 0));
+                item.itemOptions.add(new ItemOption(paramVIP[player.gender][0], 0));
+                item.itemOptions.add(new ItemOption(30, 0));
+            } else {//
+                item.itemOptions.add(new ItemOption(optionNormal[player.gender][random], 0));
+                item.itemOptions.add(new ItemOption(paramNormal[player.gender][random], 0));
+                item.itemOptions.add(new ItemOption(30, 0));
             }
         }
-        
+
         InventoryServiceNew.gI().addItemBag(player, item);
         InventoryServiceNew.gI().sendItemBags(player);
     }
-     public void khilv2(Player player, int id){
-        Item item = ItemService.gI().createNewItem((short)id);
-        item.itemOptions.add(new ItemOption(50,20));//sd
-        item.itemOptions.add(new ItemOption(77,20));//hp
-        item.itemOptions.add(new ItemOption(103,20));//ki
-        item.itemOptions.add(new ItemOption(14,20));//cm
-        item.itemOptions.add(new ItemOption(5,20));//sd cm
-        item.itemOptions.add(new ItemOption(106,0));
-        item.itemOptions.add(new ItemOption(34,0));
+
+    public void khilv2(Player player, int id) {
+        Item item = ItemService.gI().createNewItem((short) id);
+        item.itemOptions.add(new ItemOption(50, 20));// sd
+        item.itemOptions.add(new ItemOption(77, 20));// hp
+        item.itemOptions.add(new ItemOption(103, 20));// ki
+        item.itemOptions.add(new ItemOption(14, 20));// cm
+        item.itemOptions.add(new ItemOption(5, 20));// sd cm
+        item.itemOptions.add(new ItemOption(106, 0));
+        item.itemOptions.add(new ItemOption(34, 0));
         InventoryServiceNew.gI().addItemBag(player, item);
         InventoryServiceNew.gI().sendItemBags(player);
     }
-    public void khilv3(Player player, int id){
-        Item item = ItemService.gI().createNewItem((short)id);
-        item.itemOptions.add(new ItemOption(50,30));//sd
-        item.itemOptions.add(new ItemOption(77,30));//hp
-        item.itemOptions.add(new ItemOption(103,30));//ki
-        item.itemOptions.add(new ItemOption(14,30));//cm
-        item.itemOptions.add(new ItemOption(5,30));//sd cm
-        item.itemOptions.add(new ItemOption(106,0));
-        item.itemOptions.add(new ItemOption(35,0));
+
+    public void khilv3(Player player, int id) {
+        Item item = ItemService.gI().createNewItem((short) id);
+        item.itemOptions.add(new ItemOption(50, 30));// sd
+        item.itemOptions.add(new ItemOption(77, 30));// hp
+        item.itemOptions.add(new ItemOption(103, 30));// ki
+        item.itemOptions.add(new ItemOption(14, 30));// cm
+        item.itemOptions.add(new ItemOption(5, 30));// sd cm
+        item.itemOptions.add(new ItemOption(106, 0));
+        item.itemOptions.add(new ItemOption(35, 0));
         InventoryServiceNew.gI().addItemBag(player, item);
         InventoryServiceNew.gI().sendItemBags(player);
     }
-    public void khilv4(Player player, int id){
-        Item item = ItemService.gI().createNewItem((short)id);
-        item.itemOptions.add(new ItemOption(50,40));//sd
-        item.itemOptions.add(new ItemOption(77,40));//hp
-        item.itemOptions.add(new ItemOption(103,40));//ki
-        item.itemOptions.add(new ItemOption(14,40));//cm
-        item.itemOptions.add(new ItemOption(5,40));//sd cm
-        item.itemOptions.add(new ItemOption(106,0));
-        item.itemOptions.add(new ItemOption(36,0));
+
+    public void khilv4(Player player, int id) {
+        Item item = ItemService.gI().createNewItem((short) id);
+        item.itemOptions.add(new ItemOption(50, 40));// sd
+        item.itemOptions.add(new ItemOption(77, 40));// hp
+        item.itemOptions.add(new ItemOption(103, 40));// ki
+        item.itemOptions.add(new ItemOption(14, 40));// cm
+        item.itemOptions.add(new ItemOption(5, 40));// sd cm
+        item.itemOptions.add(new ItemOption(106, 0));
+        item.itemOptions.add(new ItemOption(36, 0));
         InventoryServiceNew.gI().addItemBag(player, item);
         InventoryServiceNew.gI().sendItemBags(player);
     }
-    public void khilv5(Player player, int id){
-        Item item = ItemService.gI().createNewItem((short)id);
-        item.itemOptions.add(new ItemOption(50,50));//sd
-        item.itemOptions.add(new ItemOption(77,50));//hp
-        item.itemOptions.add(new ItemOption(103,50));//ki
-        item.itemOptions.add(new ItemOption(14,50));//cm
-        item.itemOptions.add(new ItemOption(5,50));//sd cm
-        item.itemOptions.add(new ItemOption(106,0));
-        item.itemOptions.add(new ItemOption(36,0));
+
+    public void khilv5(Player player, int id) {
+        Item item = ItemService.gI().createNewItem((short) id);
+        item.itemOptions.add(new ItemOption(50, 50));// sd
+        item.itemOptions.add(new ItemOption(77, 50));// hp
+        item.itemOptions.add(new ItemOption(103, 50));// ki
+        item.itemOptions.add(new ItemOption(14, 50));// cm
+        item.itemOptions.add(new ItemOption(5, 50));// sd cm
+        item.itemOptions.add(new ItemOption(106, 0));
+        item.itemOptions.add(new ItemOption(36, 0));
         InventoryServiceNew.gI().addItemBag(player, item);
         InventoryServiceNew.gI().sendItemBags(player);
     }
+
     private void doiKiemThan(Player player) {
         if (player.combineNew.itemsCombine.size() == 3) {
             Item keo = null, luoiKiem = null, chuoiKiem = null;
@@ -803,7 +928,8 @@ public class CombineServiceNew {
     }
 
     private void doiManhKichHoat(Player player) {
-        if (player.combineNew.itemsCombine.size() == 2 || player.combineNew.itemsCombine.size() == 3) {
+        if (player.combineNew.itemsCombine.size() == 2
+                || player.combineNew.itemsCombine.size() == 3) {
             Item nr1s = null, doThan = null, buaBaoVe = null;
             for (Item it : player.combineNew.itemsCombine) {
                 if (it.template.id == 14) {
@@ -838,7 +964,8 @@ public class CombineServiceNew {
                     reOpenItemCombine(player);
                 }
             } else {
-                this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU, "Hãy chọn 1 trang bị thần linh và 1 viên ngọc rồng 1 sao", "Đóng");
+                this.baHatMit.createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                        "Hãy chọn 1 trang bị thần linh và 1 viên ngọc rồng 1 sao", "Đóng");
             }
         }
     }
@@ -848,7 +975,8 @@ public class CombineServiceNew {
             player.inventory.gold -= 500000000;
             List<Integer> itemdov2 = new ArrayList<>(Arrays.asList(562, 564, 566));
             Item item = player.combineNew.itemsCombine.get(0);
-            int couponAdd = itemdov2.stream().anyMatch(t -> t == item.template.id) ? 2 : item.template.id == 561 ? 3 : 1;
+            int couponAdd = itemdov2.stream().anyMatch(t -> t == item.template.id) ? 2
+                    : item.template.id == 561 ? 3 : 1;
             sendEffectSuccessCombine(player);
             player.inventory.coupon += couponAdd;
             this.baHatMit.npcChat(player, "Con đã nhận được " + couponAdd + " điểm");
@@ -861,8 +989,8 @@ public class CombineServiceNew {
     }
 
     public void openDTS(Player player) {
-        //check sl đồ tl, đồ hd
-        // new update 2 mon huy diet + 1 mon than linh(skh theo style) +  5 manh bat ki
+        // check sl đồ tl, đồ hd
+        // new update 2 mon huy diet + 1 mon than linh(skh theo style) + 5 manh bat ki
         if (player.combineNew.itemsCombine.size() != 4) {
             Service.gI().sendThongBao(player, "Thiếu đồ");
             return;
@@ -875,15 +1003,24 @@ public class CombineServiceNew {
             Service.gI().sendThongBao(player, "Bạn phải có ít nhất 1 ô trống hành trang");
             return;
         }
-        Item itemTL = player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isDTL()).findFirst().get();
-        List<Item> itemHDs = player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isDHD()).collect(Collectors.toList());
-        Item itemManh = player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isManhTS() && item.quantity >= 5).findFirst().get();
+        Item itemTL = player.combineNew.itemsCombine.stream()
+                .filter(item -> item.isNotNullItem() && item.isDTL()).findFirst().get();
+        List<Item> itemHDs = player.combineNew.itemsCombine.stream()
+                .filter(item -> item.isNotNullItem() && item.isDHD()).collect(Collectors.toList());
+        Item itemManh = player.combineNew.itemsCombine.stream()
+                .filter(item -> item.isNotNullItem() && item.isManhTS() && item.quantity >= 5)
+                .findFirst().get();
 
         player.inventory.gold -= COST;
         sendEffectSuccessCombine(player);
-        short[][] itemIds = {{1048, 1051, 1054, 1057, 1060}, {1049, 1052, 1055, 1058, 1061}, {1050, 1053, 1056, 1059, 1062}}; // thứ tự td - 0,nm - 1, xd - 2
+        short[][] itemIds = {{1048, 1051, 1054, 1057, 1060}, {1049, 1052, 1055, 1058, 1061},
+                {1050, 1053, 1056, 1059, 1062}}; // thứ tự td - 0,nm - 1, xd - 2
 
-        Item itemTS = ItemService.gI().DoThienSu(itemIds[itemTL.template.gender > 2 ? player.gender : itemTL.template.gender][itemManh.typeIdManh()], itemTL.template.gender);
+        Item itemTS =
+                ItemService.gI().DoThienSu(
+                        itemIds[itemTL.template.gender > 2 ? player.gender
+                                : itemTL.template.gender][itemManh.typeIdManh()],
+                        itemTL.template.gender);
         InventoryServiceNew.gI().addItemBag(player, itemTS);
 
         InventoryServiceNew.gI().subQuantityItemsBag(player, itemTL, 1);
@@ -902,11 +1039,13 @@ public class CombineServiceNew {
             Service.gI().sendThongBao(player, "Thiếu nguyên liệu");
             return;
         }
-        if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isDTS()).count() != 1) {
+        if (player.combineNew.itemsCombine.stream()
+                .filter(item -> item.isNotNullItem() && item.isDTS()).count() != 1) {
             Service.gI().sendThongBao(player, "Thiếu đồ thiên sứ");
             return;
         }
-        if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isSKH()).count() != 2) {
+        if (player.combineNew.itemsCombine.stream()
+                .filter(item -> item.isNotNullItem() && item.isSKH()).count() != 2) {
             Service.gI().sendThongBao(player, "Thiếu đồ kích hoạt");
             return;
         }
@@ -916,18 +1055,25 @@ public class CombineServiceNew {
                 return;
             }
             player.inventory.gold -= COST;
-            Item itemTS = player.combineNew.itemsCombine.stream().filter(Item::isDTS).findFirst().get();
-            List<Item> itemSKH = player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.isSKH()).collect(Collectors.toList());
-            CombineServiceNew.gI().sendEffectOpenItem(player, itemTS.template.iconID, itemTS.template.iconID);
+            Item itemTS =
+                    player.combineNew.itemsCombine.stream().filter(Item::isDTS).findFirst().get();
+            List<Item> itemSKH = player.combineNew.itemsCombine.stream()
+                    .filter(item -> item.isNotNullItem() && item.isSKH())
+                    .collect(Collectors.toList());
+            CombineServiceNew.gI().sendEffectOpenItem(player, itemTS.template.iconID,
+                    itemTS.template.iconID);
             short itemId;
             if (itemTS.template.gender == 3 || itemTS.template.type == 4) {
                 itemId = Manager.radaSKHVip[Util.nextInt(0, 5)];
-                if (player.getSession().bdPlayer > 0 && Util.isTrue(1, (int) (100 / player.getSession().bdPlayer))) {
+                if (player.getSession().bdPlayer > 0
+                        && Util.isTrue(1, (int) (100 / player.getSession().bdPlayer))) {
                     itemId = Manager.radaSKHVip[6];
                 }
             } else {
-                itemId = Manager.doSKHVip[itemTS.template.gender][itemTS.template.type][Util.nextInt(0, 5)];
-                if (player.getSession().bdPlayer > 0 && Util.isTrue(1, (int) (100 / player.getSession().bdPlayer))) {
+                itemId = Manager.doSKHVip[itemTS.template.gender][itemTS.template.type][Util
+                        .nextInt(0, 5)];
+                if (player.getSession().bdPlayer > 0
+                        && Util.isTrue(1, (int) (100 / player.getSession().bdPlayer))) {
                     itemId = Manager.doSKHVip[itemTS.template.gender][itemTS.template.type][6];
                 }
             }
@@ -937,7 +1083,9 @@ public class CombineServiceNew {
                 item = Util.ratiItemTL(itemId);
                 item.itemOptions.add(new Item.ItemOption(skhId, 1));
                 item.itemOptions.add(new Item.ItemOption(ItemService.gI().optionIdSKH(skhId), 1));
-                item.itemOptions.remove(item.itemOptions.stream().filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst().get());
+                item.itemOptions.remove(item.itemOptions.stream()
+                        .filter(itemOption -> itemOption.optionTemplate.id == 21).findFirst()
+                        .get());
                 item.itemOptions.add(new Item.ItemOption(21, 15));
                 item.itemOptions.add(new Item.ItemOption(30, 1));
             } else {
@@ -956,7 +1104,8 @@ public class CombineServiceNew {
     }
 
     private void dapDoKichHoat(Player player) {
-        if (player.combineNew.itemsCombine.size() == 1 || player.combineNew.itemsCombine.size() == 2) {
+        if (player.combineNew.itemsCombine.size() == 1
+                || player.combineNew.itemsCombine.size() == 2) {
             Item dhd = null, dtl = null;
             for (Item item : player.combineNew.itemsCombine) {
                 if (item.isNotNullItem()) {
@@ -968,15 +1117,20 @@ public class CombineServiceNew {
                 }
             }
             if (dhd != null) {
-                if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0 //check chỗ trống hành trang
+                if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0 // check chỗ trống hành
+                                                                          // trang
                         && player.inventory.gold >= COST_DAP_DO_KICH_HOAT) {
                     player.inventory.gold -= COST_DAP_DO_KICH_HOAT;
                     int tiLe = dtl != null ? 100 : 50;
                     if (Util.isTrue(tiLe, 100)) {
                         sendEffectSuccessCombine(player);
-                        Item item = ItemService.gI().createNewItem((short) getTempIdItemC0(dhd.template.gender, dhd.template.type));
-                        RewardService.gI().initBaseOptionClothes(item.template.id, item.template.type, item.itemOptions);
-                        RewardService.gI().initActivationOption(item.template.gender < 3 ? item.template.gender : player.gender, item.template.type, item.itemOptions);
+                        Item item = ItemService.gI().createNewItem(
+                                (short) getTempIdItemC0(dhd.template.gender, dhd.template.type));
+                        RewardService.gI().initBaseOptionClothes(item.template.id,
+                                item.template.type, item.itemOptions);
+                        RewardService.gI().initActivationOption(
+                                item.template.gender < 3 ? item.template.gender : player.gender,
+                                item.template.type, item.itemOptions);
                         InventoryServiceNew.gI().addItemBag(player, item);
                     } else {
                         sendEffectFailCombine(player);
@@ -1000,7 +1154,8 @@ public class CombineServiceNew {
                 if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0
                         && player.inventory.gold >= COST_DOI_VE_DOI_DO_HUY_DIET) {
                     player.inventory.gold -= COST_DOI_VE_DOI_DO_HUY_DIET;
-                    Item ticket = ItemService.gI().createNewItem((short) (2001 + item.template.type));
+                    Item ticket =
+                            ItemService.gI().createNewItem((short) (2001 + item.template.type));
                     ticket.itemOptions.add(new Item.ItemOption(30, 0));
                     InventoryServiceNew.gI().subQuantityItemsBag(player, item, 1);
                     InventoryServiceNew.gI().addItemBag(player, ticket);
@@ -1013,7 +1168,7 @@ public class CombineServiceNew {
             }
         }
     }
-    
+
     private void nangCapBongTai(Player player) {
         if (player.combineNew.itemsCombine.size() == 2) {
             int gold = player.combineNew.goldCombine;
@@ -1113,6 +1268,7 @@ public class CombineServiceNew {
             }
         }
     }
+
     private void moChiSolinhthu(Player player) {
         if (player.combineNew.itemsCombine.size() == 3) {
             int gold = player.combineNew.goldCombine;
@@ -1189,8 +1345,8 @@ public class CombineServiceNew {
                     daPhaLe = item;
                 }
             }
-            int star = 0; //sao pha lê đã ép
-            int starEmpty = 0; //lỗ sao pha lê
+            int star = 0; // sao pha lê đã ép
+            int starEmpty = 0; // lỗ sao pha lê
             if (trangBi != null && daPhaLe != null) {
                 Item.ItemOption optionStar = null;
                 for (Item.ItemOption io : trangBi.itemOptions) {
@@ -1267,8 +1423,10 @@ public class CombineServiceNew {
                         }
                         sendEffectSuccessCombine(player);
                         if (optionStar != null && optionStar.param >= 7) {
-                            // ServerNotify.gI().notify("Chúc mừng " + player.name + " vừa pha lê hóa "
-                            //         + "thành công " + item.template.name + " lên " + optionStar.param + " sao pha lê");
+                            ServerNotify.gI()
+                                    .notify("Chúc mừng " + player.name + " vừa pha lê hóa "
+                                            + "thành công " + item.template.name + " lên "
+                                            + optionStar.param + " sao pha lê");
                         }
                     } else {
                         sendEffectFailCombine(player);
@@ -1285,36 +1443,45 @@ public class CombineServiceNew {
         if (InventoryServiceNew.gI().getCountEmptyBag(player) > 0) {
             if (!player.combineNew.itemsCombine.isEmpty()) {
                 Item item = player.combineNew.itemsCombine.get(0);
-                if (item != null && item.isNotNullItem() && (item.template.id > 14 && item.template.id <= 20) && item.quantity >= 7) {
+                if (item != null && item.isNotNullItem()
+                        && (item.template.id > 14 && item.template.id <= 20)
+                        && item.quantity >= 7) {
                     Item nr = ItemService.gI().createNewItem((short) (item.template.id - 1));
                     InventoryServiceNew.gI().addItemBag(player, nr);
                     InventoryServiceNew.gI().subQuantityItemsBag(player, item, 7);
                     InventoryServiceNew.gI().sendItemBags(player);
                     reOpenItemCombine(player);
-//                    sendEffectCombineDB(player, item.template.iconID);
+                    // sendEffectCombineDB(player, item.template.iconID);
                 }
             }
         }
     }
 
- 
+
     private void nangCapVatPham(Player player) {
-        if (player.combineNew.itemsCombine.size() >= 2 && player.combineNew.itemsCombine.size() < 4) {
-            if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.template.type < 5).count() != 1) {
+        if (player.combineNew.itemsCombine.size() >= 2
+                && player.combineNew.itemsCombine.size() < 4) {
+            if (player.combineNew.itemsCombine.stream()
+                    .filter(item -> item.isNotNullItem() && item.template.type < 5).count() != 1) {
                 return;
             }
-            if (player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.template.type == 14).count() != 1) {
+            if (player.combineNew.itemsCombine.stream()
+                    .filter(item -> item.isNotNullItem() && item.template.type == 14)
+                    .count() != 1) {
                 return;
             }
-            if (player.combineNew.itemsCombine.size() == 3 && player.combineNew.itemsCombine.stream().filter(item -> item.isNotNullItem() && item.template.id == 987).count() != 1) {
-                return;//admin
+            if (player.combineNew.itemsCombine.size() == 3 && player.combineNew.itemsCombine
+                    .stream().filter(item -> item.isNotNullItem() && item.template.id == 987)
+                    .count() != 1) {
+                return;// admin
             }
             Item itemDo = null;
             Item itemDNC = null;
             Item itemDBV = null;
             for (int j = 0; j < player.combineNew.itemsCombine.size(); j++) {
                 if (player.combineNew.itemsCombine.get(j).isNotNullItem()) {
-                    if (player.combineNew.itemsCombine.size() == 3 && player.combineNew.itemsCombine.get(j).template.id == 987) {
+                    if (player.combineNew.itemsCombine.size() == 3
+                            && player.combineNew.itemsCombine.get(j).template.id == 987) {
                         itemDBV = player.combineNew.itemsCombine.get(j);
                         continue;
                     }
@@ -1334,10 +1501,13 @@ public class CombineServiceNew {
                     return;
                 }
 
-                if (itemDNC.quantity < countDaNangCap) return;
+                if (itemDNC.quantity < countDaNangCap)
+                    return;
                 if (player.combineNew.itemsCombine.size() == 3) {
-                    if (Objects.isNull(itemDBV)) return;
-                    if (itemDBV.quantity < countDaBaoVe) return;
+                    if (Objects.isNull(itemDBV))
+                        return;
+                    if (itemDBV.quantity < countDaBaoVe)
+                        return;
                 }
 
                 int level = 0;
@@ -1354,16 +1524,12 @@ public class CombineServiceNew {
                     Item.ItemOption option = null;
                     Item.ItemOption option2 = null;
                     for (Item.ItemOption io : itemDo.itemOptions) {
-                        if (io.optionTemplate.id == 47
-                                || io.optionTemplate.id == 6
-                                || io.optionTemplate.id == 0
-                                || io.optionTemplate.id == 7
-                                || io.optionTemplate.id == 14
-                                || io.optionTemplate.id == 22
+                        if (io.optionTemplate.id == 47 || io.optionTemplate.id == 6
+                                || io.optionTemplate.id == 0 || io.optionTemplate.id == 7
+                                || io.optionTemplate.id == 14 || io.optionTemplate.id == 22
                                 || io.optionTemplate.id == 23) {
                             option = io;
-                        } else if (io.optionTemplate.id == 27
-                                || io.optionTemplate.id == 28) {
+                        } else if (io.optionTemplate.id == 27 || io.optionTemplate.id == 28) {
                             option2 = io;
                         }
                     }
@@ -1377,13 +1543,14 @@ public class CombineServiceNew {
                         } else {
                             optionLevel.param++;
                         }
-//                        if (optionLevel != null && optionLevel.param >= 5) {
-//                            ServerNotify.gI().notify("Chúc mừng " + player.name + " vừa nâng cấp "
-//                                    + "thành công " + trangBi.template.name + " lên +" + optionLevel.param);
-//                        }
+                        // if (optionLevel != null && optionLevel.param >= 5) {
+                        // ServerNotify.gI().notify("Chúc mừng " + player.name + " vừa nâng cấp "
+                        // + "thành công " + trangBi.template.name + " lên +" + optionLevel.param);
+                        // }
                         sendEffectSuccessCombine(player);
                     } else {
-                        if ((level == 2 || level == 4 || level == 6) && (player.combineNew.itemsCombine.size() != 3)) {
+                        if ((level == 2 || level == 4 || level == 6)
+                                && (player.combineNew.itemsCombine.size() != 3)) {
                             option.param -= (option.param * 10 / 100);
                             if (option2 != null) {
                                 option2.param -= (option2.param * 10 / 100);
@@ -1394,7 +1561,8 @@ public class CombineServiceNew {
                     }
                     if (player.combineNew.itemsCombine.size() == 3)
                         InventoryServiceNew.gI().subQuantityItemsBag(player, itemDBV, countDaBaoVe);
-                    InventoryServiceNew.gI().subQuantityItemsBag(player, itemDNC, player.combineNew.countDaNangCap);
+                    InventoryServiceNew.gI().subQuantityItemsBag(player, itemDNC,
+                            player.combineNew.countDaNangCap);
                     InventoryServiceNew.gI().sendItemBags(player);
                     Service.gI().sendMoney(player);
                     reOpenItemCombine(player);
@@ -1403,10 +1571,10 @@ public class CombineServiceNew {
         }
     }
 
-    //--------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-    /**r
-     * Hiệu ứng mở item
+    /**
+     * r Hiệu ứng mở item
      *
      * @param player
      */
@@ -1497,7 +1665,7 @@ public class CombineServiceNew {
         }
     }
 
-    //--------------------------------------------------------------------------Ratio, cost combine
+    // --------------------------------------------------------------------------Ratio, cost combine
     private int getGoldPhaLeHoa(int star) {
         switch (star) {
             case 0:
@@ -1530,7 +1698,7 @@ public class CombineServiceNew {
         return 0;
     }
 
-    private float getRatioPhaLeHoa(int star) { //tile dap do chi hat mit
+    private float getRatioPhaLeHoa(int star) { // tile dap do chi hat mit
         switch (star) {
             case 0:
                 return 60f;
@@ -1549,18 +1717,18 @@ public class CombineServiceNew {
             case 7:
                 return 2f;
             case 8:
-                return 1f;    
+                return 1f;
             case 9:
-                return 0.7f;    
+                return 0.7f;
             case 10:
                 return 0.5f;
             case 11:
                 return 0.3f;
-             case 12:
-                return 0.1f;    
+            case 12:
+                return 0.1f;
         }
-        
-        
+
+
         return 0;
     }
 
@@ -1583,15 +1751,15 @@ public class CombineServiceNew {
             case 7:
                 return 80;
             case 8:
-                return 50;    
+                return 50;
             case 9:
-                return 50;    
+                return 50;
             case 10:
                 return 50;
             case 11:
                 return 50;
-             case 12:
-                return 50;      
+            case 12:
+                return 50;
         }
         return 0;
     }
@@ -1641,9 +1809,9 @@ public class CombineServiceNew {
             case 10: // 7 sao
                 return 0.3;
             case 11: // 7 sao
-                return 1; 
+                return 1;
             case 12: // 7 sao
-                return 1;     
+                return 1;
         }
         return 0;
     }
@@ -1696,7 +1864,7 @@ public class CombineServiceNew {
         return 0;
     }
 
-    //--------------------------------------------------------------------------check
+    // --------------------------------------------------------------------------check
     private boolean isCoupleItemNangCap(Item item1, Item item2) {
         Item trangBi = null;
         Item daNangCap = null;
@@ -1754,12 +1922,15 @@ public class CombineServiceNew {
     }
 
     private boolean isDaPhaLe(Item item) {
-        return item != null && (item.template.type == 30 || (item.template.id >= 14 && item.template.id <= 20));
+        return item != null
+                && (item.template.type == 30 || (item.template.id >= 14 && item.template.id <= 20));
     }
 
     private boolean isTrangBiPhaLeHoa(Item item) {
         if (item != null && item.isNotNullItem()) {
-            if (item.template.type < 6 || item.template.type == 11 || item.template.type == 32 || item.template.type == 1 || item.template.type == 1 || item.template.type == 1 || item.template.type == 1) {
+            if (item.template.type < 6 || item.template.type == 11 || item.template.type == 32
+                    || item.template.type == 1 || item.template.type == 1 || item.template.type == 1
+                    || item.template.type == 1) {
                 return true;
             } else {
                 return false;
@@ -1792,6 +1963,7 @@ public class CombineServiceNew {
                 return -1;
         }
     }
+
     private int getOptionDaPhaLe(Item daPhaLe) {
         if (daPhaLe.template.type == 30) {
             return daPhaLe.itemOptions.get(0).optionTemplate.id;
@@ -1868,7 +2040,7 @@ public class CombineServiceNew {
         return -1;
     }
 
-    //Trả về tên đồ c0
+    // Trả về tên đồ c0
     private String getNameItemC0(int gender, int type) {
         if (type == 4) {
             return "Rada cấp 1";
@@ -1914,7 +2086,7 @@ public class CombineServiceNew {
         return "";
     }
 
-    //--------------------------------------------------------------------------Text tab combine
+    // --------------------------------------------------------------------------Text tab combine
     private String getTextTopTabCombine(int type) {
         switch (type) {
             case EP_SAO_TRANG_BI:
@@ -1936,7 +2108,7 @@ public class CombineServiceNew {
             case MO_CHI_SO_BONG_TAI:
                 return "Ta sẽ phù phép\ncho bông tai Porata cấp 2 của ngươi\ncó 1 chỉ số ngẫu nhiên";
             case NANG_CAP_LINH_THU:
-                return "Ta sẽ phù phép\ncho Linh Thú cùi bắp của ngươi\ncó 1 chỉ số ngẫu nhiên";    
+                return "Ta sẽ phù phép\ncho Linh Thú cùi bắp của ngươi\ncó 1 chỉ số ngẫu nhiên";
             default:
                 return "";
         }
@@ -1958,19 +2130,18 @@ public class CombineServiceNew {
                 return "vào hành trang\nChọn trang bị\n(Áo, quần, găng, giày hoặc rađa)\nChọn loại đá để phân rã\n"
                         + "Sau đó chọn 'Phân Rã'";
             case NANG_CAP_DO_TS:
-                return "vào hành trang\nChọn 2 trang bị hủy diệt bất kì\nkèm 1 món đồ thần linh\n và 5 mảnh thiên sứ\n " +
-                        "sẽ cho ra đồ thiên sứ từ 0-15% chỉ số"
-                        + "Sau đó chọn 'Nâng Cấp'";
+                return "vào hành trang\nChọn 2 trang bị hủy diệt bất kì\nkèm 1 món đồ thần linh\n và 5 mảnh thiên sứ\n "
+                        + "sẽ cho ra đồ thiên sứ từ 0-15% chỉ số" + "Sau đó chọn 'Nâng Cấp'";
             case NANG_CAP_SKH_VIP:
-                return "vào hành trang\nChọn 1 trang bị thiên sứ bất kì\nChọn tiếp ngẫu nhiên 2 món SKH thường \n " +
-                        " đồ SKH VIP sẽ cùng loại \n với đồ thiên sứ!"
+                return "vào hành trang\nChọn 1 trang bị thiên sứ bất kì\nChọn tiếp ngẫu nhiên 2 món SKH thường \n "
+                        + " đồ SKH VIP sẽ cùng loại \n với đồ thiên sứ!"
                         + "Chỉ cần chọn 'Nâng Cấp'";
             case NANG_CAP_BONG_TAI:
                 return "Vào hành trang\nChọn bông tai Porata\nChọn mảnh bông tai để nâng cấp, số lượng\n99 cái\nSau đó chọn 'Nâng cấp'";
             case MO_CHI_SO_BONG_TAI:
                 return "Vào hành trang\nChọn bông tai Porata\nChọn mảnh hồn bông tai số lượng 99 cái\nvà đá xanh lam để nâng cấp\nSau đó chọn 'Nâng cấp'";
             case NANG_CAP_LINH_THU:
-                return "Vào hành trang\nChọn Linh Thú\nChọn Thăng Tinh Thạch số lượng 99 cái\nvà Thức Ăn để nâng cấp\nSau đó chọn 'Nâng cấp'";    
+                return "Vào hành trang\nChọn Linh Thú\nChọn Thăng Tinh Thạch số lượng 99 cái\nvà Thức Ăn để nâng cấp\nSau đó chọn 'Nâng cấp'";
             default:
                 return "";
         }
