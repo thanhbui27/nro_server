@@ -17,21 +17,23 @@ public class Vados extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        int[] manhthuong = new int[]{1066, 1068};
-        int[] manhhiem = new int[]{1067, 1069, 1070};
+        int[] manhthuong = new int[] {1066, 1068};
+        int[] manhhiem = new int[] {1067, 1069, 1070};
 
         int randomAWJ = new Random().nextInt(manhthuong.length);
         int randomGR = new Random().nextInt(manhhiem.length);
         if (Util.isTrue(99, 100)) {
-            Service.gI().dropItemMap(this.zone, Util.manhTS(zone, manhthuong[randomAWJ], 1, this.location.x, this.location.y, plKill.id));
+            Service.gI().dropItemMap(this.zone, Util.manhTS(zone, manhthuong[randomAWJ], 1,
+                    this.location.x, this.location.y, plKill.id));
         } else {
-            Service.gI().dropItemMap(this.zone, Util.manhTS(zone, manhhiem[randomGR], 1, this.location.x, this.location.y, plKill.id));
+            Service.gI().dropItemMap(this.zone, Util.manhTS(zone, manhhiem[randomGR], 1,
+                    this.location.x, this.location.y, plKill.id));
         }
     }
 
     @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
-        if (Util.isTrue(95, 100) && plAtt != null) {//tỉ lệ hụt của thiên sứ
+        if (Util.isTrue(95, 100) && plAtt != null) {// tỉ lệ hụt của thiên sứ
             Util.isTrue(this.nPoint.tlNeDon, 100000);
             if (Util.isTrue(1, 100)) {
                 this.chat("Hãy để bản năng tự vận động");
@@ -61,6 +63,7 @@ public class Vados extends Boss {
             if (damage >= 1) {
                 damage = 1;
             }
+            damage = this.nPoint.damageToBossPercent(damage, plAtt);
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);
@@ -72,18 +75,18 @@ public class Vados extends Boss {
         }
     }
 
-//    @Override
-//    public void active() {
-//        super.active(); //To change body of generated methods, choose Tools | Templates.
-//        if (Util.canDoWithTime(st, 1000000)) {
-//            this.changeStatus(BossStatus.LEAVE_MAP);
-//        }
-//    }
-//
-//    @Override
-//    public void joinMap() {
-//        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-//        st = System.currentTimeMillis();
-//    }
-//    private long st;
+    // @Override
+    // public void active() {
+    // super.active(); //To change body of generated methods, choose Tools | Templates.
+    // if (Util.canDoWithTime(st, 1000000)) {
+    // this.changeStatus(BossStatus.LEAVE_MAP);
+    // }
+    // }
+    //
+    // @Override
+    // public void joinMap() {
+    // super.joinMap(); //To change body of generated methods, choose Tools | Templates.
+    // st = System.currentTimeMillis();
+    // }
+    // private long st;
 }

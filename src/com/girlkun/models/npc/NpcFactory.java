@@ -919,7 +919,7 @@ public class NpcFactory {
                                     break; // qua dhvt
                                 case 1: //
                                     this.createOtherMenu(player, 1,
-                                            "\b|7|Bạn có muốn đổi 2000 điểm Mua Sắm lấy \n|6|\b|5|Cải trang Pet vip\n ",
+                                            "\b|7|Bạn có muốn đổi 2000 điểm Mua Sắm lấy \n|6|\b|5| Pet vip\n ",
                                             "Ok", "Không");
                                     // bat menu doi item
                                     break;
@@ -947,11 +947,11 @@ public class NpcFactory {
                                         item.itemOptions.add(new Item.ItemOption(77, 50));
                                         item.itemOptions.add(new Item.ItemOption(103, 50));
                                         item.itemOptions.add(new Item.ItemOption(207, 0));
-                                        item.itemOptions.add(new Item.ItemOption(33, 0));
+                                        // item.itemOptions.add(new Item.ItemOption(33, 0));
                                         //
                                         InventoryServiceNew.gI().addItemBag(player, item);
                                         Service.getInstance().sendThongBao(player,
-                                                "Chúc Mừng Bạn Đổi Cải Trang Thành Công !");
+                                                "Chúc Mừng Bạn Đổi Pet mặp vàng Thành Công !");
                                     } else {
                                         Service.getInstance().sendThongBao(player,
                                                 "Không đủ điểm bạn còn " + (2000 - player.pointPvp)
@@ -1879,13 +1879,13 @@ public class NpcFactory {
                                     ShopServiceNew.gI().opendShop(player, "SHOP_BI_NGAN", false);
                                     break;
                                 case 4:
-                                    // if (player.session.actived == 1) {
-                                    ShopServiceNew.gI().opendShop(player, "SANTA_RUBY", false);
-                                    // return;
+                                    if (player.session.actived == 1) {
+                                        ShopServiceNew.gI().opendShop(player, "SANTA_RUBY", false);
+                                        // return;
+                                        break;
+                                    }
+                                    Service.gI().sendThongBao(player, "Bạn chưa mở thành viên!!");
                                     break;
-                                // }
-                                // Service.gI().sendThongBao(player, "Bạn chưa mở thành viên!!");
-                                // break;
 
                             }
                         } else if (player.iDMark.getIndexMenu() == ConstNpc.NAP_THE) {
@@ -2089,6 +2089,7 @@ public class NpcFactory {
                                 case CombineServiceNew.EP_SAO_TRANG_BI:
                                 case CombineServiceNew.PHA_LE_HOA_TRANG_BI:
                                 case CombineServiceNew.CHUYEN_HOA_TRANG_BI:
+                                case CombineServiceNew.NANG_CAP_LINH_THU:
                                     if (select == 0) {
                                         CombineServiceNew.gI().startCombine(player);
                                     }
@@ -2140,6 +2141,7 @@ public class NpcFactory {
                                 // CombineServiceNew.NANG_CAP_DO_TS);
                                 // break;
                                 case 5:
+                                    System.out.println("nang cap linh thu");
                                     CombineServiceNew.gI().openTabCombine(player,
                                             CombineServiceNew.NANG_CAP_LINH_THU);
                                     break;

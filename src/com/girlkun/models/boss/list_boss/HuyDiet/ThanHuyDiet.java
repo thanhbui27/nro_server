@@ -55,6 +55,7 @@ public class ThanHuyDiet extends Boss {
                 }
                 damage = 1;
             }
+            damage = this.nPoint.damageToBossPercent(damage, plAtt);
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);

@@ -1427,7 +1427,7 @@ public class BossesData {
 
         public static final BossData COOLER_1 = new BossData("Cooler", // name
                         ConstPlayer.TRAI_DAT, // gender
-                        new short[] {508, 509, 510, -1, -1, -1}, // outfit {head, body, leg, bag,
+                        new short[] {317, 318, 319, -1, -1, -1}, // outfit {head, body, leg, bag,
                                                                  // aura, eff}
                         100000, // dame
                         new int[] {100000000}, // hp
@@ -1443,7 +1443,7 @@ public class BossesData {
                         REST_30_M);
         public static final BossData COOLER_2 = new BossData("Cooler 2", // name
                         ConstPlayer.TRAI_DAT, // gender
-                        new short[] {508, 509, 510, -1, -1, -1}, // outfit {head, body, leg, bag,
+                        new short[] {320, 321, 322, -1, -1, -1}, // outfit {head, body, leg, bag,
                                                                  // aura, eff}
                         100000, // dame
                         new int[] {100000000}, // hp

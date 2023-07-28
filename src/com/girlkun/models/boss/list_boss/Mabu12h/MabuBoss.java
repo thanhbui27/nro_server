@@ -20,13 +20,14 @@ public class MabuBoss extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        ItemMap it = new ItemMap(this.zone, 568, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                this.location.y - 24), plKill.id);
+        ItemMap it = new ItemMap(this.zone, 568, 1, this.location.x,
+                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
         Service.gI().dropItemMap(this.zone, it);
     }
-     @Override
+
+    @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
-        if (Util.isTrue(50, 100) && plAtt != null) {//tỉ lệ hụt của thiên sứ
+        if (Util.isTrue(50, 100) && plAtt != null) {// tỉ lệ hụt của thiên sứ
             Util.isTrue(this.nPoint.tlNeDon, 100000);
             if (Util.isTrue(10, 100)) {
                 this.chat("Hãy để bản năng tự vận động");
@@ -46,17 +47,18 @@ public class MabuBoss extends Boss {
                 this.chat("Xí hụt");
                 return 0;
             }
-            damage = this.nPoint.subDameInjureWithDeff(damage/3);
+            damage = this.nPoint.subDameInjureWithDeff(damage / 3);
             if (!piercing && effectSkill.isShielding) {
                 if (damage > nPoint.hpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
                 damage = damage;
-                 if (damage > nPoint.mpMax) {
+                if (damage > nPoint.mpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
                 damage = damage;
             }
+            damage = this.nPoint.damageToBossPercent(damage, plAtt);
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);
@@ -68,24 +70,5 @@ public class MabuBoss extends Boss {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

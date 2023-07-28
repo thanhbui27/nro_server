@@ -201,15 +201,16 @@ public class UseItem {
                     break;
                 case 23: // thú cưỡi mới
                 case 24: // thú cưỡi cũ
+                    System.out.println("test 11");
                     InventoryServiceNew.gI().itemBagToBody(pl, indexBag);
                     break;
                 case 11: // item bag
-                    System.out.println("test 11");
+
                     InventoryServiceNew.gI().itemBagToBody(pl, indexBag);
                     Service.gI().sendFlagBag(pl);
                     break;
                 case 72: {
-                    System.out.println("test 72");
+                    // System.out.println("test 72");
                     InventoryServiceNew.gI().itemBagToBody(pl, indexBag);
                     Service.gI().sendPetFollow(pl, (short) (item.template.iconID - 1));
                     break;

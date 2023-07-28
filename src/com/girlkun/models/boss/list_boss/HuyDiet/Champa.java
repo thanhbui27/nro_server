@@ -55,6 +55,7 @@ public class Champa extends Boss {
                 }
                 damage = damage/2;
             }
+            damage = this.nPoint.damageToBossPercent(damage, plAtt);
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);

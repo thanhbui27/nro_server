@@ -20,17 +20,19 @@ public class Android14 extends Boss {
     public Android14() throws Exception {
         super(BossID.ANDROID_14, BossesData.ANDROID_14);
     }
-   @Override
+
+    @Override
     public void reward(Player plKill) {
-        int[] itemRan = new int[]{1142, 382, 383, 384, 1142};
+        int[] itemRan = new int[] {1142, 382, 383, 384, 1142};
         int itemId = itemRan[2];
         if (Util.isTrue(15, 100)) {
-            ItemMap it = new ItemMap(this.zone, itemId, 17, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), plKill.id);
+            ItemMap it = new ItemMap(this.zone, itemId, 17, this.location.x,
+                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
     }
+
     @Override
     protected void resetBase() {
         super.resetBase();
@@ -51,6 +53,7 @@ public class Android14 extends Boss {
             this.callApk13();
             return 0;
         }
+        damage = this.nPoint.damageToBossPercent(damage, plAtt);
         return super.injured(plAtt, damage, piercing, isMobAttack);
     }
 
@@ -92,6 +95,6 @@ public class Android14 extends Boss {
 }
 
 /**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
+ * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác giả của mã nguồn này.
+ * Xin cảm ơn! - GirlBeo
  */

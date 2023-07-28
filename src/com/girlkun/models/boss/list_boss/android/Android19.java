@@ -20,13 +20,13 @@ public class Android19 extends Boss {
         super(BossID.ANDROID_19, BossesData.ANDROID_19);
     }
 
-     @Override
+    @Override
     public void reward(Player plKill) {
-        int[] itemRan = new int[]{381, 382, 383, 384, 385};
+        int[] itemRan = new int[] {381, 382, 383, 384, 385};
         int itemId = itemRan[2];
         if (Util.isTrue(15, 100)) {
-            ItemMap it = new ItemMap(this.zone, itemId, 17, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                    this.location.y - 24), plKill.id);
+            ItemMap it = new ItemMap(this.zone, itemId, 17, this.location.x,
+                    this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
             Service.gI().dropItemMap(this.zone, it);
         }
         TaskService.gI().checkDoneTaskKillBoss(plKill, this);
@@ -34,18 +34,20 @@ public class Android19 extends Boss {
 
     @Override
     public void active() {
-        super.active(); //To change body of generated methods, choose Tools | Templates.
-        if(Util.canDoWithTime(st,900000)){
+        super.active(); // To change body of generated methods, choose Tools | Templates.
+        if (Util.canDoWithTime(st, 900000)) {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
 
     @Override
     public void joinMap() {
-        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-        st= System.currentTimeMillis();
+        super.joinMap(); // To change body of generated methods, choose Tools | Templates.
+        st = System.currentTimeMillis();
     }
+
     private long st;
+
     @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
         if (plAtt != null) {
@@ -61,6 +63,7 @@ public class Android19 extends Boss {
                     return 0;
             }
         }
+        damage = this.nPoint.damageToBossPercent(damage, plAtt);
         return super.injured(plAtt, damage, piercing, isMobAttack);
     }
 
@@ -74,6 +77,6 @@ public class Android19 extends Boss {
 }
 
 /**
- * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác
- * giả của mã nguồn này. Xin cảm ơn! - GirlBeo
+ * Vui lòng không sao chép mã nguồn này dưới mọi hình thức. Hãy tôn trọng tác giả của mã nguồn này.
+ * Xin cảm ơn! - GirlBeo
  */

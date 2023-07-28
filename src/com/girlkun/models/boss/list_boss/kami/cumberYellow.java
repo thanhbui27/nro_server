@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this license header, choose License Headers in Project Properties. To change this
+ * template file, choose Tools | Templates and open the template in the editor.
  */
 package com.girlkun.models.boss.list_boss.kami;
 
@@ -29,14 +28,14 @@ public class cumberYellow extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        ItemMap it = new ItemMap(this.zone, 1142, 1, this.location.x, this.zone.map.yPhysicInTop(this.location.x,
-                this.location.y - 24), plKill.id);
+        ItemMap it = new ItemMap(this.zone, 1142, 1, this.location.x,
+                this.zone.map.yPhysicInTop(this.location.x, this.location.y - 24), plKill.id);
         Service.gI().dropItemMap(this.zone, it);
     }
-   
+
     @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
-        if (Util.isTrue(70, 100) && plAtt != null) {//tỉ lệ hụt của thiên sứ
+        if (Util.isTrue(70, 100) && plAtt != null) {// tỉ lệ hụt của thiên sứ
             Util.isTrue(this.nPoint.tlNeDon, 100000);
             if (Util.isTrue(1, 100)) {
                 this.chat("Ta Chính Là Thần SooMe");
@@ -62,15 +61,16 @@ public class cumberYellow extends Boss {
                     EffectSkillService.gI().breakShield(this);
                 }
                 damage = damage;
-                 if (damage > nPoint.mpMax) {
+                if (damage > nPoint.mpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage; 
-                 if (damage > nPoint.tlNeDon) {
+                damage = damage;
+                if (damage > nPoint.tlNeDon) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage; 
+                damage = damage;
             }
+            damage = this.nPoint.damageToBossPercent(damage, plAtt);
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);
@@ -81,27 +81,30 @@ public class cumberYellow extends Boss {
             return 0;
         }
     }
-     @Override
+
+    @Override
     public void active() {
-        super.active(); //To change body of generated methods, choose Tools | Templates.
-        if(Util.canDoWithTime(st,900000)){
+        super.active(); // To change body of generated methods, choose Tools | Templates.
+        if (Util.canDoWithTime(st, 900000)) {
             this.changeStatus(BossStatus.LEAVE_MAP);
         }
     }
 
     @Override
     public void joinMap() {
-        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
-        st= System.currentTimeMillis();
+        super.joinMap(); // To change body of generated methods, choose Tools | Templates.
+        st = System.currentTimeMillis();
     }
+
     private long st;
-     @Override
+
+    @Override
     public void leaveMap() {
         super.leaveMap();
         BossManager.gI().removeBoss(this);
         this.dispose();
     }
-  
+
     @Override
     public void changeToTypePK() {
         super.changeToTypePK();

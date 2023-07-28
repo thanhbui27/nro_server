@@ -2,7 +2,7 @@ package com.girlkun.models.clan;
 
 
 public class ClanMessage {
-
+   
     public static final byte BLACK = 0;
     public static final byte RED = 1;
 

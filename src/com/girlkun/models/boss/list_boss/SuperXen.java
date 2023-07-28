@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this license header, choose License Headers in Project Properties. To change this
+ * template file, choose Tools | Templates and open the template in the editor.
  */
 package com.girlkun.models.boss.list_boss;
 
@@ -24,26 +23,28 @@ import java.util.Random;
  * @@Stole By ASOOME
  */
 public class SuperXen extends Boss {
-private long lastTimeHapThu;
+    private long lastTimeHapThu;
     private int timeHapThu;
+
     public SuperXen() throws Exception {
-        
+
         super(BossID.SUPER_XEN, BossesData.SUPER_XEN);
     }
 
     @Override
     public void reward(Player plKill) {
-        if(Util.isTrue(30,100)){
-        ItemMap it = new ItemMap(this.zone, 16, 1, this.location.x, this.location.y, plKill.id);
-        Service.gI().dropItemMap(this.zone, it);
-        TaskService.gI().checkDoneTaskKillBoss(plKill, this);
-    }else  if(Util.isTrue(10,100)){
-         ItemMap it = new ItemMap(this.zone, 15, 1, this.location.x, this.location.y, plKill.id);
-        Service.gI().dropItemMap(this.zone, it);
+        if (Util.isTrue(30, 100)) {
+            ItemMap it = new ItemMap(this.zone, 16, 1, this.location.x, this.location.y, plKill.id);
+            Service.gI().dropItemMap(this.zone, it);
+            TaskService.gI().checkDoneTaskKillBoss(plKill, this);
+        } else if (Util.isTrue(10, 100)) {
+            ItemMap it = new ItemMap(this.zone, 15, 1, this.location.x, this.location.y, plKill.id);
+            Service.gI().dropItemMap(this.zone, it);
         }
-         ItemMap it = new ItemMap(this.zone, 17, 1, this.location.x, this.location.y, plKill.id);
-         Service.gI().dropItemMap(this.zone, it);
+        ItemMap it = new ItemMap(this.zone, 17, 1, this.location.x, this.location.y, plKill.id);
+        Service.gI().dropItemMap(this.zone, it);
     }
+
     @Override
     public void active() {
         if (this.typePk == ConstPlayer.NON_PK) {
@@ -52,17 +53,17 @@ private long lastTimeHapThu;
         this.hapThu();
         this.attack();
     }
-   
+
     private void hapThu() {
         if (!Util.canDoWithTime(this.lastTimeHapThu, this.timeHapThu) || !Util.isTrue(1, 100)) {
             return;
         }
-    
+
         Player pl = this.zone.getRandomPlayerInMap();
         if (pl == null || pl.isDie()) {
             return;
         }
-//        ChangeMapService.gI().changeMapYardrat(this, this.zone, pl.location.x, pl.location.y);
+        // ChangeMapService.gI().changeMapYardrat(this, this.zone, pl.location.x, pl.location.y);
         this.nPoint.dameg += (pl.nPoint.dame * 5 / 100);
         this.nPoint.hpg += (pl.nPoint.hp * 2 / 100);
         this.nPoint.critg++;
@@ -70,14 +71,16 @@ private long lastTimeHapThu;
         PlayerService.gI().hoiPhuc(this, pl.nPoint.hp, 0);
         pl.injured(null, pl.nPoint.hpMax, true, false);
         Service.gI().sendThongBao(pl, "Bạn vừa bị " + this.name + " hấp thu!");
-        this.chat(2, "Ui cha cha, kinh dị quá. " + pl.name + " vừa bị tên " + this.name + " nuốt chửng kìa!!!");
+        this.chat(2, "Ui cha cha, kinh dị quá. " + pl.name + " vừa bị tên " + this.name
+                + " nuốt chửng kìa!!!");
         this.chat("Haha, ngọt lắm đấy " + pl.name + "..");
         this.lastTimeHapThu = System.currentTimeMillis();
         this.timeHapThu = Util.nextInt(30000, 70000);
     }
-   @Override
+
+    @Override
     public int injured(Player plAtt, int damage, boolean piercing, boolean isMobAttack) {
-        if (Util.isTrue(70, 100) && plAtt != null) {//tỉ lệ hụt của thiên sứ
+        if (Util.isTrue(70, 100) && plAtt != null) {// tỉ lệ hụt của thiên sứ
             Util.isTrue(this.nPoint.tlNeDon, 100000);
             if (Util.isTrue(1, 100)) {
                 this.chat("Ta Chính Là Thần SooMe");
@@ -103,15 +106,16 @@ private long lastTimeHapThu;
                     EffectSkillService.gI().breakShield(this);
                 }
                 damage = damage;
-                 if (damage > nPoint.mpMax) {
+                if (damage > nPoint.mpMax) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage; 
-                 if (damage > nPoint.tlNeDon) {
+                damage = damage;
+                if (damage > nPoint.tlNeDon) {
                     EffectSkillService.gI().breakShield(this);
                 }
-                damage = damage; 
+                damage = damage;
             }
+            damage = this.nPoint.damageToBossPercent(damage, plAtt);
             if (damage >= 1000000) {
                 damage = 10000000;
             }
@@ -126,19 +130,20 @@ private long lastTimeHapThu;
         }
     }
 
-     
+
     @Override
     public void joinMap() {
-        super.joinMap(); //To change body of generated methods, choose Tools | Templates.
+        super.joinMap(); // To change body of generated methods, choose Tools | Templates.
         st = System.currentTimeMillis();
     }
+
     private long st;
-    
+
     @Override
     public void leaveMap() {
         super.leaveMap();
         BossManager.gI().removeBoss(this);
         super.dispose();
-        
+
     }
 }

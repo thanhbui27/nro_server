@@ -204,7 +204,9 @@ public class NPoint {
                 if (item.template.id >= 592 && item.template.id <= 594) {
                     teleport = true;
                 }
-                Card card = player.Cards.stream().filter(r -> r != null && r.Used == 1).findFirst().orElse(null);
+                Card card = player.Cards.stream().filter(r -> r != null && r.Used == 1).findFirst()
+                        .orElse(null);
+
                 if (card != null) {
                     for (OptionCard io : card.Options) {
                         if (io.active == card.Level || (card.Level == -1 && io.active == 0)) {
@@ -307,7 +309,9 @@ public class NPoint {
                         }
                     }
                 }
+                // add chỉ số player
                 for (Item.ItemOption io : item.itemOptions) {
+                    // System.out.println(io.toString());
                     switch (io.optionTemplate.id) {
                         case 0: // Tấn công +#
                             this.dameAdd += io.param;
@@ -366,6 +370,10 @@ public class NPoint {
                         case 77: // HP+#%
                             this.tlHp.add(io.param);
                             break;
+                        case 78:
+                            this.tlHp.add(io.param);
+                            this.tlMp.add(io.param);
+                            this.tlDame.add(io.param);
                         case 80: // HP+#%/30s
                             this.tlHpHoi += io.param;
                             break;
@@ -497,8 +505,8 @@ public class NPoint {
                         this.wearingTrainArmor = false;
                         for (Item.ItemOption io : this.player.inventory.trainArmor.itemOptions) {
                             if (io.optionTemplate.id == 9 && io.param > 0) {
-                                this.tlDame
-                                        .add(ItemService.gI().getPercentTrainArmor(this.player.inventory.trainArmor));
+                                this.tlDame.add(ItemService.gI()
+                                        .getPercentTrainArmor(this.player.inventory.trainArmor));
                                 break;
                             }
                         }
@@ -562,8 +570,8 @@ public class NPoint {
         }
         // khỉ
         if (this.player.effectSkill.isMonkey) {
-            if (!this.player.isPet || (this.player.isPet
-                    && ((Pet) this.player).status != Pet.FUSION)) {
+            if (!this.player.isPet
+                    || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
                 int percent = SkillUtil.getPercentHpMonkey(player.effectSkill.levelMonkey);
                 this.hpMax += ((long) this.hpMax * percent / 100);
             }
@@ -599,7 +607,8 @@ public class NPoint {
             this.hpMax += ((long) this.hpMax * 30 / 100);// chi so hp
         }
         // phù
-        if (this.player.zone != null && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
+        if (this.player.zone != null
+                && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
             this.hpMax *= this.player.effectSkin.xHPKI;
         }
         // +hp đệ
@@ -607,9 +616,7 @@ public class NPoint {
             this.hpMax += this.player.pet.nPoint.hpMax;
         }
         // huýt sáo
-        if (!this.player.isPet
-                || (this.player.isPet
-                        && ((Pet) this.player).status != Pet.FUSION)) {
+        if (!this.player.isPet || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
             if (this.player.effectSkill.tiLeHPHuytSao != 0) {
                 this.hpMax += ((long) this.hpMax * this.player.effectSkill.tiLeHPHuytSao / 100L);
 
@@ -699,7 +706,8 @@ public class NPoint {
             this.mpMax *= 2.2;
         }
         // phù
-        if (this.player.zone != null && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
+        if (this.player.zone != null
+                && MapService.gI().isMapBlackBallWar(this.player.zone.map.mapId)) {
             this.mpMax *= this.player.effectSkin.xHPKI;
         }
         // xiên cá
@@ -735,7 +743,7 @@ public class NPoint {
             this.dame += ((long) this.dame * 20 / 100);
         }
 
-        //pet Anubis
+        // pet Anubis
         if (this.player.isPet && ((Pet) this.player).typePet == 4
                 && ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA) {
             this.dame += ((long) this.dame * 30 / 100);
@@ -750,7 +758,7 @@ public class NPoint {
                 && ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
             this.dame += ((long) this.dame * 20 / 100);
         }
-        //pet Anubis
+        // pet Anubis
         if (this.player.isPet && ((Pet) this.player).typePet == 4
                 && ((Pet) this.player).master.fusion.typeFusion == ConstPlayer.HOP_THE_PORATA2) {
             this.dame += ((long) this.dame * 30 / 100);
@@ -793,8 +801,8 @@ public class NPoint {
         }
         // khỉ
         if (this.player.effectSkill.isMonkey) {
-            if (!this.player.isPet || (this.player.isPet
-                    && ((Pet) this.player).status != Pet.FUSION)) {
+            if (!this.player.isPet
+                    || (this.player.isPet && ((Pet) this.player).status != Pet.FUSION)) {
                 int percent = SkillUtil.getPercentDameMonkey(player.effectSkill.levelMonkey);
                 this.dame += ((long) this.dame * percent / 100);
             }
@@ -918,6 +926,7 @@ public class NPoint {
         byte percentXDame = 0;
         Skill skillSelect = player.playerSkill.skillSelect;
         switch (skillSelect.template.id) {
+
             case Skill.DRAGON:
                 if (intrinsic.id == 1) {
                     percentDameIntrinsic = intrinsic.param1;
@@ -1015,7 +1024,8 @@ public class NPoint {
             }
         }
         dameAfter = 0;
-        if (this.player.isPet && ((Pet) this.player).master.charms.tdDeTu > System.currentTimeMillis()) {
+        if (this.player.isPet
+                && ((Pet) this.player).master.charms.tdDeTu > System.currentTimeMillis()) {
             dameAttack *= 2;
         }
         if (isCrit) {
@@ -1037,6 +1047,8 @@ public class NPoint {
                     player.lastTimeUseOption = System.currentTimeMillis();
                 }
             }
+
+
         }
         // check activation set
         return (int) dameAttack;
@@ -1071,6 +1083,23 @@ public class NPoint {
         if (this.mp < 0) {
             this.mp = 0;
         }
+    }
+
+    public int damageToBossPercent(int dameAttack, Player player) {
+        if (player.isPl()) {
+            if (player.inventory.haveOption(player.inventory.itemsBody, 10, 212)) {
+                System.out.println("damage boss pre increa : " + dameAttack);
+                int percentDamageBoss =
+                        player.inventory.getParam(player.inventory.itemsBody.get(10), 212);
+                int dameIncrea = (int) (dameAttack * (percentDamageBoss / 100));
+                System.out.println("dâmge increa : " + dameIncrea);
+                dameAttack += dameIncrea;
+                System.out.println("damage boss after increa : " + dameAttack);
+                return (int) dameAttack;
+            }
+        }
+        System.out.println("not player : ");
+        return (int) dameAttack;
     }
 
     public long calSucManhTiemNang(long tiemNang) {
@@ -1449,12 +1478,13 @@ public class NPoint {
         if (player != null && player.effectSkill != null) {
             if (player.effectSkill.isCharging && player.effectSkill.countCharging < 10) {
                 int tiLeHoiPhuc = SkillUtil.getPercentCharge(player.playerSkill.skillSelect.point);
-                if (player.effectSkill.isCharging && !player.isDie() && !player.effectSkill.isHaveEffectSkill()
-                        && (hp < hpMax || mp < mpMax)) {
+                if (player.effectSkill.isCharging && !player.isDie()
+                        && !player.effectSkill.isHaveEffectSkill() && (hp < hpMax || mp < mpMax)) {
                     PlayerService.gI().hoiPhuc(player, hpMax / 100 * tiLeHoiPhuc,
                             mpMax / 100 * tiLeHoiPhuc);
                     if (player.effectSkill.countCharging % 3 == 0) {
-                        Service.gI().chat(player, "Phục hồi năng lượng " + getCurrPercentHP() + "%");
+                        Service.gI().chat(player,
+                                "Phục hồi năng lượng " + getCurrPercentHP() + "%");
                     }
                 } else {
                     EffectSkillService.gI().stopCharge(player);

@@ -221,6 +221,7 @@ public class ShopServiceNew {
                         msg.writer().writeInt(itemShop.cost);
                         msg.writer().writeByte(itemShop.options.size());
                         for (Item.ItemOption option : itemShop.options) {
+                            // System.out.println(option.optionTemplate.id + " " + option.param);
                             msg.writer().writeByte(option.optionTemplate.id);
                             msg.writer().writeShort(option.param);
                         }

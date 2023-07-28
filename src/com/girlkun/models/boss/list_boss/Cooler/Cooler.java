@@ -20,7 +20,8 @@ public class Cooler extends Boss {
 
     @Override
     public void reward(Player plKill) {
-        int[] itemDos = new int[] {233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277, 281,555,556,557,558,559,560,561,562,563,564,565,566,567};
+        int[] itemDos = new int[] {233, 237, 241, 245, 249, 253, 257, 261, 265, 269, 273, 277, 281,
+                555, 556, 557, 558, 559, 560, 561, 562, 563, 564, 565, 566, 567};
         int[] itemtime = new int[] {381, 382, 383, 384, 385};
         int randomDo = new Random().nextInt(itemDos.length);
         int randomitem = new Random().nextInt(itemtime.length);
@@ -64,6 +65,7 @@ public class Cooler extends Boss {
                 }
                 damage = 1;
             }
+            damage = this.nPoint.damageToBossPercent(damage, plAtt);
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);

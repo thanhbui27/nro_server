@@ -51,11 +51,11 @@ public class SkillService {
         }
         if ((player.effectSkill.isHaveEffectSkill()
                 && (player.playerSkill.skillSelect.template.id != Skill.TU_SAT
-                && player.playerSkill.skillSelect.template.id != Skill.QUA_CAU_KENH_KHI
-                && player.playerSkill.skillSelect.template.id != Skill.MAKANKOSAPPO))
+                        && player.playerSkill.skillSelect.template.id != Skill.QUA_CAU_KENH_KHI
+                        && player.playerSkill.skillSelect.template.id != Skill.MAKANKOSAPPO))
                 || (plTarget != null && !canAttackPlayer(player, plTarget))
-                || (mobTarget != null && mobTarget.isDie())
-                || !canUseSkillWithMana(player) || !canUseSkillWithCooldown(player)) {
+                || (mobTarget != null && mobTarget.isDie()) || !canUseSkillWithMana(player)
+                || !canUseSkillWithCooldown(player)) {
             return false;
         }
         if (player.effectSkill.useTroi) {
@@ -86,8 +86,10 @@ public class SkillService {
             if (player.isPet) {
                 if (player.nPoint.stamina > 0) {
                     player.nPoint.numAttack++;
-                    boolean haveCharmPet = ((Pet) player).master.charms.tdDeTu > System.currentTimeMillis();
-                    if (haveCharmPet ? player.nPoint.numAttack >= 5 : player.nPoint.numAttack >= 2) {
+                    boolean haveCharmPet =
+                            ((Pet) player).master.charms.tdDeTu > System.currentTimeMillis();
+                    if (haveCharmPet ? player.nPoint.numAttack >= 5
+                            : player.nPoint.numAttack >= 2) {
                         player.nPoint.numAttack = 0;
                         player.nPoint.stamina--;
                     }
@@ -128,10 +130,12 @@ public class SkillService {
             case Skill.DEMON:
             case Skill.GALICK:
             case Skill.LIEN_HOAN:
-                if (plTarget != null && Util.getDistance(player, plTarget) > Skill.RANGE_ATTACK_CHIEU_DAM) {
+                if (plTarget != null
+                        && Util.getDistance(player, plTarget) > Skill.RANGE_ATTACK_CHIEU_DAM) {
                     miss = true;
                 }
-                if (mobTarget != null && Util.getDistance(player, mobTarget) > Skill.RANGE_ATTACK_CHIEU_DAM) {
+                if (mobTarget != null
+                        && Util.getDistance(player, mobTarget) > Skill.RANGE_ATTACK_CHIEU_DAM) {
                     miss = true;
                 }
             case Skill.KAMEJOKO:
@@ -162,8 +166,7 @@ public class SkillService {
                     if (plTarget != null) {
                         playerAttackPlayer(player, plTarget, false);
                         for (Mob mob : player.zone.mobs) {
-                            if (!mob.isDie()
-                                    && Util.getDistance(plTarget, mob) <= SkillUtil
+                            if (!mob.isDie() && Util.getDistance(plTarget, mob) <= SkillUtil
                                     .getRangeQCKK(player.playerSkill.skillSelect.point)) {
                                 mobs.add(mob);
                             }
@@ -174,7 +177,7 @@ public class SkillService {
                         for (Mob mob : player.zone.mobs) {
                             if (!mob.equals(mobTarget) && !mob.isDie()
                                     && Util.getDistance(mob, mobTarget) <= SkillUtil
-                                    .getRangeQCKK(player.playerSkill.skillSelect.point)) {
+                                            .getRangeQCKK(player.playerSkill.skillSelect.point)) {
                                 mobs.add(mob);
                             }
                         }
@@ -210,7 +213,8 @@ public class SkillService {
                 EffectSkillService.gI().sendEffectUseSkill(player, Skill.SOCOLA);
                 int timeSocola = SkillUtil.getTimeSocola();
                 if (plTarget != null) {
-                    EffectSkillService.gI().setSocola(plTarget, System.currentTimeMillis(), timeSocola);
+                    EffectSkillService.gI().setSocola(plTarget, System.currentTimeMillis(),
+                            timeSocola);
                     Service.gI().Send_Caitrang(plTarget);
                     ItemTimeService.gI().sendItemTime(plTarget, 3780, timeSocola / 1000);
                 }
@@ -224,9 +228,10 @@ public class SkillService {
                 if (plTarget != null) {
                     Service.gI().setPos(player, plTarget.location.x, plTarget.location.y);
                     playerAttackPlayer(player, plTarget, miss);
-                    EffectSkillService.gI().setBlindDCTT(plTarget, System.currentTimeMillis(), timeChoangDCTT);
-                    EffectSkillService.gI().sendEffectPlayer(player, plTarget, EffectSkillService.TURN_ON_EFFECT,
-                            EffectSkillService.BLIND_EFFECT);
+                    EffectSkillService.gI().setBlindDCTT(plTarget, System.currentTimeMillis(),
+                            timeChoangDCTT);
+                    EffectSkillService.gI().sendEffectPlayer(player, plTarget,
+                            EffectSkillService.TURN_ON_EFFECT, EffectSkillService.BLIND_EFFECT);
                     PlayerService.gI().sendInfoHpMpMoney(plTarget);
                     ItemTimeService.gI().sendItemTime(plTarget, 3779, timeChoangDCTT / 1000);
                 }
@@ -234,9 +239,10 @@ public class SkillService {
                     Service.gI().setPos(player, mobTarget.location.x, mobTarget.location.y);
                     // mobTarget.attackMob(player, false, false);
                     playerAttackMob(player, mobTarget, false, false);
-                    mobTarget.effectSkill.setStartBlindDCTT(System.currentTimeMillis(), timeChoangDCTT);
-                    EffectSkillService.gI().sendEffectMob(player, mobTarget, EffectSkillService.TURN_ON_EFFECT,
-                            EffectSkillService.BLIND_EFFECT);
+                    mobTarget.effectSkill.setStartBlindDCTT(System.currentTimeMillis(),
+                            timeChoangDCTT);
+                    EffectSkillService.gI().sendEffectMob(player, mobTarget,
+                            EffectSkillService.TURN_ON_EFFECT, EffectSkillService.BLIND_EFFECT);
                 }
                 player.nPoint.isCrit100 = true;
                 affterUseSkill(player, player.playerSkill.skillSelect.template.id);
@@ -245,15 +251,16 @@ public class SkillService {
                 EffectSkillService.gI().sendEffectUseSkill(player, Skill.THOI_MIEN);
                 int timeSleep = SkillUtil.getTimeThoiMien(player.playerSkill.skillSelect.point);
                 if (plTarget != null) {
-                    EffectSkillService.gI().setThoiMien(plTarget, System.currentTimeMillis(), timeSleep);
-                    EffectSkillService.gI().sendEffectPlayer(player, plTarget, EffectSkillService.TURN_ON_EFFECT,
-                            EffectSkillService.SLEEP_EFFECT);
+                    EffectSkillService.gI().setThoiMien(plTarget, System.currentTimeMillis(),
+                            timeSleep);
+                    EffectSkillService.gI().sendEffectPlayer(player, plTarget,
+                            EffectSkillService.TURN_ON_EFFECT, EffectSkillService.SLEEP_EFFECT);
                     ItemTimeService.gI().sendItemTime(plTarget, 3782, timeSleep / 1000);
                 }
                 if (mobTarget != null) {
                     mobTarget.effectSkill.setThoiMien(System.currentTimeMillis(), timeSleep);
-                    EffectSkillService.gI().sendEffectMob(player, mobTarget, EffectSkillService.TURN_ON_EFFECT,
-                            EffectSkillService.SLEEP_EFFECT);
+                    EffectSkillService.gI().sendEffectMob(player, mobTarget,
+                            EffectSkillService.TURN_ON_EFFECT, EffectSkillService.SLEEP_EFFECT);
                 }
                 affterUseSkill(player, player.playerSkill.skillSelect.template.id);
                 break;
@@ -261,17 +268,19 @@ public class SkillService {
                 EffectSkillService.gI().sendEffectUseSkill(player, Skill.TROI);
                 int timeHold = SkillUtil.getTimeTroi(player.playerSkill.skillSelect.point);
                 EffectSkillService.gI().setUseTroi(player, System.currentTimeMillis(), timeHold);
-                if (plTarget != null && (!plTarget.playerSkill.prepareQCKK && !plTarget.playerSkill.prepareLaze
-                        && !plTarget.playerSkill.prepareTuSat)) {
+                if (plTarget != null
+                        && (!plTarget.playerSkill.prepareQCKK && !plTarget.playerSkill.prepareLaze
+                                && !plTarget.playerSkill.prepareTuSat)) {
                     player.effectSkill.plAnTroi = plTarget;
-                    EffectSkillService.gI().sendEffectPlayer(player, plTarget, EffectSkillService.TURN_ON_EFFECT,
-                            EffectSkillService.HOLD_EFFECT);
-                    EffectSkillService.gI().setAnTroi(plTarget, player, System.currentTimeMillis(), timeHold);
+                    EffectSkillService.gI().sendEffectPlayer(player, plTarget,
+                            EffectSkillService.TURN_ON_EFFECT, EffectSkillService.HOLD_EFFECT);
+                    EffectSkillService.gI().setAnTroi(plTarget, player, System.currentTimeMillis(),
+                            timeHold);
                 }
                 if (mobTarget != null) {
                     player.effectSkill.mobAnTroi = mobTarget;
-                    EffectSkillService.gI().sendEffectMob(player, mobTarget, EffectSkillService.TURN_ON_EFFECT,
-                            EffectSkillService.HOLD_EFFECT);
+                    EffectSkillService.gI().sendEffectMob(player, mobTarget,
+                            EffectSkillService.TURN_ON_EFFECT, EffectSkillService.HOLD_EFFECT);
                     mobTarget.effectSkill.setTroi(System.currentTimeMillis(), timeHold);
                 }
                 affterUseSkill(player, player.playerSkill.skillSelect.template.id);
@@ -296,43 +305,51 @@ public class SkillService {
                 if (!MapService.gI().isMapOffline(player.zone.map.mapId)) {
                     List<Player> playersMap = player.zone.getHumanoids();
                     for (Player pl : playersMap) {
-//                        if (pl != null && !player.equals(pl) && !player.nPoint.khangTDHS) {
-//                            boolean result0 = Util.usingStandardWay(Util.getDistance(player, pl));
-//                            if (result0) {
-//                                if (Util.getDistance(player, pl) <= SkillUtil
-//                                        .getRangeStun(player.playerSkill.skillSelect.point) // && canAttackPlayer(player, pl) //&& (!pl.playerSkill.prepareQCKK &&
-//                                        // !pl.playerSkill.prepareLaze && !pl.playerSkill.prepareTuSat)
-//                                        ) {
-//                                    if (player.isPet && ((Pet) player).master.equals(pl)) {
-//                                        continue;
-//                                    }
-//                                    EffectSkillService.gI().startStun(pl, System.currentTimeMillis(), timeStun);
-//                                    players.add(pl);
-//                                }
-//                            }
-//                        }
+                        // if (pl != null && !player.equals(pl) && !player.nPoint.khangTDHS) {
+                        // boolean result0 = Util.usingStandardWay(Util.getDistance(player, pl));
+                        // if (result0) {
+                        // if (Util.getDistance(player, pl) <= SkillUtil
+                        // .getRangeStun(player.playerSkill.skillSelect.point) // &&
+                        // canAttackPlayer(player, pl) //&& (!pl.playerSkill.prepareQCKK &&
+                        // // !pl.playerSkill.prepareLaze && !pl.playerSkill.prepareTuSat)
+                        // ) {
+                        // if (player.isPet && ((Pet) player).master.equals(pl)) {
+                        // continue;
+                        // }
+                        // EffectSkillService.gI().startStun(pl, System.currentTimeMillis(),
+                        // timeStun);
+                        // players.add(pl);
+                        // }
+                        // }
+                        // }
                         if (pl != null && !player.equals(pl) && !pl.nPoint.khangTDHS) {
-                            if (Util.getDistance(player, pl) <= SkillUtil.getRangeStun(player.playerSkill.skillSelect.point)
-                                    && canAttackPlayer(player, pl) // && (!pl.playerSkill.prepareQCKK &&
-                                    // !pl.playerSkill.prepareLaze &&
-                                    // !pl.playerSkill.prepareTuSat)
-                                    ) {
+                            if (Util.getDistance(player, pl) <= SkillUtil
+                                    .getRangeStun(player.playerSkill.skillSelect.point)
+                                    && canAttackPlayer(player, pl) // &&
+                                                                   // (!pl.playerSkill.prepareQCKK
+                                                                   // &&
+                            // !pl.playerSkill.prepareLaze &&
+                            // !pl.playerSkill.prepareTuSat)
+                            ) {
                                 if (player.isPet && ((Pet) player).master.equals(pl)) {
                                     continue;
                                 }
-                                EffectSkillService.gI().startStun(pl, System.currentTimeMillis(), timeStun);
+                                EffectSkillService.gI().startStun(pl, System.currentTimeMillis(),
+                                        timeStun);
                                 players.add(pl);
                             }
                         }
                     }
                 }
                 for (Mob mob : player.zone.mobs) {
-                    if (Util.getDistance(player, mob) <= SkillUtil.getRangeStun(player.playerSkill.skillSelect.point)) {
+                    if (Util.getDistance(player, mob) <= SkillUtil
+                            .getRangeStun(player.playerSkill.skillSelect.point)) {
                         mob.effectSkill.startStun(System.currentTimeMillis(), timeStun);
                         mobs.add(mob);
                     }
                 }
-                EffectSkillService.gI().sendEffectBlindThaiDuongHaSan(player, players, mobs, timeStun);
+                EffectSkillService.gI().sendEffectBlindThaiDuongHaSan(player, players, mobs,
+                        timeStun);
                 affterUseSkill(player, player.playerSkill.skillSelect.template.id);
                 break;
             case Skill.DE_TRUNG:
@@ -361,9 +378,10 @@ public class SkillService {
                 break;
             case Skill.KHIEN_NANG_LUONG:
                 EffectSkillService.gI().setStartShield(player);
-                EffectSkillService.gI().sendEffectPlayer(player, player, EffectSkillService.TURN_ON_EFFECT,
-                        EffectSkillService.SHIELD_EFFECT);
-                ItemTimeService.gI().sendItemTime(player, 3784, player.effectSkill.timeShield / 1000);
+                EffectSkillService.gI().sendEffectPlayer(player, player,
+                        EffectSkillService.TURN_ON_EFFECT, EffectSkillService.SHIELD_EFFECT);
+                ItemTimeService.gI().sendItemTime(player, 3784,
+                        player.effectSkill.timeShield / 1000);
                 affterUseSkill(player, player.playerSkill.skillSelect.template.id);
                 break;
             case Skill.HUYT_SAO:
@@ -380,10 +398,12 @@ public class SkillService {
                             if (!pl.isBoss && pl.gender != ConstPlayer.NAMEC
                                     && player.cFlag == pl.cFlag) {
                                 EffectSkillService.gI().setStartHuytSao(pl, tileHP);
-                                EffectSkillService.gI().sendEffectPlayer(pl, pl, EffectSkillService.TURN_ON_EFFECT,
+                                EffectSkillService.gI().sendEffectPlayer(pl, pl,
+                                        EffectSkillService.TURN_ON_EFFECT,
                                         EffectSkillService.HUYT_SAO_EFFECT);
                                 pl.nPoint.calPoint();
-                                pl.nPoint.setHp(pl.nPoint.hp + (int) ((long) pl.nPoint.hp * tileHP / 100));
+                                pl.nPoint.setHp(
+                                        pl.nPoint.hp + (int) ((long) pl.nPoint.hp * tileHP / 100));
                                 Service.gI().point(pl);
                                 Service.gI().Send_Info_NV(pl);
                                 ItemTimeService.gI().sendItemTime(pl, 3781, 30);
@@ -393,10 +413,12 @@ public class SkillService {
                         }
                     } else {
                         EffectSkillService.gI().setStartHuytSao(player, tileHP);
-                        EffectSkillService.gI().sendEffectPlayer(player, player, EffectSkillService.TURN_ON_EFFECT,
+                        EffectSkillService.gI().sendEffectPlayer(player, player,
+                                EffectSkillService.TURN_ON_EFFECT,
                                 EffectSkillService.HUYT_SAO_EFFECT);
                         player.nPoint.calPoint();
-                        player.nPoint.setHp(player.nPoint.hp + (int) ((long) player.nPoint.hp * tileHP / 100));
+                        player.nPoint.setHp(
+                                player.nPoint.hp + (int) ((long) player.nPoint.hp * tileHP / 100));
                         Service.gI().point(player);
                         Service.gI().Send_Info_NV(player);
                         ItemTimeService.gI().sendItemTime(player, 3781, 30);
@@ -416,8 +438,10 @@ public class SkillService {
                     player.playerSkill.lastTimePrepareTuSat = System.currentTimeMillis();
                     sendPlayerPrepareBom(player, 2000);
                 } else {
-                    if (!player.isBoss && !Util.canDoWithTime(player.playerSkill.lastTimePrepareTuSat, 1500)) {
-                        player.playerSkill.skillSelect.lastTimeUseThisSkill = System.currentTimeMillis();
+                    if (!player.isBoss
+                            && !Util.canDoWithTime(player.playerSkill.lastTimePrepareTuSat, 1500)) {
+                        player.playerSkill.skillSelect.lastTimeUseThisSkill =
+                                System.currentTimeMillis();
                         player.playerSkill.prepareTuSat = false;
                         return;
                     }
@@ -461,14 +485,16 @@ public class SkillService {
         switch (player.playerSkill.skillSelect.template.id) {
             case Skill.TRI_THUONG:
                 List<Player> players = new ArrayList();
-                int percentTriThuong = SkillUtil.getPercentTriThuong(player.playerSkill.skillSelect.point);
+                int percentTriThuong =
+                        SkillUtil.getPercentTriThuong(player.playerSkill.skillSelect.point);
                 int point = player.playerSkill.skillSelect.point;
                 if (canHsPlayer(player, plTarget)) {
                     players.add(plTarget);
                     List<Player> playersMap = player.zone.getNotBosses();
                     for (Player pl : playersMap) {
                         if (!pl.equals(plTarget)) {
-                            if (canHsPlayer(player, plTarget) && Util.getDistance(player, pl) <= 300) {
+                            if (canHsPlayer(player, plTarget)
+                                    && Util.getDistance(player, pl) <= 300) {
                                 players.add(pl);
                             }
                         }
@@ -488,8 +514,7 @@ public class SkillService {
                             PlayerService.gI().sendInfoHpMp(pl);
                         }
                     }
-                    int hpHoiMe = player.nPoint.hp * percentTriThuong / 100;
-                    ;
+                    int hpHoiMe = player.nPoint.hp * percentTriThuong / 100;;
                     player.nPoint.addHp(hpHoiMe);
                     PlayerService.gI().sendInfoHp(player);
                 }
@@ -536,7 +561,8 @@ public class SkillService {
         if (plInjure.effectSkill.anTroi) {
             plAtt.nPoint.isCrit100 = true;
         }
-        int dameHit = plInjure.injured(plAtt, miss ? 0 : plAtt.nPoint.getDameAttack(false), false, false);
+        int dameHit =
+                plInjure.injured(plAtt, miss ? 0 : plAtt.nPoint.getDameAttack(false), false, false);
         phanSatThuong(plAtt, plInjure, dameHit);
         hutHPMP(plAtt, dameHit, false);
         Message msg;
@@ -645,7 +671,8 @@ public class SkillService {
                         return false;
                     }
                 case 1:
-                    int mpUse = (int) (player.nPoint.mpMax * player.playerSkill.skillSelect.manaUse / 100);
+                    int mpUse = (int) (player.nPoint.mpMax * player.playerSkill.skillSelect.manaUse
+                            / 100);
                     if (player.nPoint.mp >= mpUse) {
                         return true;
                     } else {
@@ -703,11 +730,13 @@ public class SkillService {
             switch (player.playerSkill.skillSelect.template.manaUseType) {
                 case 0:
                     if (player.nPoint.mp >= player.playerSkill.skillSelect.manaUse) {
-                        player.nPoint.setMp(player.nPoint.mp - player.playerSkill.skillSelect.manaUse);
+                        player.nPoint
+                                .setMp(player.nPoint.mp - player.playerSkill.skillSelect.manaUse);
                     }
                     break;
                 case 1:
-                    int mpUse = (int) (player.nPoint.mpMax * player.playerSkill.skillSelect.manaUse / 100);
+                    int mpUse = (int) (player.nPoint.mpMax * player.playerSkill.skillSelect.manaUse
+                            / 100);
                     if (player.nPoint.mp >= mpUse) {
                         player.nPoint.setMp(player.nPoint.mp - mpUse);
                     }
@@ -766,8 +795,8 @@ public class SkillService {
                 break;
         }
         int coolDown = player.playerSkill.skillSelect.coolDown;
-        player.playerSkill.skillSelect.lastTimeUseThisSkill = System.currentTimeMillis()
-                - (coolDown * subTimeParam / 100);
+        player.playerSkill.skillSelect.lastTimeUseThisSkill =
+                System.currentTimeMillis() - (coolDown * subTimeParam / 100);
         if (subTimeParam != 0) {
             Service.gI().sendTimeSkill(player);
         }
@@ -853,7 +882,8 @@ public class SkillService {
                             case Skill.LIEN_HOAN:
                             case Skill.GALICK:
                             case Skill.ANTOMIC:
-                                // skill.lastTimeUseThisSkill = System.currentTimeMillis() + (skill.coolDown /
+                                // skill.lastTimeUseThisSkill = System.currentTimeMillis() +
+                                // (skill.coolDown /
                                 // 100);
                                 break;
                         }

@@ -1195,7 +1195,7 @@ public class ItemService {
         if (Util.isTrue(80, 100)) {
             if (gang.contains(itemId)) {
                 dots.itemOptions.add(new Item.ItemOption(0,
-                        Util.highlightsItem(gender == 2, new Random().nextInt(651) + 9350))); // 9350-10000
+                        Util.highlightsItem(gender == 2, new Random().nextInt(651) + 10350))); // 9350-10000
             }
         } else {
             if (gang.contains(itemId)) {

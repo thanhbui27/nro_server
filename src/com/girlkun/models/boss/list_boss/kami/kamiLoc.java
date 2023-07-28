@@ -109,6 +109,7 @@ public class kamiLoc extends Boss {
                 }
                 damage = damage;
             }
+            damage = this.nPoint.damageToBossPercent(damage, plAtt);
             this.nPoint.subHP(damage);
             if (isDie()) {
                 this.setDie(plAtt);
