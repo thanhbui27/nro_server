@@ -21,7 +21,6 @@ public class ShopServiceNew {
     private static final byte COST_RUBY = 3;
     private static final byte COST_COUPON = 4;
 
-
     private static final byte NORMAL_SHOP = 0;
     private static final byte SPEC_SHOP = 3;
     private static final byte BOX = 4;
@@ -50,7 +49,7 @@ public class ShopServiceNew {
                 openShopType3(player, shop);
                 return;
             }
-            System.out.println(shop.tagName + " " + shop.typeShop);
+            // System.out.println(shop.tagName + " " + shop.typeShop);
             switch (shop.typeShop) {
                 case NORMAL_SHOP:
                     openShopType0(player, shop);
@@ -148,7 +147,6 @@ public class ShopServiceNew {
     private void openShopType0(Player player, Shop shop) {
         player.iDMark.setShopOpen(shop);
         player.iDMark.setTagNameShop(shop.tagName);
-        System.out.println(shop.tagName);
         if (shop != null) {
             Message msg;
             try {
@@ -171,7 +169,7 @@ public class ShopServiceNew {
                         } else if (itemShop.typeSell == COST_RUBY) {
                             msg.writer().writeInt(0);
                             msg.writer().writeInt(itemShop.cost);
-                            // msg.writer().writeShort(itemShop.iconSpec);
+
                         } else if (itemShop.typeSell == COST_COUPON) {
                             msg.writer().writeInt(0);
                             msg.writer().writeInt(itemShop.cost);
@@ -182,6 +180,7 @@ public class ShopServiceNew {
                             msg.writer().writeShort(option.param);
                         }
                         msg.writer().writeByte(itemShop.isNew ? 1 : 0);
+                        // msg.writer().writeShort(itemShop.iconSpec);
                         if (itemShop.temp.type == 5) {
                             msg.writer().writeByte(1);
                             msg.writer().writeShort(itemShop.temp.head);
@@ -193,6 +192,7 @@ public class ShopServiceNew {
                         }
                     }
                 }
+
                 player.sendMessage(msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -205,7 +205,6 @@ public class ShopServiceNew {
     private void openShopType3(Player player, Shop shop) {
         player.iDMark.setShopOpen(shop);
         player.iDMark.setTagNameShop(shop.tagName);
-        System.out.println(shop.tagName);
         if (shop != null) {
             Message msg;
             try {
@@ -221,7 +220,6 @@ public class ShopServiceNew {
                         msg.writer().writeInt(itemShop.cost);
                         msg.writer().writeByte(itemShop.options.size());
                         for (Item.ItemOption option : itemShop.options) {
-                            // System.out.println(option.optionTemplate.id + " " + option.param);
                             msg.writer().writeByte(option.optionTemplate.id);
                             msg.writer().writeShort(option.param);
                         }
@@ -237,6 +235,7 @@ public class ShopServiceNew {
                         }
                     }
                 }
+
                 player.sendMessage(msg);
                 msg.cleanup();
             } catch (Exception e) {
@@ -349,7 +348,8 @@ public class ShopServiceNew {
             Service.gI().sendThongBao(player, "Bạn không có đủ điểm");
             return false;
         }
-        player.inventory.gold -= is.temp.gold;
+        // System.out.println("tru vang");
+        player.inventory.gold -= gold;
         player.inventory.gem -= gem;
         player.inventory.ruby -= ruby;
         player.inventory.coupon -= coupon;
@@ -372,6 +372,7 @@ public class ShopServiceNew {
         if (!subMoneyByItemShop(player, is)) {
             return;
         }
+
         InventoryServiceNew.gI().addItemBag(player, ItemService.gI().createItemFromItemShop(is));
         InventoryServiceNew.gI().sendItemBags(player);
         opendShop(player, shop.tagName, true);
@@ -386,6 +387,7 @@ public class ShopServiceNew {
     public void buyItem(Player player, int itemTempId) {
         Shop shop = player.iDMark.getShopOpen();
         ItemShop is = shop.getItemShop(itemTempId);
+
         if (is == null) {
             Service.gI().sendThongBao(player, "Không thể thực hiện");
             return;
@@ -405,10 +407,20 @@ public class ShopServiceNew {
         } ;
 
         Item item = ItemService.gI().createItemFromItemShop(is);
-        System.out.println(item.template.iconID);
-        InventoryServiceNew.gI().addItemBag(player, item);
-        InventoryServiceNew.gI().sendItemBags(player);
-        Service.gI().sendThongBao(player, "Mua thành công " + is.temp.name);
+        if (item.isDHD()) {
+            if (player.isWearGod()) {
+                InventoryServiceNew.gI().addItemBag(player,
+                        ItemService.gI().randomCS_DHD(itemTempId, item.template.gender));
+                InventoryServiceNew.gI().sendItemBags(player);
+                Service.gI().sendThongBao(player, "Mua thành công " + is.temp.name);
+            } else {
+                Service.gI().sendThongBao(player, "Mặc đủ đồ Thần Linh mới được mua");
+            }
+        } else {
+            InventoryServiceNew.gI().addItemBag(player, item);
+            InventoryServiceNew.gI().sendItemBags(player);
+            Service.gI().sendThongBao(player, "Mua thành công " + is.temp.name);
+        }
     }
 
     private void _________________Bán_vật_phẩm______________________________() {
@@ -416,7 +428,6 @@ public class ShopServiceNew {
     }
 
     private boolean subIemByItemShop(Player pl, ItemShop itemShop) {
-
         boolean isBuy = false;
         short itSpec = ItemService.gI().getItemIdByIcon((short) itemShop.iconSpec);
         int buySpec = itemShop.cost;

@@ -926,31 +926,70 @@ public class ItemService {
         List<Integer> giay = Arrays.asList(658, 660, 662);
         int nhd = 656;
         if (ao.contains(itemId)) {
-            it.itemOptions.add(new Item.ItemOption(47,
-                    Util.highlightsItem(gender == 2, new Random().nextInt(1001) + 1800))); // áo từ
-                                                                                           // 1800-2800
-                                                                                           // giáp
+            it.itemOptions.add(new Item.ItemOption(47, randomCs(gender, itemId))); // ao
         }
         if (quan.contains(itemId)) {
-            it.itemOptions.add(new Item.ItemOption(22,
-                    Util.highlightsItem(gender == 0, new Random().nextInt(16) + 85))); // hp 85-100k
+            it.itemOptions.add(new Item.ItemOption(22, randomCs(gender, itemId))); // quan
         }
         if (gang.contains(itemId)) {
-            it.itemOptions.add(new Item.ItemOption(0,
-                    Util.highlightsItem(gender == 2, new Random().nextInt(150) + 8500))); // 8500-10000
+            it.itemOptions.add(new Item.ItemOption(0, randomCs(gender, itemId))); // gang
         }
         if (giay.contains(itemId)) {
-            it.itemOptions.add(new Item.ItemOption(23,
-                    Util.highlightsItem(gender == 1, new Random().nextInt(11) + 80))); // ki 80-90k
+            it.itemOptions.add(new Item.ItemOption(23, randomCs(gender, itemId))); // giay
         }
         if (nhd == itemId) {
-            it.itemOptions.add(new Item.ItemOption(14, new Random().nextInt(3) + 17)); // chí mạng
+            it.itemOptions.add(new Item.ItemOption(14, new Random().nextInt(3) + 16)); // chí mạng
                                                                                        // 17-19%
         }
         it.itemOptions.add(new Item.ItemOption(21, 80));// yêu cầu sm 80 tỉ
         it.itemOptions.add(new Item.ItemOption(30, 1));// ko the gd
         return it;
     }
+
+    public int randomCs(int gender, int idDo) {
+        
+        switch (gender) {
+            case 0: // td
+                switch (idDo) {
+                    case 650: // ao
+                        return (int) (1600 + (1600 * (new Random().nextDouble() * 0.15)));
+                    case 651:// quan
+                        return (int) (104 + (104 * (new Random().nextDouble() * 0.15)));
+                    case 657:// gang
+                        return (int) (8800 + (8800 * (new Random().nextDouble() * 0.15)));
+                    case 658: // giay
+                        return (int) (96 + (96 * (new Random().nextDouble() * 0.15)));
+                }
+
+            case 1: // nm
+                switch (idDo) {
+                    case 652: // ao
+                        return (int) (1700 + (1700 * (new Random().nextDouble() * 0.15)));
+                    case 653:// quan
+                        return (int) (100 + (100 * (new Random().nextDouble() * 0.15)));
+                    case 659:// gang
+                        return (int) (8600 + (8600 * (new Random().nextDouble() * 0.15)));
+                    case 660: // giay
+                        return (int) (100 + (100 * (new Random().nextDouble() * 0.15)));
+                }
+            case 2: // xd
+                switch (idDo) {
+                    case 654: // ao
+                        return (int) (1800 + (1800 * (new Random().nextDouble() * 0.15)));
+                    case 655:// quan
+                        return (int) (96 + (96 * (new Random().nextDouble() * 0.15)));
+                    case 661:// gang
+                        return (int) (9000 + (9000 * (new Random().nextDouble() * 0.15)));
+                    case 662: // giay
+                        return (int) (92 + (92 * (new Random().nextDouble() * 0.15)));
+                }
+            default:
+                return 0;
+        }
+
+    }
+
+    
 
     // Cải trang sự kiện 20/11
     public Item caitrang2011(boolean rating) {

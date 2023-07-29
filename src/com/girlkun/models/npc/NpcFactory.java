@@ -3839,7 +3839,7 @@ public class NpcFactory {
             public void openBaseMenu(Player player) {
                 if (canOpenNpc(player)) {
                     createOtherMenu(player, ConstNpc.BASE_MENU, "Ngươi muốn gì nào?", "Xem Điểm ",
-                            "SHOP HỦY DIỆT", "Đóng");
+                            "SHOP HỦY DIỆT", "Hướng dẫn", "Đóng");
                 }
             }
 
@@ -3849,6 +3849,7 @@ public class NpcFactory {
                     switch (this.mapId) {
                         case 48:
                         case 5:
+                        case 154:
                             switch (player.iDMark.getIndexMenu()) {
                                 case ConstNpc.BASE_MENU:
                                     if (select == 0) {
@@ -3864,7 +3865,9 @@ public class NpcFactory {
 
                                     }
                                     if (select == 2) {
-                                        Util.showListTop(player, (byte) 0);
+                                        createOtherMenu(player, ConstNpc.IGNORE_MENU,
+                                                "Để đổi được mảnh thiên sứ ngươi cần có số điểm tương ứng và để kiếm được điểm ngươi cần gặp Whis sau đó chọn mục 'Phân rã đồ thân linh'. Tuỳ vào loại đồ thân linh ngươi phân ra ngươi sẽ nhận được điểm tương ứng",
+                                                "Đóng");
                                         break;
                                     }
                                     if (select == 3) {

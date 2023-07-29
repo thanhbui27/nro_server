@@ -79,6 +79,7 @@ public class ShopKyGuiService {
     }
 
     public void buyItem(Player pl, int id) {
+        
         ItemKyGui it = getItemBuy(id);
         if (it == null || it.isBuy) {
             Service.getInstance().sendThongBao(pl, "Vật phẩm không tồn tại hoặc đã được bán");

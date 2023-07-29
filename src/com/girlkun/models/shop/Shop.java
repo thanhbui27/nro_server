@@ -46,6 +46,7 @@ public class Shop {
         for(TabShop tab : this.tabShops){
             for(ItemShop is : tab.itemShops){
                 if(is.temp.id == temp){
+                    // System.out.println(is.options.toString());
                     return is;
                 }
             }

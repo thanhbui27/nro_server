@@ -47,7 +47,8 @@ public class ShopDAO {
 
     private static void loadShopTab(Connection con, Shop shop) {
         try {
-            PreparedStatement ps = con.prepareStatement("select * from tab_shop where shop_id = ? order by id");
+            PreparedStatement ps =
+                    con.prepareStatement("select * from tab_shop where shop_id = ? order by id");
             ps.setInt(1, shop.id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -74,8 +75,9 @@ public class ShopDAO {
 
     private static void loadItemShop(Connection con, TabShop tabShop) {
         try {
-            PreparedStatement ps = con.prepareStatement("select * from item_shop where is_sell = 1 and tab_id = ? "
-                    + "order by create_time desc");
+            PreparedStatement ps =
+                    con.prepareStatement("select * from item_shop where is_sell = 1 and tab_id = ? "
+                            + "order by create_time desc");
             ps.setInt(1, tabShop.id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -87,6 +89,10 @@ public class ShopDAO {
                 itemShop.cost = rs.getInt("cost");
                 itemShop.iconSpec = rs.getInt("icon_spec");
                 itemShop.typeSell = rs.getByte("type_sell");
+                // if (itemShop.tabShop.id == 21) {
+                //     System.out.println(
+                //             "temp_id : " + itemShop.temp.id + " icon_spec : " + itemShop.iconSpec);
+                // }
                 loadItemShopOption(con, itemShop);
                 tabShop.itemShops.add(itemShop);
             }
@@ -106,11 +112,13 @@ public class ShopDAO {
 
     private static void loadItemShopOption(Connection con, ItemShop itemShop) {
         try {
-            PreparedStatement ps = con.prepareStatement("select * from item_shop_option where item_shop_id = ?");
+            PreparedStatement ps =
+                    con.prepareStatement("select * from item_shop_option where item_shop_id = ?");
             ps.setInt(1, itemShop.id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                itemShop.options.add(new Item.ItemOption(rs.getInt("option_id"), rs.getInt("param")));
+                itemShop.options
+                        .add(new Item.ItemOption(rs.getInt("option_id"), rs.getInt("param")));
             }
             try {
                 if (rs != null) {

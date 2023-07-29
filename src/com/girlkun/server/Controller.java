@@ -60,12 +60,15 @@ public class Controller implements IMessageHandler {
         try {
             player = _session.player;
             byte cmd = _msg.command;
-//            if (cmd != -29 && cmd != -107 && cmd != 29 && cmd != -30 && cmd != 74 && cmd != -16 && cmd != -101 && cmd != 126 && cmd != -74 && cmd != 21 && cmd != -15 && cmd != -103) {
-//                System.out.println(cmd);
-//            }
-//            System.out.println("***************************CMD receive: " + cmd);
+            // if (cmd != -29 && cmd != -107 && cmd != 29 && cmd != -30 && cmd != 74 && cmd != -16
+            // && cmd != -101 && cmd != 126 && cmd != -74 && cmd != 21 && cmd != -15 && cmd != -103)
+            // {
+            // System.out.println(cmd);
+            // }
+            // System.out.println("***************************CMD receive: " + cmd);
+
             switch (cmd) {
-                 case -100:
+                case -100:
                     byte action = _msg.reader().readByte();
                     switch (action) {
                         case 0:
@@ -80,7 +83,8 @@ public class Controller implements IMessageHandler {
                                 quantity = _msg.reader().readByte();
                             }
                             if (quantity > 0) {
-                                ShopKyGuiService.gI().KiGui(player, idItem, money, moneyType, quantity);
+                                ShopKyGuiService.gI().KiGui(player, idItem, money, moneyType,
+                                        quantity);
                             }
                             break;
                         case 1:
@@ -123,18 +127,24 @@ public class Controller implements IMessageHandler {
                                 break;
                             case 1:
                                 short idC = _msg.reader().readShort();
-                                Card card = player.Cards.stream().filter(r -> r != null && r.Id == idC).findFirst().orElse(null);
+                                Card card =
+                                        player.Cards.stream().filter(r -> r != null && r.Id == idC)
+                                                .findFirst().orElse(null);
                                 if (card != null) {
                                     if (card.Level == 0) {
                                         return;
                                     }
                                     if (card.Used == 0) {
-                                        if (player.Cards.stream().anyMatch(c -> c != null && c.Used == 1)) {
-                                            Service.gI().sendThongBao(player, "Số thẻ sử dụng đã đạt tối đa");
+                                        if (player.Cards.stream()
+                                                .anyMatch(c -> c != null && c.Used == 1)) {
+                                            Service.gI().sendThongBao(player,
+                                                    "Số thẻ sử dụng đã đạt tối đa");
                                             return;
                                         }
                                         card.Used = 1;
-                                        RadarCard radarTemplate = RadarService.gI().RADAR_TEMPLATE.stream().filter(r -> r.Id == idC).findFirst().orElse(null);
+                                        RadarCard radarTemplate = RadarService.gI().RADAR_TEMPLATE
+                                                .stream().filter(r -> r.Id == idC).findFirst()
+                                                .orElse(null);
                                         if (radarTemplate != null && card.Level >= 2) {
                                             player.idAura = radarTemplate.AuraId;
                                         }
@@ -227,7 +237,7 @@ public class Controller implements IMessageHandler {
                         player.pet.changeStatus(_msg.reader().readByte());
                     }
                     break;
-                case 6: //buy item
+                case 6: // buy item
 
                     if (player != null && !Maintenance.isRuning) {
                         byte typeBuy = _msg.reader().readByte();
@@ -240,12 +250,12 @@ public class Controller implements IMessageHandler {
                         ShopServiceNew.gI().takeItem(player, typeBuy, tempId);
                     }
                     break;
-                 case 7: //sell item
+                case 7: // sell item
                     if (player != null && !Maintenance.isRuning) {
                         action = _msg.reader().readByte();
                         if (action == 0) {
-                            ShopServiceNew.gI().showConfirmSellItem(player, _msg.reader().readByte(),
-                                    _msg.reader().readShort());
+                            ShopServiceNew.gI().showConfirmSellItem(player,
+                                    _msg.reader().readByte(), _msg.reader().readShort());
                         } else {
                             ShopServiceNew.gI().sellItem(player, _msg.reader().readByte(),
                                     _msg.reader().readShort());
@@ -292,7 +302,7 @@ public class Controller implements IMessageHandler {
                         } else if (act == 1) {
                             Service.gI().chooseFlag(player, _msg.reader().readByte());
                         } else {
-//                        Util.log("id map" + player.map.id);
+                            // Util.log("id map" + player.map.id);
                         }
                     }
                     break;
@@ -324,7 +334,7 @@ public class Controller implements IMessageHandler {
                         for (int i = 0; i < indexItem.length; i++) {
                             indexItem[i] = _msg.reader().readByte();
                         }
-//                    CombineService.gI().showInfoCombine(player, indexItem);
+                        // CombineService.gI().showInfoCombine(player, indexItem);
                         CombineServiceNew.gI().showInfoCombine(player, indexItem);
                     }
                     break;
@@ -342,7 +352,7 @@ public class Controller implements IMessageHandler {
                     int effId = _msg.reader().readShort();
                     int idT = effId;
                     if (effId == 25) {
-                        idT = 50; // id eff rong muon thay doi ( hien tai la rong xuong) 
+                        idT = 50; // id eff rong muon thay doi ( hien tai la rong xuong)
                     }
                     DataGame.effData(_session, effId, idT);
                     break;
@@ -363,7 +373,8 @@ public class Controller implements IMessageHandler {
                 case 22:
                     if (player != null) {
                         _msg.reader().readByte();
-                        NpcManager.getNpc(ConstNpc.DAU_THAN).confirmMenu(player, _msg.reader().readByte());
+                        NpcManager.getNpc(ConstNpc.DAU_THAN).confirmMenu(player,
+                                _msg.reader().readByte());
                     }
                     break;
                 case -33:
@@ -391,7 +402,7 @@ public class Controller implements IMessageHandler {
                     break;
                 case -54:
                     if (player != null) {
-//                        ClanService.gI().clanDonate(player, _msg);
+                        // ClanService.gI().clanDonate(player, _msg);
                         Service.gI().sendThongBao(player, "Can not invoke clan donate");
                     }
                     break;
@@ -445,7 +456,7 @@ public class Controller implements IMessageHandler {
                                 UseItem.gI().choseMapCapsule(player, _msg.reader().readByte());
                                 break;
                             case ConstMap.CHANGE_BLACK_BALL:
-//                                Service.gI().sendThongBao(player, "Đang bảo trì...");
+                                // Service.gI().sendThongBao(player, "Đang bảo trì...");
                                 BlackBallWar.gI().changeMap(player, _msg.reader().readByte());
                                 break;
                         }
@@ -453,7 +464,7 @@ public class Controller implements IMessageHandler {
                     break;
                 case -39:
                     if (player != null) {
-                        //finishLoadMap
+                        // finishLoadMap
                         ChangeMapService.gI().finishLoadMap(player);
                         if (player.zone.map.mapId == (21 + player.gender)) {
                             if (player.mabuEgg != null) {
@@ -478,8 +489,10 @@ public class Controller implements IMessageHandler {
                     break;
                 case 32:
                     if (player != null) {
+
                         int npcId = _msg.reader().readShort();
                         int select = _msg.reader().readByte();
+
                         MenuController.getInstance().doSelectMenu(player, npcId, select);
                     }
                     break;
@@ -530,7 +543,8 @@ public class Controller implements IMessageHandler {
                     break;
                 case -15: // về nhà
                     if (player != null) {
-                        ChangeMapService.gI().changeMapBySpaceShip(player, player.gender + 21, 0, -1);
+                        ChangeMapService.gI().changeMapBySpaceShip(player, player.gender + 21, 0,
+                                -1);
                     }
                     break;
                 case -16: // hồi sinh
@@ -538,7 +552,7 @@ public class Controller implements IMessageHandler {
                         PlayerService.gI().hoiSinh(player);
                     }
                 default:
-//                    Util.log("CMD: " + cmd);
+                    // Util.log("CMD: " + cmd);
                     break;
             }
         } catch (Exception e) {
@@ -579,7 +593,7 @@ public class Controller implements IMessageHandler {
             try {
                 player = _session.player;
                 byte cmd = _msg.reader().readByte();
-//                System.out.println("CMD receive -28 / " + cmd);
+                // System.out.println("CMD receive -28 / " + cmd);
                 switch (cmd) {
                     case 2:
                         createChar(_session, _msg);
@@ -597,7 +611,7 @@ public class Controller implements IMessageHandler {
                         DataGame.sendMapTemp(_session, _msg.reader().readUnsignedByte());
                         break;
                     case 13:
-                        //client ok
+                        // client ok
                         if (player != null) {
                             Service.gI().player(player);
                             Service.gI().Send_Caitrang(player);
@@ -666,7 +680,8 @@ public class Controller implements IMessageHandler {
                         Service.gI().sendThongBaoOK(session, "Tên nhân vật đã tồn tại");
                     } else {
                         if (Util.haveSpecialCharacter(name)) {
-                            Service.gI().sendThongBaoOK(session, "Tên nhân vật không được chứa ký tự đặc biệt");
+                            Service.gI().sendThongBaoOK(session,
+                                    "Tên nhân vật không được chứa ký tự đặc biệt");
                         } else {
                             boolean isNotIgnoreName = true;
                             for (String n : ConstIgnoreName.IGNORE_NAME) {
@@ -677,7 +692,8 @@ public class Controller implements IMessageHandler {
                                 }
                             }
                             if (isNotIgnoreName) {
-                                created = PlayerDAO.createNewPlayer(session.userId, name.toLowerCase(), (byte) gender, hair);
+                                created = PlayerDAO.createNewPlayer(session.userId,
+                                        name.toLowerCase(), (byte) gender, hair);
                             }
                         }
                     }
@@ -699,7 +715,7 @@ public class Controller implements IMessageHandler {
 
     public void login2(MySession session, Message msg) {
         Service.gI().switchToRegisterScr(session);
-//        Service.gI().sendThongBaoOK(session, "Vui lòng đăng ký tài khoản tại trang chủ!");
+        // Service.gI().sendThongBaoOK(session, "Vui lòng đăng ký tài khoản tại trang chủ!");
     }
 
     public void sendInfo(MySession session) {
@@ -745,30 +761,31 @@ public class Controller implements IMessageHandler {
         // -70 thông báo bigmessage
         sendThongBaoServer(player);
 
-        //check activation set
+        // check activation set
         player.setClothes.setup();
         if (player.pet != null) {
             player.pet.setClothes.setup();
         }
 
-        //last time use skill
+        // last time use skill
         Service.gI().sendTimeSkill(player);
 
-        //clear vt sk
+        // clear vt sk
         clearVTSK(player);
 
         if (TaskService.gI().getIdTask(player) == ConstTask.TASK_0_0) {
             NpcService.gI().createTutorial(player, -1,
                     "Chào mừng " + player.name + " đến với ngọc rồng online server Arriety\n"
-                    + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
-                    + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
+                            + "Nhiệm vụ đầu tiên của bạn là di chuyển\n"
+                            + "Bạn hãy di chuyển nhân vật theo mũi tên chỉ hướng");
         }
 
         if (player.inventory.itemsBody.get(10).isNotNullItem()) {
             new Thread(() -> {
                 try {
                     Thread.sleep(1000);
-                    Service.gI().sendPetFollow(player, (short) (player.inventory.itemsBody.get(10).template.iconID - 1));
+                    Service.gI().sendPetFollow(player,
+                            (short) (player.inventory.itemsBody.get(10).template.iconID - 1));
                 } catch (Exception e) {
                 }
             }).start();
@@ -777,16 +794,19 @@ public class Controller implements IMessageHandler {
     }
 
     private void sendThongBaoServer(Player player) {
-        Service.gI().sendThongBaoFromAdmin(player, "Đã mở chức năng úp Capsule kì bí.\nChúc AE chơi game vui vẻ...");
+        Service.gI().sendThongBaoFromAdmin(player,
+                "Đã mở chức năng úp Capsule kì bí.\nChúc AE chơi game vui vẻ...");
     }
 
     private void clearVTSK(Player player) {
-        player.inventory.itemsBag.stream().filter(item -> item.isNotNullItem() && item.template.id == 610).forEach(item -> {
-            InventoryServiceNew.gI().subQuantityItemsBag(player, item, item.quantity);
-        });
-        player.inventory.itemsBox.stream().filter(item -> item.isNotNullItem() && item.template.id == 610).forEach(item -> {
-            InventoryServiceNew.gI().subQuantityItemsBox(player, item, item.quantity);
-        });
+        player.inventory.itemsBag.stream()
+                .filter(item -> item.isNotNullItem() && item.template.id == 610).forEach(item -> {
+                    InventoryServiceNew.gI().subQuantityItemsBag(player, item, item.quantity);
+                });
+        player.inventory.itemsBox.stream()
+                .filter(item -> item.isNotNullItem() && item.template.id == 610).forEach(item -> {
+                    InventoryServiceNew.gI().subQuantityItemsBox(player, item, item.quantity);
+                });
         InventoryServiceNew.gI().sendItemBags(player);
     }
 }

@@ -58,7 +58,7 @@ public class UseItem {
 
     public void getItem(MySession session, Message msg) {
         Player player = session.player;
-
+       
         TransactionService.gI().cancelTrade(player);
         try {
             int type = msg.reader().readByte();
